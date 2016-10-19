@@ -12,7 +12,7 @@ To use this module, add it to the modules array in the `config/config.js` file:
     		module: 'MMM-Stock',
     		position: position,
     		config: {
-    			companies: ['company1', 'company2'] (check each company's ticker symbol in yahoo finance)
+    			companies: ['company1', 'company2'] (check each company ticker symbol in yahoo finance)
     		}
 }
 ````
