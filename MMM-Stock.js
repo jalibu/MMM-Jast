@@ -21,6 +21,8 @@ Module.register("MMM-Stock", {
 
   getDom: function() {
     var wrapper = document.createElement("div");
+    wrapper.className = "quotes";
+    var list = document.createElement("ul");
 
     var data = this.result;
     // the data is not ready
@@ -56,13 +58,16 @@ Module.register("MMM-Stock", {
       html = html + "<span class='" + priceIcon + "'></span>" + parseFloat(Math.abs(change)).toFixed(2) + " (";
       html = html + parseFloat( Math.abs(pChange.split('%')[0])).toFixed(2) + "%)</span>";
 
-      var stock = document.createElement("div");
+      var stock = document.createElement("span");
       stock.className = "stockTicker";
       stock.innerHTML = html;
 
-      wrapper.appendChild(stock);
+      var listItem = document.createElement("li");
+      //listItem.appendChild(stock);
+      listItem.innerHTML = html;
+      list.appendChild(listItem);
     }
-    
+    wrapper.appendChild(list);
 
     return wrapper;
   },
