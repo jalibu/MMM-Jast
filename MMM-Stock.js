@@ -23,8 +23,12 @@ Module.register("MMM-Stock", {
     var wrapper = document.createElement("div");
 
     var data = this.result;
+    // the data is not ready
+    if(Object.keys(data).length === 0 && data.constructor === Object){
+      return wrapper;
+    }
     var count =  data.query.count;
-    console.log(count)
+    //console.log(count)
     
     for (var i = 0; i < count; i++) {
       var stockData = data.query.results.quote[i];
