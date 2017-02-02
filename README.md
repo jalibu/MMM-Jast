@@ -12,11 +12,22 @@ To use this module, add it to the modules array in the `config/config.js` file:
     		module: 'MMM-Stock',
     		position: position,
     		config: {
-    			companies: ['company1', 'company2'] (check each company ticker symbol in yahoo finance)
+    			companies: ['MSFT', 'GOOG', 'ORCL', 'FB'] (check each company ticker symbol in yahoo finance)
     		}
 }
 ````
 
-## Preview
-![preview](Screenshot from 2016-10-19 12-13-24.png)
 
+````css
+
+@keyframes ticker {
+	0%   {margin-top: 0}
+	25%  {margin-top: -30px}
+	50%  {margin-top: -60px}
+	75%  {margin-top: -90px}
+	100% {margin-top: 0}
+}
+
+Make sure to play with these in case you change the number to stocks shown.
+If there are 4 companies -> 100/4=25% for each of them
+````
