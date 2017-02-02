@@ -13,7 +13,7 @@ To use this module, add it to the modules array in the `config/config.js` file:
     		position: position,
     		config: {
     			companies: ['MSFT', 'GOOG', 'ORCL', 'FB'] (check each company ticker symbol in yahoo finance)
-			currency: 'gbp' (dont use this if you need the currency to be USD)
+		        currency: 'gbp' (dont use this if you need the currency to be USD)
     		}
 }
 ````
