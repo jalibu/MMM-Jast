@@ -21,6 +21,9 @@ Module.register("MMM-Stock", {
 
 	start: function() {
 		this.getStocks();
+		if(this.config.currency.toLowerCase() != "usd"){
+			this.getExchangeRate();
+		}
 		this.scheduleUpdate();
 	},
 
@@ -33,6 +36,13 @@ Module.register("MMM-Stock", {
 		// the data is not ready
 		if(Object.keys(data).length === 0 && data.constructor === Object){
 			return wrapper;
+		}
+
+		//if another currency is required - usd is default
+		var differentCurrency = false;
+		if(this.config.currency.toLowerCase() != "usd"){
+			differentCurrency = true;
+			var requiredCurrency = this.config.currency.toUpperCase();
 		}
 
 		for (var key in data) {
@@ -66,55 +76,6 @@ Module.register("MMM-Stock", {
 
 		wrapper.appendChild(list);
 		return wrapper;
-
-		/*
-		for (var i = 0; i < count; i++) {
-			var stockData = data.query.results.quote[i];
-			var symbol = stockData.symbol;
-			var change = stockData.Change;
-			var name = stockData.Name;
-			var price = stockData.LastTradePriceOnly;
-			var pChange = stockData.PercentChange;
-			// var priceClass = "greenText", priceIcon="up_green";
-			// if(change < 0) {
-			// 	priceClass = "redText";
-			// 	priceIcon="down_red";
-			// }
-
-			var html = "";
-			var priceClass = "greentext", priceIcon="up_green";
-			if(change < 0) {
-				priceClass = "redtext";
-				priceIcon="down_red";
-			}
-			html = html + "<span class='" + priceClass + "'>";
-			html = html + "<span class='quote'>" + name + " (" + symbol + ")</span> ";
-			if(differentCurrency){
-				//convert between currencies
-				var exchangeRate = this.rate.query.results.rate;
-				if(exchangeRate.Bid && exchangeRate.Bid != "N/A"){
-					price = parseFloat(price) * parseFloat(exchangeRate.Bid);
-				}
-				html = html + parseFloat(price).toFixed(2) + " " + requiredCurrency;
-			} else {
-				html = html + parseFloat(price).toFixed(2) + " " + stockData.Currency;
-			}
-			html = html + "<span class='" + priceIcon + "'></span>" + parseFloat(Math.abs(change)).toFixed(2) + " (";
-			html = html + parseFloat( Math.abs(pChange.split("%")[0])).toFixed(2) + "%)</span>";
-
-			var stock = document.createElement("span");
-			stock.className = "stockTicker";
-			stock.innerHTML = html;
-
-			var listItem = document.createElement("li");
-			//listItem.appendChild(stock);
-			listItem.innerHTML = html;
-			list.appendChild(listItem);
-		}
-		wrapper.appendChild(list);
-
-    return wrapper;
-    */
 	},
 
 	scheduleUpdate: function(delay) {

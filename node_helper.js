@@ -47,8 +47,6 @@ module.exports = NodeHelper.create({
 			if (err) {
 				throw err;
 			}
-			console.log("All requests are done");
-			console.log(results);
 			self.sendSocketNotification("STOCK_RESULT", results);
 		});
 	},
