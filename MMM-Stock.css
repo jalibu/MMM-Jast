@@ -8,21 +8,21 @@ span.quote
 }
 .greentext
 {
-	color: green;
+	color: red;
 }
 .redtext
 {
-	color: red;
+	color: green;
 }
 .up_green
 {
-	background: url(http://www.codescratcher.com/wp-content/uploads/2014/11/up.gif) no-repeat left center;
+	background: url(http://www.codescratcher.com/wp-content/uploads/2014/11/down.gif) no-repeat left center;
 	padding-left: 10px;
 	margin-right: 5px;
 }
 .down_red
 {
-	background: url(http://www.codescratcher.com/wp-content/uploads/2014/11/down.gif) no-repeat left center;
+	background: url(http://www.codescratcher.com/wp-content/uploads/2014/11/up.gif) no-repeat left center;
 	padding-left: 10px;
 	margin-right: 5px;
 }
