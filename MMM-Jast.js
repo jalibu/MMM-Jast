@@ -3,6 +3,7 @@
 Module.register("MMM-Jast", {
   result: {},
   defaults: {
+    debug: false,
     updateInterval: 120000,
     fadeSpeed: 5000,
     stocks: [
@@ -14,6 +15,8 @@ Module.register("MMM-Jast", {
     defaultCurrency: "EUR",
     baseURL: "https://www.alphavantage.co/",
     apiKey: "IPWULBT54Y3LHJME",
+    scroll: "vertical",
+    maxWidth: "100%",
   },
 
   getStyles: function () {
@@ -35,7 +38,9 @@ Module.register("MMM-Jast", {
   getDom: function () {
     let app = document.createElement("div");
     const stockDataArray = Object.entries(this.stockData);
-    let ticker = `<div class="ticker-wrap vticker">`;
+    let ticker = `<div class="ticker-wrap ${
+      this.config.scroll === "horizontal" || this.config.scroll === "vertical" ? this.config.scroll : ""
+    }" style="max-width: ${this.config.maxWidth}" >`;
     ticker += `<ul style="animation-duration: ${(stockDataArray.length * this.config.fadeSpeed) / 1000}s">`;
     stockDataArray.forEach(([key, value]) => {
       const stock = this.config.stocks.find((stock) => stock.symbol === key);

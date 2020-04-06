@@ -1,32 +1,33 @@
-# MMM-Jast
+# MMM-JaST - *J*ust *a*nother *S*tock *T*icker 
+This is just another stock ticker for [Magic Mirror](https://magicmirror.builders/).
+It supports vertical and horizontal scrolling.
 
-Just another stock ticker
-Stock prices third party module for Magic Mirror
-
-##Installing the Module
-Navigate into your MagicMirror's modules folder and execute <br>
-`git clone https://github.com/hakanmhmd/MMM-Stock.git`
+## Installing the Module
+Navigate to the MagicMirror subfolder "modules" and execute the following command
+`git clone https://github.com/jalibu/MMM-Jast.git`
 
 ## Using the module
+First, get your personal API Key for [Alphavantage here](https://www.alphavantage.co/support/#api-key)
 
 To use this module, add it to the modules array in the `config/config.js` file:
 
 ```javascript
 {
-	module: "MMM-Stock",
+	module: "MMM-Jast",
 	position: "top_left",
 	config: {
-		updateInterval: 300000,
+		updateInterval: 120000,
 		fadeSpeed: 5000,
-		companies: [
+		stocks: [
 		{ name: "BASF", symbol: "BAS.DE" },
 		{ name: "SAP", symbol: "SAP.DE" },
 		{ name: "Henkel", symbol: "HEN3.DE" },
-		{ name: "Alibaba", symbol: "BABA" },
+		{ name: "Alibaba", symbol: "BABA", tradeCurrency: "USD", displayCurrency: "EUR" },
 		],
-		currency: "usd",
-		baseURL: "https://www.alphavantage.co/",
-		apiKey: "IPWULBT54Y3LHJME",
+		defaultCurrency: "EUR",
+		apiKey: "<Insert your API Key>",
+		scroll: "<none, vertical, horizontal>",
+		maxWidth: "100%",
 	}
 }
 ```

@@ -14,6 +14,13 @@ module.exports = NodeHelper.create({
 
   sendStocksRequest: function (config) {
     const self = this;
+    if (config.debug) {
+      self.sendSocketNotification("STOCK_RESULT", { name: "BAS.DE", current: 50.2, last: 44.9 });
+      self.sendSocketNotification("STOCK_RESULT", { name: "SAP.DE", current: 100.2, last: 100.9 });
+      self.sendSocketNotification("STOCK_RESULT", { name: "HEN3.DE", current: 66.2, last: 70.9 });
+      self.sendSocketNotification("STOCK_RESULT", { name: "BABA", current: 180.2, last: 188.9 });
+      return;
+    }
     config.stocks.forEach((stock) => {
       const url = `${config.baseURL}query?function=TIME_SERIES_DAILY&outputsize=compact&apikey=${config.apiKey}&symbol=${stock.symbol}`;
       request(url, { json: true }, (err, res, body) => {
@@ -37,6 +44,10 @@ module.exports = NodeHelper.create({
 
   sendExchangeRequest: function (config) {
     const self = this;
+    if (config.debug) {
+      self.sendSocketNotification("EXCHANGE_RESULT", { from: "USD", to: "EUR", rate: 0.923 });
+      return;
+    }
     config.stocks.forEach((stock) => {
       if (stock.tradeCurrency && stock.displayCurrency && stock.tradeCurrency != stock.displayCurrency) {
         const url = `${config.baseURL}query?function=CURRENCY_EXCHANGE_RATE&from_currency=${stock.tradeCurrency}&to_currency=${stock.displayCurrency}&apikey=${config.apiKey}`;

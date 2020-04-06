@@ -15,27 +15,52 @@
     margin-top: 0;
   }
 }
-.ticker-wrap.vticker {
-  height: 25px;
+@keyframes tickerh {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+.ticker-wrap {
   overflow: hidden;
+}
+.ticker-wrap.vertical {
+  height: 26px;
+}
+.ticker-wrap.horizontal {
+  padding-left: 100%;
 }
 .ticker-wrap ul {
   padding: 0;
   margin: 0;
   list-style-type: none;
-  animation-name: tickerv;
   animation-iteration-count: infinite;
   animation-timing-function: cubic-bezier(1, 0, 0.5, 0);
+}
+.ticker-wrap.vertical ul {
+  animation-name: tickerv;
+}
+.ticker-wrap.horizontal ul {
+  padding-right: 100%;
+  display: inline-block;
+  white-space: nowrap;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-name: tickerh;
 }
 .ticker-wrap ul li {
   font-size: 18px;
   line-height: 26px;
 }
-
+.ticker-wrap.horizontal ul li {
+  display: inline-block;
+  padding: 0 2rem;
+}
 .ticker-wrap ul li span.high {
   color: green;
 }
-
 .ticker-wrap ul li span.low {
   color: red;
 }
