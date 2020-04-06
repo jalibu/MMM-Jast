@@ -1,0 +1,41 @@
+@keyframes tickerv {
+  0% {
+    margin-top: 0;
+  }
+  25% {
+    margin-top: -26px;
+  }
+  50% {
+    margin-top: -52px;
+  }
+  75% {
+    margin-top: -78px;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
+.ticker-wrap.vticker {
+  height: 25px;
+  overflow: hidden;
+}
+.ticker-wrap ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  animation-name: tickerv;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(1, 0, 0.5, 0);
+}
+.ticker-wrap ul li {
+  font-size: 18px;
+  line-height: 26px;
+}
+
+.ticker-wrap ul li span.high {
+  color: green;
+}
+
+.ticker-wrap ul li span.low {
+  color: red;
+}
