@@ -3,15 +3,15 @@
 Module.register("MMM-Jast", {
   result: {},
   defaults: {
-    updateInterval: 300000,
+    updateInterval: 120000,
     fadeSpeed: 5000,
-    companies: [
+    stocks: [
       { name: "BASF", symbol: "BAS.DE" },
       { name: "SAP", symbol: "SAP.DE" },
       { name: "Henkel", symbol: "HEN3.DE" },
-      { name: "Alibaba", symbol: "BABA" },
+      { name: "Alibaba", symbol: "BABA", tradeCurrency: "USD", displayCurrency: "EUR" },
     ],
-    currency: "usd",
+    defaultCurrency: "EUR",
     baseURL: "https://www.alphavantage.co/",
     apiKey: "IPWULBT54Y3LHJME",
   },
@@ -26,6 +26,8 @@ Module.register("MMM-Jast", {
 
   start: function () {
     this.stockData = {};
+    this.exchangeData = {};
+    this.getExchangeRate();
     this.getStocks();
     this.scheduleUpdate();
   },
@@ -36,9 +38,20 @@ Module.register("MMM-Jast", {
     let ticker = `<div class="ticker-wrap vticker">`;
     ticker += `<ul style="animation-duration: ${(stockDataArray.length * this.config.fadeSpeed) / 1000}s">`;
     stockDataArray.forEach(([key, value]) => {
-      const company = this.config.companies.find((company) => company.symbol === key);
-      ticker += `<li>${company.name} `;
-      ticker += `<span class=${value.current < value.last ? "low" : "high"}>${value.current} USD (${(
+      const stock = this.config.stocks.find((stock) => stock.symbol === key);
+      let currentValue = value.current;
+      if (stock.tradeCurrency && stock.DisplayCurrency && stock.tradeCurrency !== stock.DisplayCurrency) {
+        const exchange = this.exchangeData.find(
+          (exchange) => exchange.from === stock.tradeCurrency && exchange.to === stock.displayCurrency
+        );
+        if (exchange) {
+          currentValue = currentValue * exchange.rate;
+        }
+      }
+      const currency = stock.displayCurrency || this.config.defaultCurrency;
+
+      ticker += `<li>${stock.name} `;
+      ticker += `<span class=${value.current < value.last ? "low" : "high"}>${currentValue.toFixed(2)} ${currency} (${(
         ((value.current - value.last) / value.last) *
         100
       ).toFixed(1)}%)</span>`;
@@ -53,6 +66,7 @@ Module.register("MMM-Jast", {
   scheduleUpdate: function () {
     const self = this;
     setInterval(function () {
+      self.getExchangeRate();
       self.getStocks();
     }, this.config.updateInterval);
   },
@@ -61,10 +75,18 @@ Module.register("MMM-Jast", {
     this.sendSocketNotification("GET_STOCKS", this.config);
   },
 
+  getExchangeRate: function () {
+    this.sendSocketNotification("GET_EXCHANGE", this.config);
+  },
+
   socketNotificationReceived: function (notification, payload) {
     if (notification === "STOCK_RESULT") {
       let { name, current, last } = payload;
       this.stockData[name] = { current, last };
+      this.updateDom();
+    } else if (notification === "EXCHANGE_RESULT") {
+      let { from, to, rate } = payload;
+      this.exchangeData[from + to] = { from, to, rate };
       this.updateDom();
     }
   },
