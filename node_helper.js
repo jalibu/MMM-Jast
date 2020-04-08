@@ -15,10 +15,10 @@ module.exports = NodeHelper.create({
   sendStocksRequest: function (config) {
     const self = this;
     if (config.debug) {
-      self.sendSocketNotification("STOCK_RESULT", { name: "BAS.DE", current: 50.2, last: 44.9 });
-      self.sendSocketNotification("STOCK_RESULT", { name: "SAP.DE", current: 100.2, last: 100.9 });
-      self.sendSocketNotification("STOCK_RESULT", { name: "HEN3.DE", current: 66.2, last: 70.9 });
-      self.sendSocketNotification("STOCK_RESULT", { name: "BABA", current: 180.2, last: 188.9 });
+      self.sendSocketNotification("STOCK_RESULT", { symbol: "BAS.DE", current: 50.2, last: 44.9 });
+      self.sendSocketNotification("STOCK_RESULT", { symbol: "SAP.DE", current: 100.2, last: 100.9 });
+      self.sendSocketNotification("STOCK_RESULT", { symbol: "HEN3.DE", current: 66.2, last: 70.9 });
+      self.sendSocketNotification("STOCK_RESULT", { symbol: "BABA", current: 180.2, last: 188.9 });
       return;
     }
     config.stocks.forEach((stock) => {
@@ -28,13 +28,13 @@ module.exports = NodeHelper.create({
           console.error(`Error requesting Stock data`);
         }
         try {
-          const name = body["Meta Data"]["2. Symbol"];
+          const symbol = body["Meta Data"]["2. Symbol"];
           const values = Object.values(body["Time Series (Daily)"]);
           const current = parseFloat(values[0]["4. close"]);
           const last = parseFloat(values[1]["4. close"]);
 
-          console.log("Sending Stock result:", { name, current, last });
-          self.sendSocketNotification("STOCK_RESULT", { name, current, last });
+          console.log("Sending Stock result:", { symbol, current, last });
+          self.sendSocketNotification("STOCK_RESULT", { symbol, current, last });
         } catch (err) {
           console.error(`Error processing Stock response`, body);
         }

@@ -5,7 +5,7 @@ Module.register("MMM-Jast", {
   defaults: {
     debug: false,
     updateInterval: 120000,
-    fadeSpeed: 5000,
+    fadeSpeed: 2500,
     stocks: [
       { name: "BASF", symbol: "BAS.DE" },
       { name: "SAP", symbol: "SAP.DE" },
@@ -16,7 +16,7 @@ Module.register("MMM-Jast", {
     baseURL: "https://www.alphavantage.co/",
     apiKey: "IPWULBT54Y3LHJME",
     scroll: "vertical",
-    maxWidth: "100%",
+    maxWidth: "300px",
   },
 
   getStyles: function () {
@@ -36,6 +36,7 @@ Module.register("MMM-Jast", {
   },
 
   getDom: function () {
+    this.setVerticalScrollingKeyframes();
     let app = document.createElement("div");
     const stockDataArray = Object.entries(this.stockData);
     let ticker = `<div class="ticker-wrap ${
@@ -44,6 +45,7 @@ Module.register("MMM-Jast", {
     ticker += `<ul style="animation-duration: ${(stockDataArray.length * this.config.fadeSpeed) / 1000}s">`;
     stockDataArray.forEach(([key, value]) => {
       const stock = this.config.stocks.find((stock) => stock.symbol === key);
+      if (!stock) return;
       let currentValue = value.current;
       if (stock.tradeCurrency && stock.DisplayCurrency && stock.tradeCurrency !== stock.DisplayCurrency) {
         const exchange = this.exchangeData.find(
@@ -86,13 +88,33 @@ Module.register("MMM-Jast", {
 
   socketNotificationReceived: function (notification, payload) {
     if (notification === "STOCK_RESULT") {
-      let { name, current, last } = payload;
-      this.stockData[name] = { current, last };
-      this.updateDom();
+      let { symbol, current, last } = payload;
+      if (this.config.stocks.find((stock) => stock.symbol === symbol)) {
+        this.stockData[symbol] = { current, last };
+        this.updateDom();
+      }
     } else if (notification === "EXCHANGE_RESULT") {
       let { from, to, rate } = payload;
       this.exchangeData[from + to] = { from, to, rate };
       this.updateDom();
     }
+  },
+
+  setVerticalScrollingKeyframes() {
+    let vkf = document.getElementById("vkf");
+    if (!vkf) {
+      vkf = document.createElement("style");
+      vkf.setAttribute("id", "vkf");
+      vkf.type = "text/css";
+      document.head.appendChild(vkf);
+    }
+    let innerText = `@keyframes tickerv {`;
+    const itemCount = Object.keys(this.stockData).length > 0 ? Object.keys(this.stockData).length : 1;
+    const percentPerItem = 100 / itemCount;
+    for (let i = 0; i <= itemCount; i++) {
+      innerText += `  ${i * percentPerItem}% { margin-top: ${i == 0 || i == itemCount ? "0" : i * -26 + "px"}; }`;
+    }
+    innerText += `}`;
+    vkf.innerText = innerText;
   },
 });
