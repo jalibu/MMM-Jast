@@ -31,18 +31,3 @@ To use this module, add it to the modules array in the `config/config.js` file:
 	}
 }
 ```
-
-If you want to use vertical scrolling, manual adjustments in the CSS file are unfortunately necessary.  
-By default, scrolling is done through 4 levels.  
-Open the `modules/MMM-Jast/MMM-Jast.css` to and change the **tickerv** keyframe.  
-i.e. 4 stocks -> 100/4=25% for each item
-
-```css
-@keyframes tickerv {
-	0%   {margin-top: 0}
-	25%  {margin-top: -26px}
-	50%  {margin-top: -52px}
-	75%  {margin-top: -78px}
-	100% {margin-top: 0}
-}
-```

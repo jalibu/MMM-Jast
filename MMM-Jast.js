@@ -3,7 +3,7 @@
 Module.register("MMM-Jast", {
   result: {},
   defaults: {
-    debug: false,
+    debug: true,
     updateInterval: 120000,
     fadeSpeed: 2500,
     stocks: [
@@ -101,11 +101,13 @@ Module.register("MMM-Jast", {
   },
 
   setVerticalScrollingKeyframes() {
+    if (this.config.scroll !== "vertical") return;
+
     let vkf = document.getElementById("vkf");
     if (!vkf) {
       vkf = document.createElement("style");
-      vkf.setAttribute("id", "vkf");
       vkf.type = "text/css";
+      vkf.setAttribute("id", "vkf");
       document.head.appendChild(vkf);
     }
     let innerText = `@keyframes tickerv {`;

@@ -35,7 +35,7 @@
 }
 .ticker-wrap.horizontal ul li:before {
   content: "\2022";
-  margin-right: 0.3em;
+  margin-right: 0.4em;
 }
 .ticker-wrap ul li {
   font-size: 18px;
