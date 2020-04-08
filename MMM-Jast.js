@@ -3,7 +3,7 @@
 Module.register("MMM-Jast", {
   result: {},
   defaults: {
-    debug: true,
+    debug: false,
     updateInterval: 120000,
     fadeSpeed: 2500,
     stocks: [
