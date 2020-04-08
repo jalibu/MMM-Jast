@@ -101,6 +101,8 @@ Module.register("MMM-Jast", {
   },
 
   setVerticalScrollingKeyframes() {
+    if (config.scroll !== "vertical") return;
+
     let vkf = document.getElementById("vkf");
     if (!vkf) {
       vkf = document.createElement("style");
