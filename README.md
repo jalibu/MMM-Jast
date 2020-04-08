@@ -1,4 +1,4 @@
-# MMM-JaST - **J**ust ***a**nother **S**tock **T**icker (Beta)
+# MMM-JaST - **J**ust **a**nother **S**tock **T**icker (Beta)
 This is just another stock ticker for [Magic Mirror](https://magicmirror.builders/).  
 It supports vertical and horizontal scrolling.
 
