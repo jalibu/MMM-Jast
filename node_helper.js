@@ -44,30 +44,38 @@ module.exports = NodeHelper.create({
     });
   },
 
-  sendExchangeRequest: function (config) {
+  sendExchangeRequest: function (payload) {
     const self = this;
+    const { config, rates } = payload;
     if (config.debug) {
       self.sendSocketNotification("EXCHANGE_RESULT", { from: "USD", to: "EUR", rate: 0.923 });
       return;
     }
     config.stocks.forEach((stock) => {
       if (stock.tradeCurrency && stock.displayCurrency && stock.tradeCurrency != stock.displayCurrency) {
-        const url = `${config.baseURL}query?function=CURRENCY_EXCHANGE_RATE&from_currency=${stock.tradeCurrency}&to_currency=${stock.displayCurrency}&apikey=${config.apiKey}`;
-        request(url, { json: true }, (err, res, body) => {
-          if (err) {
-            console.error(`Error requesting Exchange rate`);
-          }
-          try {
-            const from = body["Realtime Currency Exchange Rate"]["1. From_Currency Code"];
-            const to = body["Realtime Currency Exchange Rate"]["3. To_Currency Code"];
-            const rate = parseFloat(body["Realtime Currency Exchange Rate"]["5. Exchange Rate"]);
+        const currentChange = rates ? rates[stock.tradeCurrency + stock.displayCurrency] : null;
+        if (
+          !currentChange ||
+          !currentChange.lastUpdate ||
+          Date.now() - currentChange.lastUpdate >= config.updateIntervalInSeconds * 1000
+        ) {
+          const url = `${config.baseURL}query?function=CURRENCY_EXCHANGE_RATE&from_currency=${stock.tradeCurrency}&to_currency=${stock.displayCurrency}&apikey=${config.apiKey}`;
+          request(url, { json: true }, (err, res, body) => {
+            if (err) {
+              console.error(`Error requesting Exchange rate`);
+            }
+            try {
+              const from = body["Realtime Currency Exchange Rate"]["1. From_Currency Code"];
+              const to = body["Realtime Currency Exchange Rate"]["3. To_Currency Code"];
+              const rate = parseFloat(body["Realtime Currency Exchange Rate"]["5. Exchange Rate"]);
 
-            console.log("Sending Exchange result:", { from, to, rate });
-            self.sendSocketNotification("EXCHANGE_RESULT", { from, to, rate });
-          } catch (err) {
-            console.error(`Error processing Exchange response`, body);
-          }
-        });
+              console.log("Sending Exchange result:", { from, to, rate });
+              self.sendSocketNotification("EXCHANGE_RESULT", { from, to, rate });
+            } catch (err) {
+              console.error(`Error processing Exchange response`, body);
+            }
+          });
+        }
       }
     });
   },

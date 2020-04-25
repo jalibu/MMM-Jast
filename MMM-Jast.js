@@ -4,7 +4,7 @@ Module.register("MMM-Jast", {
   result: {},
   defaults: {
     debug: false,
-    updateIntervalInSeconds: 120,
+    updateIntervalInSeconds: 1800,
     requestIntervalInSeconds: 62,
     fadeSpeed: 2500,
     stocks: [
@@ -27,7 +27,10 @@ Module.register("MMM-Jast", {
   },
 
   getTranslations: function () {
-    return false;
+    return {
+      en: "translations/en.json",
+      de: "translations/de.json",
+    };
   },
 
   start: function () {
@@ -63,7 +66,7 @@ Module.register("MMM-Jast", {
       const currency = stock.displayCurrency || this.config.defaultCurrency;
 
       ticker += `<li>${stock.name} `;
-      ticker += `<span class=${stock.current < stock.last ? "low" : "high"}>${currentValue} ${currency} (${
+      ticker += `<span class=${this.getColorClass(stock.current - stock.last)}>${currentValue} ${currency} (${
         stock.current ? (((stock.current - stock.last) / stock.last) * 100).toFixed(1) : ""
       }%)</span>`;
       ticker += `</li>`;
@@ -72,9 +75,9 @@ Module.register("MMM-Jast", {
       }
     });
     if (this.config.showDepotGrowth) {
-      ticker += `<li>Depot Zuwachs: <span class=${depotChange < 0 ? "low" : "high"}>${depotChange.toFixed(
-        2
-      )} EUR</span></li>`;
+      ticker += `<li>${this.translate("depotGrowth")} <span class=${this.getColorClass(
+        depotChange
+      )}>${depotChange.toFixed(2)} EUR</span></li>`;
     }
     ticker += `</ul>`;
     ticker += `</div>`;
@@ -95,7 +98,17 @@ Module.register("MMM-Jast", {
   },
 
   getExchangeRate: function () {
-    this.sendSocketNotification("GET_EXCHANGE", this.config);
+    this.sendSocketNotification("GET_EXCHANGE", { config: this.config, rates: this.exchangeData });
+  },
+
+  getColorClass: function (depotChange) {
+    if (depotChange > 0) {
+      return "high";
+    } else if (depotChange < 0) {
+      return "low";
+    } else {
+      return "neutral";
+    }
   },
 
   socketNotificationReceived: function (notification, payload) {
@@ -111,6 +124,7 @@ Module.register("MMM-Jast", {
     } else if (notification === "EXCHANGE_RESULT") {
       let { from, to, rate } = payload;
       this.exchangeData[from + to] = { from, to, rate };
+      this.exchangeData[from + to].lastUpdate = Date.now();
       this.updateDom();
     }
   },
