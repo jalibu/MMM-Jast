@@ -66,9 +66,9 @@ Module.register("MMM-Jast", {
       const currency = stock.displayCurrency || this.config.defaultCurrency;
 
       ticker += `<li>${stock.name} `;
-      ticker += `<span class=${this.getColorClass(stock.current - stock.last)}>${currentValue} ${currency} (${
-        stock.current ? (((stock.current - stock.last) / stock.last) * 100).toFixed(1) : ""
-      }%)</span>`;
+      ticker += `<span class=${this.getColorClass(stock.current - stock.last)}>${currentValue} ${currency} ${
+        stock.current ? "(" + (((stock.current - stock.last) / stock.last) * 100).toFixed(1) + "%)" : ""
+      }</span>`;
       ticker += `</li>`;
       if (stock.current && stock.quantity) {
         depotChange = depotChange + (stock.current - stock.last) * stock.quantity;
