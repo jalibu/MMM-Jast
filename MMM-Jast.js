@@ -6,7 +6,7 @@ Module.register("MMM-Jast", {
     debug: false,
     updateIntervalInSeconds: 1800,
     requestIntervalInSeconds: 62,
-    fadeSpeed: 2500,
+    fadeSpeedInSeconds: 3.5,
     stocks: [
       { name: "BASF", symbol: "BAS.DE" },
       { name: "SAP", symbol: "SAP.DE" },
@@ -19,7 +19,7 @@ Module.register("MMM-Jast", {
     apiKey: "IPWULBT54Y3LHJME",
     scroll: "vertical",
     maxWidth: "300px",
-    showDepotGrowth: true,
+    showDepotGrowth: false,
   },
 
   getStyles: function () {
@@ -48,7 +48,7 @@ Module.register("MMM-Jast", {
     let ticker = `<div class="ticker-wrap ${
       this.config.scroll === "horizontal" || this.config.scroll === "vertical" ? this.config.scroll : ""
     }" style="max-width: ${this.config.maxWidth}" >`;
-    ticker += `<ul style="animation-duration: ${(entryCount * this.config.fadeSpeed) / 1000}s">`;
+    ticker += `<ul style="animation-duration: ${entryCount * this.config.fadeSpeedInSeconds}s">`;
     this.config.stocks.forEach((stock) => {
       let currentValue = "-";
       if (stock.current) {
