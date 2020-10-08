@@ -16,7 +16,7 @@ Module.register("MMM-Jast", {
     ],
     defaultCurrency: "EUR",
     baseURL: "https://www.alphavantage.co/",
-    apiKey: "IPWULBT54Y3LHJME",
+    apiKey: "",
     scroll: "vertical",
     maxWidth: "300px",
     showDepotGrowth: false,
