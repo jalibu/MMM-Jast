@@ -1,53 +1,52 @@
 @keyframes tickerh {
   0% {
-    transform: translate3d(0, 0, 0);
+    transform: translate(0, 0);
   }
   100% {
-    transform: translate3d(-100%, 0, 0);
+    transform: translate(-200%, 0);
   }
 }
-.ticker-wrap {
+.jast-wrapper {
   overflow: hidden;
 }
-.ticker-wrap.vertical {
+.jast-wrapper.vertical {
   height: 26px;
 }
-.ticker-wrap.horizontal {
-  padding-left: 100%;
+.jast-wrapper.horizontal {
+  margin: 0 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
 }
-.ticker-wrap ul {
+.jast-wrapper ul {
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
   list-style-type: none;
   animation-iteration-count: infinite;
   animation-timing-function: cubic-bezier(1, 0, 0.5, 0);
 }
-.ticker-wrap.vertical ul {
+.jast-wrapper.vertical ul {
   animation-name: tickerv;
 }
-.ticker-wrap.horizontal ul {
-  padding-right: 100%;
-  display: inline-block;
-  white-space: nowrap;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-  animation-name: tickerh;
+.jast-wrapper.horizontal ul {
+  padding-left: 100%;
 }
-.ticker-wrap.horizontal ul li:before {
+
+.jast-wrapper.horizontal ul li:before {
   content: "\2022";
   margin-right: 0.4em;
 }
-.ticker-wrap ul li {
+.jast-wrapper ul li {
   font-size: 18px;
   line-height: 26px;
 }
-.ticker-wrap.horizontal ul li {
+.jast-wrapper.horizontal ul li {
   display: inline-block;
   padding: 0 0.3rem;
 }
-.ticker-wrap ul li span.high {
+.jast-wrapper ul li span.high {
   color: green;
 }
-.ticker-wrap ul li span.low {
+.jast-wrapper ul li span.low {
   color: red;
 }

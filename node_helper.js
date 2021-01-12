@@ -1,30 +1,44 @@
-var NodeHelper = require("node_helper");
-var request = require("request");
+const NodeHelper = require("node_helper");
+const request = require("request");
 
 module.exports = NodeHelper.create({
-  start: function () {
+  start() {
     console.log(`${this.name} helper method started...`);
   },
 
-  getRandomApiKey: function (config) {
-    const key = config.apiKeys[Math.floor(Math.random() * config.apiKeys.length)];
-    console.log("Using key", key);
-    return key;
-  },
-
-  sendStocksRequest: function (config) {
+  sendStocksRequest(config) {
     const self = this;
     if (config.debug) {
-      self.sendSocketNotification("STOCK_RESULT", { symbol: "BAS.DE", current: 50.2, last: 44.9 });
-      self.sendSocketNotification("STOCK_RESULT", { symbol: "SAP.DE", current: 100.2, last: 100.9 });
-      self.sendSocketNotification("STOCK_RESULT", { symbol: "HEN3.DE", current: 66.2, last: 70.9 });
-      self.sendSocketNotification("STOCK_RESULT", { symbol: "BABA", current: 180.2, last: 188.9 });
+      self.sendSocketNotification("STOCK_RESULT", {
+        symbol: "BAS.DE",
+        current: 50.2,
+        last: 44.9
+      });
+      self.sendSocketNotification("STOCK_RESULT", {
+        symbol: "SAP.DE",
+        current: 100.2,
+        last: 100.9
+      });
+      self.sendSocketNotification("STOCK_RESULT", {
+        symbol: "HEN3.DE",
+        current: 66.2,
+        last: 70.9
+      });
+      self.sendSocketNotification("STOCK_RESULT", {
+        symbol: "BABA",
+        current: 180.2,
+        last: 188.9
+      });
       return;
     }
+
     config.stocks.forEach((stock) => {
-      if (!stock.lastUpdate || Date.now() - stock.lastUpdate >= config.updateIntervalInSeconds * 1000) {
+      if (
+        !stock.lastUpdate ||
+        Date.now() - stock.lastUpdate >= config.updateIntervalInSeconds * 1000
+      ) {
         const url = `${config.baseURL}query?function=TIME_SERIES_DAILY&outputsize=compact&apikey=${config.apiKey}&symbol=${stock.symbol}`;
-        request(url, { json: true }, (err, res, body) => {
+        request(url, { json: true }, (err, _res, body) => {
           if (err) {
             console.error(`Error requesting Stock data`);
           }
@@ -35,7 +49,11 @@ module.exports = NodeHelper.create({
             const last = parseFloat(values[1]["4. close"]);
 
             console.log("Sending Stock result:", { symbol, current, last });
-            self.sendSocketNotification("STOCK_RESULT", { symbol, current, last });
+            self.sendSocketNotification("STOCK_RESULT", {
+              symbol,
+              current,
+              last
+            });
           } catch (err) {
             console.error(`Error processing Stock response`, body);
           }
@@ -44,20 +62,34 @@ module.exports = NodeHelper.create({
     });
   },
 
-  sendExchangeRequest: function (payload) {
+  sendExchangeRequest(payload) {
     const self = this;
     const { config, rates } = payload;
     if (config.debug) {
-      self.sendSocketNotification("EXCHANGE_RESULT", { from: "USD", to: "EUR", rate: 0.923 });
+      self.sendSocketNotification("EXCHANGE_RESULT", {
+        from: "USD",
+        to: "EUR",
+        rate: 0.923
+      });
       return;
     }
     config.stocks.forEach((stock) => {
-      if (stock.tradeCurrency && stock.displayCurrency && stock.tradeCurrency != stock.displayCurrency) {
-        const currentChange = rates ? rates[stock.tradeCurrency + stock.displayCurrency] : null;
+      if (
+        stock.tradeCurrency &&
+        stock.displayCurrency &&
+        stock.tradeCurrency !== stock.displayCurrency
+      ) {
+        const currentChange = rates.find(
+          (rate) =>
+            rate.from === stock.tradeCurrency &&
+            rate.to === stock.displayCurrency
+        );
+
         if (
           !currentChange ||
           !currentChange.lastUpdate ||
-          Date.now() - currentChange.lastUpdate >= config.updateIntervalInSeconds * 1000
+          Date.now() - currentChange.lastUpdate >=
+            config.updateIntervalInSeconds * 1000
         ) {
           const url = `${config.baseURL}query?function=CURRENCY_EXCHANGE_RATE&from_currency=${stock.tradeCurrency}&to_currency=${stock.displayCurrency}&apikey=${config.apiKey}`;
           request(url, { json: true }, (err, res, body) => {
@@ -65,12 +97,22 @@ module.exports = NodeHelper.create({
               console.error(`Error requesting Exchange rate`);
             }
             try {
-              const from = body["Realtime Currency Exchange Rate"]["1. From_Currency Code"];
-              const to = body["Realtime Currency Exchange Rate"]["3. To_Currency Code"];
-              const rate = parseFloat(body["Realtime Currency Exchange Rate"]["5. Exchange Rate"]);
+              const from =
+                body["Realtime Currency Exchange Rate"][
+                  "1. From_Currency Code"
+                ];
+              const to =
+                body["Realtime Currency Exchange Rate"]["3. To_Currency Code"];
+              const rate = parseFloat(
+                body["Realtime Currency Exchange Rate"]["5. Exchange Rate"]
+              );
 
               console.log("Sending Exchange result:", { from, to, rate });
-              self.sendSocketNotification("EXCHANGE_RESULT", { from, to, rate });
+              self.sendSocketNotification("EXCHANGE_RESULT", {
+                from,
+                to,
+                rate
+              });
             } catch (err) {
               console.error(`Error processing Exchange response`, body);
             }
@@ -80,7 +122,7 @@ module.exports = NodeHelper.create({
     });
   },
 
-  socketNotificationReceived: function (notification, payload) {
+  socketNotificationReceived(notification, payload) {
     if (notification === "GET_STOCKS") {
       this.sendStocksRequest(payload);
     } else if (notification === "GET_EXCHANGE") {
@@ -88,5 +130,5 @@ module.exports = NodeHelper.create({
     } else {
       console.warn(`${notification} is invalid notification`);
     }
-  },
+  }
 });
