@@ -1,0 +1,11 @@
+{% macro render(config) %}
+  <style type="text/css">
+    .jast-wrapper.horizontal span.jast-tickerframe {
+      animation: tickerh {{ config.fadeSpeedInSeconds }}s linear infinite;
+    }
+
+    .jast-wrapper.horizontal .jast-ticker-no2 span.jast-tickerframe {
+      animation-delay: -{{ config.fadeSpeedInSeconds / 2 }}s;
+    }
+  </style>
+{% endmacro %}

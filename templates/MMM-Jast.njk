@@ -1,0 +1,23 @@
+{% import "templates/VerticalStockList.njk" as verticalStockList %}
+{% import "templates/HorizontalScrollStyle.njk" as hss %}
+{% import "templates/HorizontalStockList.njk" as horizontalStockList %}
+
+{% if config.stocks %}
+{% if config.scroll == "vertical" %}
+
+{% elif config.scroll == "horizontal" %}
+{% endif %}
+<div class="normal medium jast-wrapper {{ config.scroll }}" style="max-width: {{config.maxWidth}};">
+  {% if config.scroll == "horizontal" %}
+    {{ hss.render(config) }}
+    {{ horizontalStockList.render(config, exchangeData, utils) }}
+    {{ horizontalStockList.render(config, exchangeData, utils, "2") }}
+  {% else %}
+    {{ verticalStockList.render(config, exchangeData, utils) }}
+  {% endif %}
+</div>
+{% else %}
+  <div class="dimmed light small">
+    {{ "LOADING" | translate | safe }}
+  </div>
+{% endif %}
