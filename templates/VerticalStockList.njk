@@ -1,0 +1,36 @@
+{% import "templates/VerticalScrollStyle.njk" as vss %}
+
+{% macro render(config, exchangeData, utils)%}
+  {% if config.scroll == "vertical" %}
+    {{ vss.render(config) }}
+    {% if config.showDepotGrowth %}
+      {% set fadeSpeed =  config.stocks.length + 1 %}
+    {% else %}
+      {% set fadeSpeed =  config.stocks.length %}
+    {% endif %}
+      {% set animationStyle = ' style="animation-duration: ' + fadeSpeed * config.fadeSpeedInSeconds + 's"' %}
+  {% endif %}
+    <ul {{ animationStyle | safe }}>
+      {% for stock in config.stocks %}
+        <li class="jast-stock">{{ stock.name }}
+          {% if utils.getStockChange(stock) > 0 %}
+            {% set colorClass = "high" %}
+          {% elif utils.getStockChange(stock) < 0 %}
+            {% set colorClass = "low " %}
+          {% else %}
+            {% set colorClass = "" %}
+          {% endif %}
+          <span class="{{ colorClass }}">
+            {{ utils.getCurrentValue(stock, exchangeData) }}
+            {{ utils.getCurrency(stock, exchangeData, config) }}
+            {% if colorClass %}
+              ({{ utils.getStockChange(stock) }}%)
+            {% endif %}
+          </span>
+        </li>
+      {% endfor %}
+      {% if config.showDepotGrowth %}
+        <li>{{ "depotGrowth" | translate | safe }} 112 EUR</li>
+      {% endif %}
+    </ul>
+{% endmacro %}

@@ -1,16 +1,10 @@
-{% macro render(config, exchangeData, utils, num="")%}
-  {% if config.scroll == "vertical" %}
-    {% if config.showDepotGrowth %}
-      {% set fadeSpeed =  config.stocks.length + 1 %}
-    {% else %}
-      {% set fadeSpeed =  config.stocks.length %}
-    {% endif %}
-      {% set animationStyle = ' style="animation-duration: ' + fadeSpeed * config.fadeSpeedInSeconds + 's"' %}
-  {% endif %}
-  <span {{ animationStyle | safe}} class="{{ num }}">
-  <ul>
+
+
+{% macro render(config, exchangeData, utils, num="1") %}
+  <p class="jast-hticker jast-ticker-no{{ num }}">
+    <span class="jast-tickerframe">
     {% for stock in config.stocks %}
-      <li>{{ stock.name }}
+      <span class="jast-stock">{{ stock.name }}
         {% if utils.getStockChange(stock) > 0 %}
           {% set colorClass = "high" %}
         {% elif utils.getStockChange(stock) < 0 %}
@@ -25,11 +19,11 @@
             ({{ utils.getStockChange(stock) }}%)
           {% endif %}
         </span>
-      </li>
+      </span>
     {% endfor %}
     {% if config.showDepotGrowth %}
-      <li>{{ "depotGrowth" | translate | safe }} 112 EUR</li>
+      <span class="jast-stock">{{ "depotGrowth" | translate | safe }} 112 EUR</span>
     {% endif %}
-  </ul>
-  </span>
+    </span>
+  </p>
 {% endmacro %}
