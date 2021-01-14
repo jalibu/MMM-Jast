@@ -47,4 +47,36 @@ class JastUtils {
       return 0;
     }
   }
+
+  static getDepotGrowth(config, exchangeData) {
+    let growth = 0;
+    let errors = false;
+    config.stocks.forEach((stock) => {
+      if (stock.current && stock.last) {
+        let change =
+          stock.current * stock.quantity - stock.last * stock.quantity;
+
+        if (
+          stock.tradeCurrency &&
+          stock.tradeCurrency !== config.defaultCurrency
+        ) {
+          const exchange = exchangeData.find(
+            (exchange) =>
+              exchange.from === stock.tradeCurrency &&
+              exchange.to === stock.displayCurrency
+          );
+          if (exchange) {
+            change = change * exchange.rate;
+          } else {
+            errors = true;
+          }
+        } else {
+          errors = true;
+        }
+        growth = growth + change;
+      }
+    });
+
+    return { value: growth.toFixed(2), errors };
+  }
 }

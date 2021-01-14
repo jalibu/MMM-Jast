@@ -12,7 +12,7 @@
   {% endif %}
     <ul {{ animationStyle | safe }}>
       {% for stock in config.stocks %}
-        <li class="jast-stock">{{ stock.name }}
+        <li class="jast-stock">{{ stock.name }}:
           {% if utils.getStockChange(stock) > 0 %}
             {% set colorClass = "high" %}
           {% elif utils.getStockChange(stock) < 0 %}
@@ -30,7 +30,17 @@
         </li>
       {% endfor %}
       {% if config.showDepotGrowth %}
-        <li>{{ "depotGrowth" | translate | safe }} 112 EUR</li>
+        {% set depotGrowth = utils.getDepotGrowth(config, exchangeData) %}
+        {% if depotGrowth.value > 0 %}
+          {% set colorClass = "high" %}
+        {% elif depotGrowth.value < 0 %}
+          {% set colorClass = "low " %}
+        {% else %}
+          {% set colorClass = "" %}
+        {% endif %}
+        <li class="jast-stock">{{ "depotGrowth" | translate | safe }}
+          <span class="{{ colorClass }}">{% if depotGrowth.errors%}≈ {% endif %}{{ depotGrowth.value }} {{ config.defaultCurrency }}</span>
+        </li>
       {% endif %}
     </ul>
 {% endmacro %}
