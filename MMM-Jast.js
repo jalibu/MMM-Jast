@@ -1,3 +1,4 @@
+/* global Class, JastUtils */
 "use strict";
 
 Module.register("MMM-Jast", {
@@ -24,7 +25,7 @@ Module.register("MMM-Jast", {
     baseURL: "https://www.alphavantage.co/",
     apiKey: "IPWULBT54Y3LHJME",
     scroll: "vertical",
-    //maxWidth: "300px",
+    maxWidth: "300px",
     showDepotGrowth: false
   },
 
@@ -60,6 +61,10 @@ Module.register("MMM-Jast", {
   },
 
   start() {
+    // Override defaults
+    this.nunjucksEnvironment().loaders[0].async = false;
+    this.nunjucksEnvironment().loaders[0].useCache = true;
+
     this.exchangeData = [];
     this.getExchangeRate();
     this.getStocks();
