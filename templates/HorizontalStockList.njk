@@ -21,6 +21,24 @@
         </span>
       </span>
     {% endfor %}
+    {% for crypto in config.crypto %}
+      <span class="jast-stock">{{ crypto.name }}:
+        {% if utils.getStockChange(crypto) > 0 %}
+          {% set colorClass = "high" %}
+        {% elif utils.getStockChange(crypto) < 0 %}
+          {% set colorClass = "low " %}
+        {% else %}
+          {% set colorClass = "" %}
+        {% endif %}
+        <span class="{{ colorClass }}">
+          {{ utils.getCurrentValue(crypto, exchangeData) }}
+          {{ utils.getCurrency(crypto, exchangeData, config) }}
+          {% if colorClass %}
+            ({{ utils.getStockChange(crypto) }}%)
+          {% endif %}
+        </span>
+      </span>
+    {% endfor %}
     {% if config.showDepotGrowth %}
       {% set depotGrowth = utils.getDepotGrowth(config, exchangeData) %}
       {% if depotGrowth.value > 0 %}

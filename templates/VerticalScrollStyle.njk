@@ -1,8 +1,8 @@
 {% macro render(config) %}
   {% if config.showDepotGrowth %}
-    {% set itemCount = config.stocks.length + 1 %}
+    {% set itemCount = config.stocks.length + config.crypto.length + 1 %}
   {% else %}
-    {% set itemCount = config.stocks.length %}
+    {% set itemCount = config.stocks.length + config.crypto.length %}
   {% endif %}
   {% set percentPerItem = 100 / itemCount %}
   <style type="text/css">
