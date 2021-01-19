@@ -1,9 +1,10 @@
 # MMM-JaST - **J**ust **a**nother **S**tock **T**icker
-This is just another stock ticker for [Magic Mirror](https://magicmirror.builders/).  
+This is just another stock ticker for [Magic Mirror](https://magicmirror.builders/).
 Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/topic/12507/mmm-jast-just-another-stock-ticker)
 
-
 ## Features
+- Support for Stock symbols
+- Support for Crypto symbols (experimental!)
 - Multiple currencies
 - Currency exchange support
 - Vertical scrolling
@@ -11,7 +12,7 @@ Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builder
 - Depot value growth summary
 
 ## Installing the Module
-Navigate to the MagicMirror subfolder "modules" and execute the following command  
+Navigate to the MagicMirror subfolder "modules" and execute the following command
 `git clone https://github.com/jalibu/MMM-Jast.git`
 
 ## Using the module
@@ -25,19 +26,20 @@ To use this module, add it to the modules array in the `config/config.js` file:
 	module: "MMM-Jast",
 	position: "top_left",
 	config: {
+    maxWidth: "100%",
 		updateIntervalInSeconds: 1800,
-		fadeSpeedInSeconds: 3.5,
+		fadeSpeedInSeconds: 3.5, // Higher value: vertical -> faster // horizontal -> slower
+    scroll: "<none, vertical, horizontal>",
+    defaultCurrency: "EUR",
+    showDepotGrowth: true
+    apiKey: "<Insert your API Key>",
 		stocks: [
 		{ name: "BASF", symbol: "BAS.DE", quantity: 10 },
 		{ name: "SAP", symbol: "SAP.DE", quantitiy: 15 },
 		{ name: "Henkel", symbol: "HEN3.DE" },
 		{ name: "Alibaba", symbol: "BABA", tradeCurrency: "USD", displayCurrency: "EUR" },
-		],
-		defaultCurrency: "EUR",
-		apiKey: "<Insert your API Key>",
-		scroll: "<none, vertical, horizontal>",
-		maxWidth: "100%",
-		showDepotGrowth: true
+    ],
+    crypto: [{ name: "BTC", symbol: "BTC" },],
 	}
 }
 ```

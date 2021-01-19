@@ -1,3 +1,5 @@
+/* global Class, JastUtils */
+
 "use strict";
 
 Module.register("MMM-Jast", {
@@ -20,11 +22,12 @@ Module.register("MMM-Jast", {
         quantity: 10
       }
     ],
+    crypto: [{ name: "BTC", symbol: "BTC" }],
     defaultCurrency: "EUR",
     baseURL: "https://www.alphavantage.co/",
     apiKey: "",
     scroll: "vertical",
-    //maxWidth: "300px",
+    maxWidth: "100%",
     showDepotGrowth: false
   },
 
