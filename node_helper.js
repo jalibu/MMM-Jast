@@ -62,6 +62,40 @@ module.exports = NodeHelper.create({
     });
   },
 
+  sendCryptoRequest: function (config) {
+    const self = this;
+    if (config.debug) {
+      self.sendSocketNotification("CRYPTO_RESULT", {
+        symbol: "BTC",
+        current: 30000,
+        last: 32000
+      });
+      return;
+    }
+
+    config.crypto.forEach((crypto) => {
+      if (!crypto.lastUpdate || Date.now() - crypto.lastUpdate >= config.updateIntervalInSeconds * 1000) {
+        const url = `${config.baseURL}query?function=DIGITAL_CURRENCY_DAILY&symbol=${crypto.symbol}&market=USD&apikey=${config.apiKey}`;
+        request(url, { json: true }, (err, res, body) => {
+          if (err) {
+            console.error(`Error requesting Crypto data`);
+          }
+          try {
+            const symbol = body["Meta Data"]["2. Digital Currency Code"];
+            const values = Object.values(body["Time Series (Digital Currency Daily)"]);
+            const current = parseFloat(values[0]["4a. close (USD)"]);
+            const last = parseFloat(values[1]["4a. close (USD)"]);
+
+            console.log("Sending Crypto result:", { symbol, current, last });
+            self.sendSocketNotification("CRYPTO_RESULT", { symbol, current, last });
+          } catch (err) {
+            console.error(`Error processing Crypto response`, body);
+          }
+        });
+      }
+    });
+  },
+
   sendExchangeRequest(payload) {
     const self = this;
     const { config, rates } = payload;
@@ -127,6 +161,8 @@ module.exports = NodeHelper.create({
       this.sendStocksRequest(payload);
     } else if (notification === "GET_EXCHANGE") {
       this.sendExchangeRequest(payload);
+    } else if (notification === "GET_CRYPTO") {
+      this.sendCryptoRequest(payload);
     } else {
       console.warn(`${notification} is invalid notification`);
     }

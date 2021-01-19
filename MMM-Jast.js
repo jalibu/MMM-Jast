@@ -63,6 +63,7 @@ Module.register("MMM-Jast", {
     this.exchangeData = [];
     this.getExchangeRate();
     this.getStocks();
+    this.getCrypto();
     this.scheduleUpdate();
   },
 
@@ -71,11 +72,16 @@ Module.register("MMM-Jast", {
     setInterval(function () {
       self.getExchangeRate();
       self.getStocks();
+      self.getCrypto();
     }, this.config.requestIntervalInSeconds * 1000);
   },
 
   getStocks() {
     this.sendSocketNotification("GET_STOCKS", this.config);
+  },
+
+  getCrypto() {
+    this.sendSocketNotification("GET_CRYPTO", this.config);
   },
 
   getExchangeRate() {
@@ -95,6 +101,17 @@ Module.register("MMM-Jast", {
         currentStock.current = current;
         currentStock.last = last;
         currentStock.lastUpdate = Date.now();
+        this.updateDom();
+      }
+    } else if (notification === "CRYPTO_RESULT") {
+      const { symbol, current, last } = payload;
+      const currentCrypto = this.config.crypto.find(
+        (crypto) => crypto.symbol === symbol
+      );
+      if (currentCrypto) {
+        currentCrypto.current = current;
+        currentCrypto.last = last;
+        currentCrypto.lastUpdate = Date.now();
         this.updateDom();
       }
     } else if (notification === "EXCHANGE_RESULT") {
