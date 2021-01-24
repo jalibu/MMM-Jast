@@ -1,4 +1,3 @@
-const e = require("express");
 const NodeHelper = require("node_helper");
 const request = require("request");
 
