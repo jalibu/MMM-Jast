@@ -1,7 +1,39 @@
+const e = require("express");
 const NodeHelper = require("node_helper");
 const request = require("request");
 
 module.exports = NodeHelper.create({
+  updateInterval: null,
+  getUpdateInterval(config) {
+    if (!this.updateInterval) {
+      if (config.updateIntervalInSeconds === 0) {
+        const exchangeRates = [];
+        config.stocks.forEach((stock) => {
+          if (
+            stock.tradeCurrency &&
+            stock.displayCurrency &&
+            stock.tradeCurrency !== stock.displayCurrency
+          ) {
+            const currentChange = exchangeRates.find(
+              (rate) =>
+                rate.from === stock.tradeCurrency &&
+                rate.to === stock.displayCurrency
+            );
+            if (!currentChange) {
+              exchangeRates.push(currentChange);
+            }
+          }
+        });
+        const numEntities =
+          config.stocks.length + config.crypto.length + exchangeRates.length;
+        const delayPerEntity = 86400 / 500;
+        this.updateInterval = delayPerEntity * numEntities * 1000;
+      } else {
+        this.updateInterval = config.updateIntervalInSeconds * 1000;
+      }
+    }
+    return this.updateInterval;
+  },
   start() {
     console.log(`${this.name} helper method started...`);
   },
@@ -35,7 +67,7 @@ module.exports = NodeHelper.create({
     config.stocks.forEach((stock) => {
       if (
         !stock.lastUpdate ||
-        Date.now() - stock.lastUpdate >= config.updateIntervalInSeconds * 1000
+        Date.now() - stock.lastUpdate >= this.getUpdateInterval(config)
       ) {
         const url = `${config.baseURL}query?function=TIME_SERIES_DAILY&outputsize=compact&apikey=${config.apiKey}&symbol=${stock.symbol}`;
         request(url, { json: true }, (err, _res, body) => {
@@ -76,7 +108,7 @@ module.exports = NodeHelper.create({
     config.crypto.forEach((crypto) => {
       if (
         !crypto.lastUpdate ||
-        Date.now() - crypto.lastUpdate >= config.updateIntervalInSeconds * 1000
+        Date.now() - crypto.lastUpdate >= this.getUpdateInterval(config)
       ) {
         const url = `${config.baseURL}query?function=DIGITAL_CURRENCY_DAILY&symbol=${crypto.symbol}&market=USD&apikey=${config.apiKey}`;
         request(url, { json: true }, (err, _res, body) => {
@@ -132,7 +164,7 @@ module.exports = NodeHelper.create({
           !currentChange ||
           !currentChange.lastUpdate ||
           Date.now() - currentChange.lastUpdate >=
-            config.updateIntervalInSeconds * 1000
+            this.getUpdateInterval(config)
         ) {
           const url = `${config.baseURL}query?function=CURRENCY_EXCHANGE_RATE&from_currency=${stock.tradeCurrency}&to_currency=${stock.displayCurrency}&apikey=${config.apiKey}`;
           request(url, { json: true }, (err, res, body) => {

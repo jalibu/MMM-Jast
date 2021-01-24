@@ -27,7 +27,7 @@ To use this module, add it to the modules array in the `config/config.js` file:
 	position: "top_left",
 	config: {
     maxWidth: "100%",
-		updateIntervalInSeconds: 1800,
+		updateIntervalInSeconds: 0, // 0 = Auto calculation to get a maximum number of 500 requests per day.
 		fadeSpeedInSeconds: 3.5, // Higher value: vertical -> faster // horizontal -> slower
     scroll: "<none, vertical, horizontal>",
     defaultCurrency: "EUR",

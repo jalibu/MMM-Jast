@@ -6,7 +6,7 @@ Module.register("MMM-Jast", {
   defaults: {
     debug: false,
     header: null,
-    updateIntervalInSeconds: 1800,
+    updateIntervalInSeconds: 0,
     requestIntervalInSeconds: 62,
     fadeSpeedInSeconds: 3.5, // Higher value: vertical -> faster // horizontal -> slower
     stocks: [
