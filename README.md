@@ -35,7 +35,7 @@ To use this module, add it to the modules array in the `config/config.js` file:
     apiKey: "<Insert your API Key>",
 		stocks: [
 		{ name: "BASF", symbol: "BAS.DE", quantity: 10 },
-		{ name: "SAP", symbol: "SAP.DE", quantitiy: 15 },
+		{ name: "SAP", symbol: "SAP.DE", quantity: 15 },
 		{ name: "Henkel", symbol: "HEN3.DE" },
 		{ name: "Alibaba", symbol: "BABA", tradeCurrency: "USD", displayCurrency: "EUR" },
     ],
@@ -52,7 +52,7 @@ To use this module, add it to the modules array in the `config/config.js` file:
 | defaultCurrency			| (String) Default currency to display stock values								| "EUR"   				|
 | apiKey					| (String) Alphavantage API key													| undefined				|
 | scroll					| (String) Animation direction for ticker. Values: none, vertical or horizontal	| "vertical"  			|
-| maxWitdth					| (String) CSS style to limit ticker width										| "100%"   				|
+| maxWidth					| (String) CSS style to limit ticker width										| "100%"   				|
 | showDepotGrowth			| (Boolean) Show depot value growth summary in ticker							| false   				|
 
 ### Stock Object
