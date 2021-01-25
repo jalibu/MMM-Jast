@@ -1,6 +1,6 @@
-{% import "templates/VerticalScrollStyle.njk" as vss %}
+{% import "templates/VerticalScrollStyle.njk" as vss with context %}
 
-{% macro render(config, exchangeData, utils)%}
+{% macro render() %}
   {% if config.scroll == "vertical" %}
     {{ vss.render(config) }}
     {% if config.showDepotGrowth %}

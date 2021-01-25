@@ -1,6 +1,6 @@
 
 
-{% macro render(config, exchangeData, utils, num="1") %}
+{% macro render(num="1") %}
   <p class="jast-hticker jast-ticker-no{{ num }}">
     <span class="jast-tickerframe">
     {% for stock in config.stocks %}
