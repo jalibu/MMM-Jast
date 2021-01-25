@@ -8,6 +8,9 @@
 }
 .jast-wrapper {
   overflow: hidden;
+  --size: 1.4rem;
+  font-size: var(--size);
+  line-height: calc(var(--size) * 1.44);
 }
 .jast-wrapper.horizontal {
   margin: 0 auto;
@@ -19,7 +22,7 @@
   list-style-type: none;
 }
 .jast-wrapper.vertical {
-  height: 26px;
+  height: calc(var(--size) * 1.44);
 }
 .jast-wrapper.vertical > ul {
   animation-name: tickerv;
@@ -42,10 +45,6 @@
   content: "\2022";
   margin-right: 0.4em;
   margin-left: 0.4em;
-}
-.jast-wrapper .jast-stock {
-  font-size: 18px;
-  line-height: 26px;
 }
 
 .jast-wrapper .jast-stock span.high {

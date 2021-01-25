@@ -9,7 +9,7 @@
   @keyframes tickerv {
   {% for i in range(0, itemCount) -%}
     {{ i *  percentPerItem }}% {
-      margin-top: {{ i * -26 }}px;
+      margin-top: calc(var(--size) * -1.44 * {{ i }});
     }
   {%- endfor %}
   }
