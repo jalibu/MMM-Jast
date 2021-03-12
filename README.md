@@ -31,7 +31,7 @@ To use this module, add it to the modules array in the `config/config.js` file:
 		fadeSpeedInSeconds: 3.5, // Higher value: vertical -> faster // horizontal -> slower
 		scroll: "<none, vertical, horizontal>",
 		defaultCurrency: "EUR",
-		showDepotGrowth: true
+		showDepotGrowth: true,
 		apiKey: "<Insert your API Key>",
 		stocks: [
 			{ name: "BASF", symbol: "BAS.DE", quantity: 10 },
