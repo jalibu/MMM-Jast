@@ -79,7 +79,7 @@ Module.register("MMM-Jast", {
       this.error = null;
       this.stocks = payload;
       this.updateDom();
-      console.log(this.stocks);
+      console.log("Stock results", this.stocks);
     } else if (notificationIdentifier === "ERROR") {
       this.error = payload;
       this.updateDom();

@@ -52,6 +52,4 @@ To use this module, add it to the modules array in the `config/config.js` file:
 | -------- 			| -------- 															| -------- 	|
 | name   			| (String) Stock's display name   									| "Alibaba"	|
 | symbol   			| (String) Stock's symbol/key   									| "BABA"   	|
-| tradeCurrency   	| (String) Optional: If is not the same as defaultCurrency 			| "USD"   	|
-| displayCurrency   | (String) Optional: If it should not be displayed in tradeCurrency	| "EUR"   	|
 | quantity   		| (Integer) Optional: To calculate depotGrowth   					| 500   	|
