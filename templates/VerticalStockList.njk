@@ -31,18 +31,18 @@
       {% endfor %}
       {% if config.showDepotGrowth %}
         {% set depotGrowth = utils.getDepotGrowth(config, stocks) %}
-        {% for growth in depotGrowth %}
-          {% if growth.value > 0 %}
-            {% set colorClass = "high" %}
-          {% elif growth.value < 0 %}
-            {% set colorClass = "low " %}
-          {% else %}
-            {% set colorClass = "" %}
-          {% endif %}
           <li class="jast-stock">{{ "depotGrowth" | translate | safe }}
-            <span class="{{ colorClass }}">{{ growth.value }} {{ growth.currency }}</span>
-          </li>
-        {% endfor %}
+            {% for growth in depotGrowth %}
+            {% if growth.value > 0 %}
+              {% set colorClass = "high" %}
+            {% elif growth.value < 0 %}
+              {% set colorClass = "low " %}
+            {% else %}
+              {% set colorClass = "" %}
+            {% endif %}
+            <span class="{{ colorClass }}{% if loop.index != 1 %} jast-multi-currency{% endif %}">{{ growth.value }} {{ growth.currency }}</span>
+          {% endfor %}
+        </li>
       {% endif %}
     </ul>
 {% endmacro %}

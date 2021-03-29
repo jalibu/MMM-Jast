@@ -1,6 +1,6 @@
 {% macro render() %}
   {% if config.showDepotGrowth %}
-    {% set itemCount = config.stocks.length + utils.getDepotGrowth(config, stocks).length %}
+    {% set itemCount = config.stocks.length + 1 %}
   {% else %}
     {% set itemCount = config.stocks.length %}
   {% endif %}

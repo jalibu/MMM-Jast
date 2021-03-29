@@ -53,3 +53,7 @@
 .jast-wrapper .jast-stock span.low {
   color: red;
 }
+
+.jast-multi-currency::before {
+  content: "// ";
+}
