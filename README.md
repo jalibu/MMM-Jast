@@ -51,6 +51,7 @@ To use this module, add it to the modules array in the `config/config.js` file:
 | updateIntervalInSeconds   | (Integer) Interval to refresh stock data from server. Set to 0 for auto calculation to get a maximum number of 500 requests per day.  						| 0   	|
 | fadeSpeedInSeconds		| (Integer) Animation speed for ticker.	Higher value: vertical -> faster // horizontal -> slower										| 3.5   				|
 | stocks					| (Array<Stock>) Array of stocks to be displayed								| Sample set			|
+| crypto					| (Array<Crypto>) Array of crypto currencies to be displayed					| empty array			|
 | defaultCurrency			| (String) Default currency to display stock values								| "EUR"   				|
 | apiKey					| (String) Alphavantage API key													| undefined				|
 | scroll					| (String) Animation direction for ticker. Values: none, vertical or horizontal	| "vertical"  			|
@@ -65,3 +66,9 @@ To use this module, add it to the modules array in the `config/config.js` file:
 | tradeCurrency   	| (String) Optional: If is not the same as defaultCurrency 			| "USD"   	|
 | displayCurrency   | (String) Optional: If it should not be displayed in tradeCurrency	| "EUR"   	|
 | quantity   		| (Integer) Optional: To calculate depotGrowth   					| 500   	|
+
+### Crypto Object
+| Field    			| Description 														| Example 	|
+| -------- 			| -------- 															| -------- 	|
+| name   			| (String) Stock's display name   									| "Bitcoin"	|
+| symbol   			| (String) Stock's symbol/key   									| "BTC"   	|

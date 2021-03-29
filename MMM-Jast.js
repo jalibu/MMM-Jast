@@ -21,7 +21,7 @@ Module.register("MMM-Jast", {
         quantity: 10
       }
     ],
-    crypto: [{ name: "BTC", symbol: "BTC" }],
+    crypto: [],
     defaultCurrency: "EUR",
     baseURL: "https://www.alphavantage.co/",
     apiKey: "",
