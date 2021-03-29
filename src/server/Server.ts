@@ -23,7 +23,7 @@ module.exports = NodeHelper.create({
           results.push({summaryDetail, price, meta})
         }
       } catch (err){
-        console.log("Error", err)
+        console.error("There was an error requesting the API.", err.message)
       }
     }
 

@@ -42,7 +42,6 @@ Module.register("MMM-Jast", {
     return {
       config: this.config,
       stocks: this.stocks,
-      error: this.error,
       utils: Utils
     };
   },
@@ -80,9 +79,6 @@ Module.register("MMM-Jast", {
       this.stocks = payload;
       this.updateDom();
       console.log("Stock results", this.stocks);
-    } else if (notificationIdentifier === "ERROR") {
-      this.error = payload;
-      this.updateDom();
     }
   }
 });
