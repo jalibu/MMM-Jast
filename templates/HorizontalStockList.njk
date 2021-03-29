@@ -3,8 +3,8 @@
 {% macro render(num="1") %}
   <p class="jast-hticker jast-ticker-no{{ num }}">
     <span class="jast-tickerframe">
-    {% for stock in config.stocks %}
-      <span class="jast-stock">{{ stock.name }}:
+    {% for stock in stocks %}
+      <span class="jast-stock">{{ stock.meta.name }}:
         {% if utils.getStockChange(stock) > 0 %}
           {% set colorClass = "high" %}
         {% elif utils.getStockChange(stock) < 0 %}
@@ -13,44 +13,29 @@
           {% set colorClass = "" %}
         {% endif %}
         <span class="{{ colorClass }}">
-          {{ utils.getCurrentValue(stock, exchangeData) }}
-          {{ utils.getCurrency(stock, exchangeData, config) }}
+          {{ utils.getCurrentValue(stock) }}
+          {{ utils.getCurrency(stock) }}
           {% if colorClass %}
             ({{ utils.getStockChange(stock) }}%)
           {% endif %}
         </span>
       </span>
     {% endfor %}
-    {% for crypto in config.crypto %}
-      <span class="jast-stock">{{ crypto.name }}:
-        {% if utils.getStockChange(crypto) > 0 %}
+    {% if config.showDepotGrowth %}
+      {% set depotGrowth = utils.getDepotGrowth(config, stocks) %}
+      {% for growth in depotGrowth %}
+        {% if growth.value > 0 %}
           {% set colorClass = "high" %}
-        {% elif utils.getStockChange(crypto) < 0 %}
+        {% elif growth.value < 0 %}
           {% set colorClass = "low " %}
         {% else %}
           {% set colorClass = "" %}
         {% endif %}
-        <span class="{{ colorClass }}">
-          {{ utils.getCurrentValue(crypto, exchangeData) }}
-          {{ utils.getCurrency(crypto, exchangeData, config) }}
-          {% if colorClass %}
-            ({{ utils.getStockChange(crypto) }}%)
-          {% endif %}
+      
+        <span class="jast-stock">{{ "depotGrowth" | translate | safe }}
+          <span class="{{ colorClass }}">{{ growth.value }} {{ growth.currency }}</span>
         </span>
-      </span>
-    {% endfor %}
-    {% if config.showDepotGrowth %}
-      {% set depotGrowth = utils.getDepotGrowth(config, exchangeData) %}
-      {% if depotGrowth.value > 0 %}
-        {% set colorClass = "high" %}
-      {% elif depotGrowth.value < 0 %}
-        {% set colorClass = "low " %}
-      {% else %}
-        {% set colorClass = "" %}
-      {% endif %}
-      <span class="jast-stock">{{ "depotGrowth" | translate | safe }}
-        <span class="{{ colorClass }}">{% if depotGrowth.errors%}≈ {% endif %}{{ depotGrowth.value }} {{ config.defaultCurrency }}</span>
-      </span>
+      {% endfor %}
     {% endif %}
     </span>
   </p>

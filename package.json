@@ -1,0 +1,33 @@
+{
+  "name": "mmm-jast",
+  "version": "1.0.0",
+  "description": "This is just another stock ticker for [Magic Mirror](https://magicmirror.builders/).",
+  "main": "MMM-Jast.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jalibu/MMM-Jast.git"
+  },
+  "author": "Jan.Litzenburger@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jalibu/MMM-Jast/issues"
+  },
+  "homepage": "https://github.com/jalibu/MMM-Jast#readme",
+  "dependencies": {
+    "yahoo-finance2": "^1.10.0"
+  },
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "npm run build -- --watch --mode development"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "@types/node": "^14.14.22",
+    "eslint": "^7.18.0",
+    "ts-loader": "^8.0.14",
+    "typescript": "^4.1.3",
+    "webpack": "^5.17.0",
+    "webpack-cli": "^4.4.0",
+    "webpack-node-externals": "^2.5.2"
+  }
+}
