@@ -64,6 +64,7 @@ Module.register("MMM-Jast", {
 
   scheduleUpdate() {
     const self = this;
+    this.config.updateIntervalInSeconds = this.config.updateIntervalInSeconds < 120 ? 120 : this.config.updateIntervalInSeconds
     setInterval(() => {
       self.loadData();
     }, this.config.updateIntervalInSeconds * 1000);

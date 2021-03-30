@@ -1,5 +1,5 @@
-# MMM-JaST - **J**ust **a**nother **S**tock **T**icker
-This is just another stock ticker for [Magic Mirror](https://magicmirror.builders/).
+# MMM-YaST - **Y**ahoo! **a**nother **S**tock **T**icker
+This is a minimalistic stock ticker for [Magic Mirror](https://magicmirror.builders/) based on Yahoo's finance API.  
 Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/topic/12507/mmm-jast-just-another-stock-ticker)
 
 ## Features
@@ -42,7 +42,7 @@ To use this module, add it to the modules array in the `config/config.js` file:
 ### Options
 | Field    					| Description 																	| Default 				|
 | -------- 					| -------- 																		| -------- 				|
-| updateIntervalInSeconds   | (Integer) Interval to refresh stock data from server.							| 300   	|
+| updateIntervalInSeconds   | (Integer) Interval to refresh stock data from server.	(min. 120)				| 300   	|
 | fadeSpeedInSeconds		| (Integer) Animation speed for ticker.	Higher value: vertical -> faster // horizontal -> slower										| 3.5   				|
 | stocks					| (Array<Stock>) Array of stocks to be displayed								| Sample set			|
 | scroll					| (String) Animation direction for ticker. Values: none, vertical or horizontal	| "vertical"  			|
