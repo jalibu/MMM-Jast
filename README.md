@@ -4,12 +4,14 @@ Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builder
 
 ## Features
 - Uses Yahoo Finance API to collect current stock values
+- Easy to use
+- No API Key required
 - Vertical scrolling
 - Horizontal scrolling
 - Depot value growth summary
 
 ## Installing the Module
-Navigate to the MagicMirror subfolder "modules" and execute the following command
+Navigate to the MagicMirror subfolder "modules" and execute the following command  
 `git clone https://github.com/jalibu/MMM-Jast.git`
 
 Install dependencies with  
