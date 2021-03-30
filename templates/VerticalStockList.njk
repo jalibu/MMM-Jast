@@ -4,9 +4,9 @@
   {% if config.scroll == "vertical" %}
     {{ vss.render(config) }}
     {% if config.showDepotGrowth %}
-      {% set fadeSpeed =  config.stocks.length + 1 %}
+      {% set fadeSpeed =  stocks.length + 1 %}
     {% else %}
-      {% set fadeSpeed =  config.stocks.length %}
+      {% set fadeSpeed =  stocks.length %}
     {% endif %}
       {% set animationStyle = ' style="animation-duration: ' + fadeSpeed * config.fadeSpeedInSeconds + 's"' %}
   {% endif %}
@@ -23,8 +23,11 @@
           <span class="{{ colorClass }}">
             {{ utils.getCurrentValue(stock) }}
             {{ utils.getCurrency(stock) }}
-            {% if colorClass %}
-              ({{ utils.getStockChange(stock) }}%)
+            {% if colorClass and (config.showChangeValue or config.showChangePercent) %}
+              <span class="jast-change">
+                ({% if config.showChangeValue %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getStockChange(stock) }}{% if config.showChangeValueCurrency %} {{ utils.getCurrency(stock) }}{% endif %}</span>{% endif %}
+                {% if config.showChangePercent %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getStockChangePercent(stock) }}%</span>{% endif %})
+              </span>
             {% endif %}
           </span>
         </li>

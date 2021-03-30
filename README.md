@@ -29,7 +29,10 @@ To use this module, add it to the modules array in the `config/config.js` file:
 		updateIntervalInSeconds: 300,
 		fadeSpeedInSeconds: 3.5, // Higher value: vertical -> faster // horizontal -> slower
 		scroll: "<none, vertical, horizontal>",
-		showDepotGrowth: true,
+		showChangePercent: true,
+		showChangeValue: false,
+		showChangeValueCurrency: false,
+		showDepotGrowth: false
 		stocks: [
 			{ name: "BASF", symbol: "BAS.DE", quantity: 10 },
 			{ name: "SAP", symbol: "SAP.DE", quantity: 15 },
@@ -46,7 +49,10 @@ To use this module, add it to the modules array in the `config/config.js` file:
 | fadeSpeedInSeconds		| (Integer) Animation speed for ticker.	Higher value: vertical -> faster // horizontal -> slower										| 3.5   				|
 | stocks					| (Array<Stock>) Array of stocks to be displayed								| Sample set			|
 | scroll					| (String) Animation direction for ticker. Values: none, vertical or horizontal	| "vertical"  			|
-| maxWidth					| (String) CSS style to limit ticker width										| "100%"   				|
+| maxWidth					| (String) CSS style to limit ticker width for vertical styles					| "100%"   				|
+| showChangePercent			| (Boolean) Show stocks change against last close in percent					| true   				|
+| showChangeValue			| (Boolean) Show stocks change against last close in absolute value				| false   				|
+| showChangeValueCurrency	| (Boolean) Show currency for change value										| false   				|
 | showDepotGrowth			| (Boolean) Show depot value growth summary in ticker							| false   				|
 
 ### Stock Object

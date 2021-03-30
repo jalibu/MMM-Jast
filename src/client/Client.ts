@@ -7,19 +7,18 @@ Module.register("MMM-Jast", {
     updateIntervalInSeconds: 600,
     fadeSpeedInSeconds: 3.5, // Higher value: vertical -> faster // horizontal -> slower
     stocks: [
-      { name: "BASF", symbol: "BAS.DE", quantity: 1 },
-      { name: "SAP", symbol: "SAP.DE", quantity: 2 },
+      { name: "BASF", symbol: "BAS.DE", quantity: 100 },
+      { name: "SAP", symbol: "SAP.DE", quantity: 200 },
       { name: "Henkel", symbol: "HEN3.DE" },
       { name: "AbbVie", symbol: "4AB.DE" },
       { name: "Bitcoin", symbol: "BTC-EUR" },
-      {
-        name: "Alibaba",
-        symbol: "BABA",
-        quantity: 10
-      }
+      { name: "Alibaba", symbol: "BABA" }
     ],
     scroll: "vertical",
-    maxWidth: "300px",
+    maxWidth: "100%",
+    showChangePercent: true,
+    showChangeValue: false,
+    showChangeValueCurrency: false,
     showDepotGrowth: false
   } as Config,
 
@@ -54,9 +53,7 @@ Module.register("MMM-Jast", {
     // Override defaults
     this.nunjucksEnvironment().loaders[0].async = false;
     this.nunjucksEnvironment().loaders[0].useCache = true;
-
     this.stocks = [];
-    this.error = null;
     this.loadData();
     this.scheduleUpdate();
     this.updateDom();
@@ -76,7 +73,6 @@ Module.register("MMM-Jast", {
 
   socketNotificationReceived(notificationIdentifier: string, payload: any) {
     if (notificationIdentifier === "STOCKS_RESULT") {
-      this.error = null;
       this.stocks = payload;
       this.updateDom();
       console.log("Stock results", this.stocks);

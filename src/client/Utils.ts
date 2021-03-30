@@ -4,6 +4,10 @@ import { Config } from "../models/Config"
 
 export default class JastUtils {
   static getStockChange(stock: StockResponse): number {
+    return Number((stock.price?.regularMarketChange).toFixed(2)) || 0
+  }
+
+  static getStockChangePercent(stock: StockResponse): number {
     return Number((stock.price?.regularMarketChangePercent * 100).toFixed(1)) || 0
   }
 

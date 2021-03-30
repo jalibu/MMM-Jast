@@ -1,11 +1,13 @@
 export type Config = {
-  debug: false,
   header: string,
   updateIntervalInSeconds: number,
   fadeSpeedInSeconds: number,
   stocks: Stock[],
   scroll: "vertical" | "horizontal" | "none",
   maxWidth: string,
+  showChangePercent: boolean,
+  showChangeValue: boolean,
+  showChangeValueCurrency: boolean,
   showDepotGrowth: boolean
 };
 
