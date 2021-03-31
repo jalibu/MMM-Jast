@@ -29,6 +29,7 @@ To use this module, add it to the modules array in the `config/config.js` file:
 		updateIntervalInSeconds: 300,
 		fadeSpeedInSeconds: 3.5, // Higher value: vertical -> faster // horizontal -> slower
 		scroll: "<none, vertical, horizontal>",
+		showCurrency: true,
 		showChangePercent: true,
 		showChangeValue: false,
 		showChangeValueCurrency: false,
