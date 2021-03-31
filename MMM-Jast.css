@@ -55,11 +55,12 @@
 }
 
 .jast-multi-currency::before {
+  color: #999;
   content: "| ";
 }
 
 .jast-wrapper .jast-stock span.jast-change {
-  vertical-align: bottom;
+  vertical-align: top;
   font-size: calc(var(--size) - 0.3em);
 }
 

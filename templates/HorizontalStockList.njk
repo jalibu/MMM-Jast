@@ -14,7 +14,7 @@
         {% endif %}
         <span class="{{ colorClass }}">
           {{ utils.getCurrentValue(stock) }}
-          {{ utils.getCurrency(stock) }}
+          {% if config.showCurrency %}{{ utils.getCurrency(stock) }}{% endif %}
           {% if colorClass and (config.showChangeValue or config.showChangePercent) %}
             <span class="jast-change">
               ({% if config.showChangeValue %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getStockChange(stock) }}{% if config.showChangeValueCurrency %} {{ utils.getCurrency(stock) }}{% endif %}</span>{% endif %}

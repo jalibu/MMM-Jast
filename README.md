@@ -50,6 +50,7 @@ To use this module, add it to the modules array in the `config/config.js` file:
 | stocks					| (Array<Stock>) Array of stocks to be displayed								| Sample set			|
 | scroll					| (String) Animation direction for ticker. Values: none, vertical or horizontal	| "vertical"  			|
 | maxWidth					| (String) CSS style to limit ticker width for vertical styles					| "100%"   				|
+| showCurrency				| (Boolean) Show stocks currency												| true   				|
 | showChangePercent			| (Boolean) Show stocks change against last close in percent					| true   				|
 | showChangeValue			| (Boolean) Show stocks change against last close in absolute value				| false   				|
 | showChangeValueCurrency	| (Boolean) Show currency for change value										| false   				|

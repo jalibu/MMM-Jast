@@ -5,6 +5,7 @@ export type Config = {
   stocks: Stock[],
   scroll: "vertical" | "horizontal" | "none",
   maxWidth: string,
+  showCurrency: boolean,
   showChangePercent: boolean,
   showChangeValue: boolean,
   showChangeValueCurrency: boolean,
