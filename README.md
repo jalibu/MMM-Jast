@@ -14,8 +14,11 @@ Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builder
 Navigate to the MagicMirror subfolder "modules" and execute the following command  
 `git clone https://github.com/jalibu/MMM-Jast.git`
 
-Install dependencies with  
-`npm i`
+Change into the MMM-Jast module folder and install dependencies with  
+```
+cd MMM-Jast
+npm i
+```
 
 To use this module, add it to the modules array in the `config/config.js` file:
 
@@ -33,7 +36,7 @@ To use this module, add it to the modules array in the `config/config.js` file:
 		showChangePercent: true,
 		showChangeValue: false,
 		showChangeValueCurrency: false,
-		showDepotGrowth: false
+		showDepotGrowth: false,
 		stocks: [
 			{ name: "BASF", symbol: "BAS.DE", quantity: 10 },
 			{ name: "SAP", symbol: "SAP.DE", quantity: 15 },
