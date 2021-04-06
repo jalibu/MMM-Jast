@@ -1,6 +1,6 @@
 # MMM-JaST - **J**ust **a**nother **S**tock **T**icker
 This is a minimalistic stock ticker for [Magic Mirror](https://magicmirror.builders/) based on Yahoo's finance API.  
-Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/topic/12507/mmm-jast-just-another-stock-ticker)
+Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/topic/12507/mmm-jast-just-another-stock-ticker).
 
 ## Features
 - Uses Yahoo Finance API to collect current stock values
