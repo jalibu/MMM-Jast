@@ -15,6 +15,18 @@ export default class JastUtils {
     return Number(stock.price?.regularMarketPrice?.toFixed(config.numberDecimalsValues)) || 0
   }
 
+  static getStockChangeAsString(stock: StockResponse, config: Config): string {
+    return this.getStockChange(stock, config).toLocaleString()
+  }
+
+  static getStockChangePercentAsString(stock: StockResponse, config: Config): string {
+    return this.getStockChangePercent(stock, config).toLocaleString()
+  }
+
+  static getCurrentValueAsString(stock: StockResponse, config: Config): string {
+    return this.getCurrentValue(stock, config).toLocaleString()
+  }
+
   static getCurrency(stock: StockResponse): string {
     return stock.summaryDetail?.currency || "?"
   }
@@ -34,7 +46,7 @@ export default class JastUtils {
           if (existingCurrency) {
             existingCurrency.value = existingCurrency.value + growthForStock
           } else {
-            depotGrowth.push({ value: growthForStock, currency: stock.price.currency })
+            depotGrowth.push({ value: growthForStock, currency: stock.price.currency, valueAsString: growthForStock.toLocaleString() })
           }
         }
       } catch (err) {

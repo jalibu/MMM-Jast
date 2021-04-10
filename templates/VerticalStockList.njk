@@ -21,12 +21,12 @@
             {% set colorClass = "" %}
           {% endif %}
           <span class="{{ colorClass }}">
-            {{ utils.getCurrentValue(stock, config) }}
+            {{ utils.getCurrentValueAsString(stock, config) }}
             {% if config.showCurrency %}{{ utils.getCurrency(stock) }}{% endif %}
             {% if colorClass and (config.showChangeValue or config.showChangePercent) %}
               <span class="jast-change">
-                ({% if config.showChangeValue %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getStockChange(stock, config) }}{% if config.showChangeValueCurrency %} {{ utils.getCurrency(stock) }}{% endif %}</span>{% endif %}
-                {% if config.showChangePercent %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getStockChangePercent(stock, config) }}%</span>{% endif %})
+                ({% if config.showChangeValue %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getStockChangeAsString(stock, config) }}{% if config.showChangeValueCurrency %} {{ utils.getCurrency(stock) }}{% endif %}</span>{% endif %}
+                {% if config.showChangePercent %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getStockChangePercentAsString(stock, config) }}%</span>{% endif %})
               </span>
             {% endif %}
           </span>
@@ -43,7 +43,7 @@
             {% else %}
               {% set colorClass = "" %}
             {% endif %}
-            <span class="{{ colorClass }}{% if loop.index != 1 %} jast-multi-currency{% endif %}">{{ growth.value }} {{ growth.currency }}</span>
+            <span class="{{ colorClass }}{% if loop.index != 1 %} jast-multi-currency{% endif %}">{{ growth.valueAsString }} {{ growth.currency }}</span>
           {% endfor %}
         </li>
       {% endif %}
