@@ -3,12 +3,24 @@ This is a minimalistic stock ticker for [Magic Mirror](https://magicmirror.build
 Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/topic/12507/mmm-jast-just-another-stock-ticker).
 
 ## Features
-- Uses Yahoo Finance API to collect current stock values
-- Easy to use
-- No API Key required
-- Vertical scrolling
-- Horizontal scrolling
-- Depot value growth summary
+* Uses Yahoo Finance API to collect current  
+    * stock values
+    * indexes
+    * cryptocurrencies
+* No API Key required
+* Vertical or horizontal scrolling or static list
+* Depot value growth summary
+* Very customizable
+* Easy to use
+
+Horizontal  
+<img src="docs/horizontal.gif">  
+
+Vertical  
+<img src="docs/vertical.gif" height="40px">  
+
+Static  
+<img src="docs/static.png" height="140px">
 
 ## Installing the Module
 Navigate to the MagicMirror subfolder `MagicMirror/modules` and execute the following command  
