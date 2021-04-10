@@ -1,6 +1,6 @@
-# MMM-YaST - **Y**ahoo! **a**nother **S**tock **T**icker
+# MMM-JaST - **J**ust **a**nother **S**tock **T**icker
 This is a minimalistic stock ticker for [Magic Mirror](https://magicmirror.builders/) based on Yahoo's finance API.  
-Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/topic/12507/mmm-jast-just-another-stock-ticker)
+Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/topic/12507/mmm-jast-just-another-stock-ticker).
 
 ## Features
 - Uses Yahoo Finance API to collect current stock values
@@ -11,13 +11,16 @@ Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builder
 - Depot value growth summary
 
 ## Installing the Module
-Navigate to the MagicMirror subfolder "modules" and execute the following command  
+Navigate to the MagicMirror subfolder `MagicMirror/modules` and execute the following command  
 `git clone https://github.com/jalibu/MMM-Jast.git`
 
-Install dependencies with  
-`npm i`
+Change into the MMM-Jast module folder and install dependencies with  
+```
+cd MMM-Jast
+npm i
+```
 
-To use this module, add it to the modules array in the `config/config.js` file:
+To use this module, add it to the modules array in the `MagicMirror/config/config.js` file:
 
 ### Sample
 ```javascript
@@ -28,7 +31,7 @@ To use this module, add it to the modules array in the `config/config.js` file:
 		maxWidth: "100%",
 		updateIntervalInSeconds: 300,
 		fadeSpeedInSeconds: 3.5, // Higher value: vertical -> faster // horizontal -> slower
-		scroll: "<none, vertical, horizontal>",
+		scroll: "vertical", // One of ["none", "vertical", "horizontal"]
 		showCurrency: true,
 		showChangePercent: true,
 		showChangeValue: false,
