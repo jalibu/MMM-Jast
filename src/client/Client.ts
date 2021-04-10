@@ -16,6 +16,8 @@ Module.register("MMM-Jast", {
     ],
     scroll: "vertical",
     maxWidth: "100%",
+    numberDecimalsValues: 2,
+    numberDecimalsPercentages: 1,
     showCurrency: true,
     showChangePercent: true,
     showChangeValue: false,

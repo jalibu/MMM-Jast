@@ -3,23 +3,27 @@ import { StockResponse } from "../models/StockResponse"
 import { Config } from "../models/Config"
 
 export default class JastUtils {
-  static getStockChange(stock: StockResponse): number {
-    return Number((stock.price?.regularMarketChange).toFixed(2)) || 0
+  static getStockChange(stock: StockResponse, config: Config): number {
+    return Number((stock.price?.regularMarketChange).toFixed(config.numberDecimalsValues)) || 0
   }
 
-  static getStockChangePercent(stock: StockResponse): number {
-    return Number((stock.price?.regularMarketChangePercent * 100).toFixed(1)) || 0
+  static getStockChangePercent(stock: StockResponse, config: Config): number {
+    return Number((stock.price?.regularMarketChangePercent * 100).toFixed(config.numberDecimalsPercentages)) || 0
   }
 
-  static getCurrentValue(stock: StockResponse): number {
-    return Number(stock.price?.regularMarketPrice?.toFixed(2)) || 0
+  static getCurrentValue(stock: StockResponse, config: Config): number {
+    return Number(stock.price?.regularMarketPrice?.toFixed(config.numberDecimalsValues)) || 0
   }
 
   static getCurrency(stock: StockResponse): string {
     return stock.summaryDetail?.currency || "?"
   }
 
-  static getDepotGrowth(config: Config, stocks: StockResponse[]): DepotGrowth[] {
+  static getStockName(stock: StockResponse): string {
+    return stock.meta.name || stock.price.longName
+  }
+
+  static getDepotGrowth(stocks: StockResponse[], config: Config): DepotGrowth[] {
     let depotGrowth: DepotGrowth[] = []
     for (const stock of stocks) {
       try {
@@ -40,7 +44,7 @@ export default class JastUtils {
     }
 
     depotGrowth.forEach(growth => {
-      growth.value = Number(growth.value.toFixed(2))
+      growth.value = Number(growth.value.toFixed(config.numberDecimalsValues))
     })
     return depotGrowth
   }

@@ -33,7 +33,9 @@ To use this module, add it to the modules array in the `config/config.js` file:
 		showChangePercent: true,
 		showChangeValue: false,
 		showChangeValueCurrency: false,
-		showDepotGrowth: false
+		showDepotGrowth: false,
+		numberDecimalsValues: 2,
+		numberDecimalsPercentages: 1,
 		stocks: [
 			{ name: "BASF", symbol: "BAS.DE", quantity: 10 },
 			{ name: "SAP", symbol: "SAP.DE", quantity: 15 },
@@ -51,6 +53,8 @@ To use this module, add it to the modules array in the `config/config.js` file:
 | stocks					| (Array<Stock>) Array of stocks to be displayed								| Sample set			|
 | scroll					| (String) Animation direction for ticker. Values: none, vertical or horizontal	| "vertical"  			|
 | maxWidth					| (String) CSS style to limit ticker width for vertical styles					| "100%"   				|
+| numberDecimalsValues		| (Number) Number of decimals for stock values  								| 2   	     			|
+| numberDecimalsPercentages	| (Number) Number of decimals for percentages									| 1	    				|
 | showCurrency				| (Boolean) Show stocks currency												| true   				|
 | showChangePercent			| (Boolean) Show stocks change against last close in percent					| true   				|
 | showChangeValue			| (Boolean) Show stocks change against last close in absolute value				| false   				|
@@ -60,6 +64,6 @@ To use this module, add it to the modules array in the `config/config.js` file:
 ### Stock Object
 | Field    			| Description 														| Example 	|
 | -------- 			| -------- 															| -------- 	|
-| name   			| (String) Stock's display name   									| "Alibaba"	|
 | symbol   			| (String) Stock's symbol/key   									| "BABA"   	|
+| name   			| (String) Optional: Stock's display name   						| "Alibaba"	|
 | quantity   		| (Integer) Optional: To calculate depotGrowth   					| 500   	|

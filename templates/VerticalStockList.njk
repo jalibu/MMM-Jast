@@ -12,28 +12,28 @@
   {% endif %}
     <ul {{ animationStyle | safe }}>
       {% for stock in stocks %}
-        <li class="jast-stock">{{ stock.meta.name }}:
-          {% if utils.getStockChange(stock) > 0 %}
+        <li class="jast-stock">{{ utils.getStockName(stock) }}:
+          {% if utils.getStockChange(stock, config) > 0 %}
             {% set colorClass = "high" %}
-          {% elif utils.getStockChange(stock) < 0 %}
+          {% elif utils.getStockChange(stock, config) < 0 %}
             {% set colorClass = "low " %}
           {% else %}
             {% set colorClass = "" %}
           {% endif %}
           <span class="{{ colorClass }}">
-            {{ utils.getCurrentValue(stock) }}
+            {{ utils.getCurrentValue(stock, config) }}
             {% if config.showCurrency %}{{ utils.getCurrency(stock) }}{% endif %}
             {% if colorClass and (config.showChangeValue or config.showChangePercent) %}
               <span class="jast-change">
-                ({% if config.showChangeValue %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getStockChange(stock) }}{% if config.showChangeValueCurrency %} {{ utils.getCurrency(stock) }}{% endif %}</span>{% endif %}
-                {% if config.showChangePercent %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getStockChangePercent(stock) }}%</span>{% endif %})
+                ({% if config.showChangeValue %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getStockChange(stock, config) }}{% if config.showChangeValueCurrency %} {{ utils.getCurrency(stock) }}{% endif %}</span>{% endif %}
+                {% if config.showChangePercent %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getStockChangePercent(stock, config) }}%</span>{% endif %})
               </span>
             {% endif %}
           </span>
         </li>
       {% endfor %}
       {% if config.showDepotGrowth %}
-        {% set depotGrowth = utils.getDepotGrowth(config, stocks) %}
+        {% set depotGrowth = utils.getDepotGrowth(stocks, config) %}
           <li class="jast-stock">{{ "depotGrowth" | translate | safe }}
             {% for growth in depotGrowth %}
             {% if growth.value > 0 %}
