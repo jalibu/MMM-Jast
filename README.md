@@ -45,7 +45,7 @@ To use this module, add it to the modules array in the `MagicMirror/config/confi
 		fadeSpeedInSeconds: 3.5, // Higher value: vertical -> faster // horizontal -> slower
 		scroll: "vertical", // One of ["none", "vertical", "horizontal"]
 		useGrouping: false,
-    	currencyStyle: "code", // One of ["code", "symbol", "name"]
+		currencyStyle: "code", // One of ["code", "symbol", "name"]
 		showCurrency: true,
 		showChangePercent: true,
 		showChangeValue: false,
