@@ -15,3 +15,5 @@ declare module Module {
     }
   ): void;
 }
+
+declare const config: any

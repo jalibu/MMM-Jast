@@ -44,6 +44,8 @@ To use this module, add it to the modules array in the `MagicMirror/config/confi
 		updateIntervalInSeconds: 300,
 		fadeSpeedInSeconds: 3.5, // Higher value: vertical -> faster // horizontal -> slower
 		scroll: "vertical", // One of ["none", "vertical", "horizontal"]
+		useGrouping: false,
+    	currencyStyle: "code", // One of ["code", "symbol", "name"]
 		showCurrency: true,
 		showChangePercent: true,
 		showChangeValue: false,
@@ -64,17 +66,19 @@ To use this module, add it to the modules array in the `MagicMirror/config/confi
 | Field    					| Description 																	| Default 				|
 | -------- 					| -------- 																		| -------- 				|
 | updateIntervalInSeconds   | (Integer) Interval to refresh stock data from server.	(min. 120)				| 300   	|
-| fadeSpeedInSeconds		| (Integer) Animation speed for ticker.	Higher value: vertical -> faster // horizontal -> slower										| 3.5   				|
+| fadeSpeedInSeconds		| (Integer) Animation speed for ticker.	Higher value: vertical -> faster // horizontal -> slower		| 3.5   				|
 | stocks					| (Array<Stock>) Array of stocks to be displayed								| Sample set			|
 | scroll					| (String) Animation direction for ticker. Values: none, vertical or horizontal	| "vertical"  			|
 | maxWidth					| (String) CSS style to limit ticker width for vertical styles					| "100%"   				|
 | numberDecimalsValues		| (Number) Number of decimals for stock values  								| 2   	     			|
 | numberDecimalsPercentages	| (Number) Number of decimals for percentages									| 1	    				|
+| currencyStyle				| (String) Style of currency. Possible values: "code" (EUR), "symbol" (€), "name" (Euro)				| "code"	  			|
 | showCurrency				| (Boolean) Show stocks currency												| true   				|
 | showChangePercent			| (Boolean) Show stocks change against last close in percent					| true   				|
 | showChangeValue			| (Boolean) Show stocks change against last close in absolute value				| false   				|
 | showChangeValueCurrency	| (Boolean) Show currency for change value										| false   				|
 | showDepotGrowth			| (Boolean) Show depot value growth summary in ticker							| false   				|
+| useGrouping				| (Boolean) Add grouping to high value numbers (i.e. BTC 60,000.00 EUR)			| false   				|
 
 ### Stock Object
 | Field    			| Description 														| Example 	|

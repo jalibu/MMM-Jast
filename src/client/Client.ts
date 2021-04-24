@@ -4,7 +4,10 @@ import { Config } from "../models/Config";
 Module.register("MMM-Jast", {
   defaults: {
     header: null,
+    locale: config.locale || "en-GB",
     updateIntervalInSeconds: 600,
+    useGrouping: false,
+    currencyStyle: "code",
     fadeSpeedInSeconds: 3.5, // Higher value: vertical -> faster // horizontal -> slower
     stocks: [
       { name: "BASF", symbol: "BAS.DE", quantity: 100 },
@@ -41,10 +44,11 @@ Module.register("MMM-Jast", {
   },
 
   getTemplateData() {
+    const utils = new Utils(this.config);
     return {
       config: this.config,
       stocks: this.stocks,
-      utils: Utils
+      utils
     };
   },
 
@@ -64,7 +68,10 @@ Module.register("MMM-Jast", {
 
   scheduleUpdate() {
     const self = this;
-    this.config.updateIntervalInSeconds = this.config.updateIntervalInSeconds < 120 ? 120 : this.config.updateIntervalInSeconds
+    this.config.updateIntervalInSeconds =
+      this.config.updateIntervalInSeconds < 120
+        ? 120
+        : this.config.updateIntervalInSeconds;
     setInterval(() => {
       self.loadData();
     }, this.config.updateIntervalInSeconds * 1000);

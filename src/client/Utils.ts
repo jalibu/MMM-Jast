@@ -1,62 +1,137 @@
-import { DepotGrowth } from "../models/DepotGrowth";
-import { StockResponse } from "../models/StockResponse"
-import { Config } from "../models/Config"
+import { DepotGrowth } from '../models/DepotGrowth'
+import { StockResponse } from '../models/StockResponse'
+import { Config } from '../models/Config'
+
+type CurrencyStyle = {
+  useGrouping: boolean
+  style: string
+  currency?: string
+  currencyDisplay: string
+  minimumFractionDigits: number
+}
+
+type PercentStyle = {
+  useGrouping: boolean
+  style?: string
+  minimumFractionDigits: number
+}
 
 export default class JastUtils {
-  static getStockChange(stock: StockResponse, config: Config): number {
-    return Number((stock.price?.regularMarketChange).toFixed(config.numberDecimalsValues)) || 0
+  config: Config
+  currentValueStyle: CurrencyStyle
+  changeValueStyle: CurrencyStyle
+  percentStyle: PercentStyle
+
+  constructor(config: Config) {
+    this.config = config
+
+    this.currentValueStyle = {
+      style: config.showCurrency ? 'currency' : 'decimal',
+      useGrouping: config.useGrouping,
+      currencyDisplay: config.currencyStyle,
+      minimumFractionDigits:
+        config.numberDecimalsValues <= 8 ? config.numberDecimalsValues : 8
+    }
+
+    this.changeValueStyle = {
+      style: config.showChangeValueCurrency ? 'currency' : 'decimal',
+      useGrouping: config.useGrouping,
+      currencyDisplay: config.currencyStyle,
+      minimumFractionDigits:
+        config.numberDecimalsValues <= 8 ? config.numberDecimalsValues : 8
+    }
+
+    this.percentStyle = {
+      style: 'percent',
+      useGrouping: config.useGrouping,
+      minimumFractionDigits:
+        config.numberDecimalsPercentages <= 8
+          ? config.numberDecimalsPercentages
+          : 8
+    }
+  }
+  getStockChange(stock: StockResponse): number {
+    return stock.price?.regularMarketChange
   }
 
-  static getStockChangePercent(stock: StockResponse, config: Config): number {
-    return Number((stock.price?.regularMarketChangePercent * 100).toFixed(config.numberDecimalsPercentages)) || 0
+  getStockChangePercent(stock: StockResponse): number {
+    return stock.price?.regularMarketChangePercent
   }
 
-  static getCurrentValue(stock: StockResponse, config: Config): number {
-    return Number(stock.price?.regularMarketPrice?.toFixed(config.numberDecimalsValues)) || 0
+  getCurrentValue(stock: StockResponse): number {
+    return stock.price?.regularMarketPrice
   }
 
-  static getStockChangeAsString(stock: StockResponse, config: Config): string {
-    return this.getStockChange(stock, config).toLocaleString()
+  getStockChangeAsString(stock: StockResponse): string {
+    return this.getStockChange(stock).toLocaleString(
+      this.config.locale,
+      Object.assign(this.changeValueStyle, {
+        currency: stock.summaryDetail.currency
+      })
+    )
   }
 
-  static getStockChangePercentAsString(stock: StockResponse, config: Config): string {
-    return this.getStockChangePercent(stock, config).toLocaleString()
+  getStockChangePercentAsString(stock: StockResponse): string {
+    return this.getStockChangePercent(stock).toLocaleString(
+      this.config.locale,
+      this.percentStyle
+    )
   }
 
-  static getCurrentValueAsString(stock: StockResponse, config: Config): string {
-    return this.getCurrentValue(stock, config).toLocaleString()
+  getCurrentValueAsString(stock: StockResponse): string {
+    return this.getCurrentValue(stock).toLocaleString(
+      this.config.locale,
+      Object.assign(this.currentValueStyle, {
+        currency: stock.summaryDetail.currency
+      })
+    )
   }
 
-  static getCurrency(stock: StockResponse): string {
-    return stock.summaryDetail?.currency || "?"
-  }
-
-  static getStockName(stock: StockResponse): string {
+  getStockName(stock: StockResponse): string {
     return stock.meta.name || stock.price.longName
   }
 
-  static getDepotGrowth(stocks: StockResponse[], config: Config): DepotGrowth[] {
+  getStockGrowthAsString(growth: DepotGrowth) {
+    return growth.value.toLocaleString(
+      this.config.locale,
+      Object.assign(this.currentValueStyle, {
+        currency: growth.currency
+      })
+    )
+  }
+
+  getDepotGrowth(stocks: StockResponse[]): DepotGrowth[] {
     let depotGrowth: DepotGrowth[] = []
     for (const stock of stocks) {
       try {
-        const configStock = config.stocks?.find(current => current.symbol === stock.meta?.symbol)
+        const configStock = this.config.stocks?.find(
+          (current) => current.symbol === stock.meta?.symbol
+        )
         if (configStock?.quantity) {
-          const growthForStock = stock.price?.regularMarketChange * configStock.quantity
-          const existingCurrency = depotGrowth.find(growth => growth.currency === stock.price.currency)
+          const growthForStock =
+            stock.price?.regularMarketChange * configStock.quantity
+          const existingCurrency = depotGrowth.find(
+            (growth) => growth.currency === stock.price.currency
+          )
           if (existingCurrency) {
             existingCurrency.value = existingCurrency.value + growthForStock
           } else {
-            depotGrowth.push({ value: growthForStock, currency: stock.price.currency, valueAsString: growthForStock.toLocaleString() })
+            depotGrowth.push({
+              value: growthForStock,
+              currency: stock.price.currency,
+              valueAsString: growthForStock.toLocaleString()
+            })
           }
         }
       } catch (err) {
         console.warn('There was a problem calculating the detpot growth', err)
       }
-
     }
 
-    depotGrowth.forEach(growth => {
-      growth.value = Number(growth.value.toFixed(config.numberDecimalsValues))
+    depotGrowth.forEach((growth) => {
+      growth.value = Number(
+        growth.value.toFixed(this.config.numberDecimalsValues)
+      )
     })
     return depotGrowth
   }

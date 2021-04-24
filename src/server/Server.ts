@@ -1,29 +1,30 @@
-import * as NodeHelper from "node_helper";
+import * as NodeHelper from 'node_helper'
 import { Config } from '../models/Config'
-import yahooFinance from 'yahoo-finance2';
-import { StockResponse } from "../models/StockResponse";
+import yahooFinance from 'yahoo-finance2'
+import { StockResponse } from '../models/StockResponse'
 
 module.exports = NodeHelper.create({
   start() {
-    console.log(`${this.name} helper method started...`);
+    console.log(`${this.name} helper method started...`)
   },
 
   async requestStocks(config: Config): Promise<StockResponse[]> {
-
-    let results = [];
+    let results = []
     for (const stock of config.stocks) {
-      try{
-        const {summaryDetail, price} = await yahooFinance.quoteSummary(stock.symbol)
-        if(summaryDetail && price){
+      try {
+        const { summaryDetail, price } = await yahooFinance.quoteSummary(
+          stock.symbol
+        )
+        if (summaryDetail && price) {
           const meta = {
             symbol: stock.symbol,
             name: stock.name,
             quantity: stock.quantity
           }
-          results.push({summaryDetail, price, meta})
+          results.push({ summaryDetail, price, meta })
         }
-      } catch (err){
-        console.error("There was an error requesting the API.", err.message)
+      } catch (err) {
+        console.error('There was an error requesting the API.', err.message)
       }
     }
 
@@ -32,11 +33,11 @@ module.exports = NodeHelper.create({
 
   async socketNotificationReceived(notification, config) {
     if (notification) {
-      const stocks = await this.requestStocks(config);
+      const stocks = await this.requestStocks(config)
 
-      this.sendSocketNotification("STOCKS_RESULT", stocks);
+      this.sendSocketNotification('STOCKS_RESULT', stocks)
     } else {
-      console.warn(`${notification} is invalid notification`);
+      console.warn(`${notification} is invalid notification`)
     }
   }
-});
+})
