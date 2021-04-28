@@ -23,18 +23,28 @@
         </span>
       </span>
     {% endfor %}
-    {% if config.showDepotGrowth %}
-      {% set depotGrowth = utils.getDepotGrowth(stocks) %}
-        <span class="jast-stock">{{ "depotGrowth" | translate | safe }}
-          {% for growth in depotGrowth %}
-            {% if growth.value > 0 %}
+    {% if config.showDepot or config.showDepotGrowth or config.showDepotGrowthPercent%}
+      {% set depot = utils.getDepot(stocks) %}
+        <span class="jast-stock">{{ "depot" | translate | safe }}
+          {% for entry in depot %}
+            {% if entry.value > entry.oldValue %}
               {% set colorClass = "high" %}
-            {% elif growth.value < 0 %}
+            {% elif entry.value < entry.oldValue %}
               {% set colorClass = "low " %}
             {% else %}
               {% set colorClass = "" %}
             {% endif %}
-            <span class="{{ colorClass }}{% if loop.index != 1 %} jast-multi-currency{% endif %}">{{ utils.getStockGrowthAsString(growth) }}</span>
+            <span class="{{ colorClass }}{% if loop.index != 1 %} jast-multi-currency{% endif %}">
+              {% if config.showDepot %} {{ utils.getDepotValueAsString(entry) }} {% endif %}
+              
+              {% if config.showDepotGrowth or config.showDepotGrowthPercent %}
+                {% if config.showDepot %}<span class="jast-change">({% endif %}
+                {% if config.showDepotGrowth %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getDepotChangeAsString(entry) }}</span>{% endif %}
+                {% if config.showDepotGrowthPercent %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getDepotChangePercentAsString(entry) }}</span>{% endif %}
+                {% if config.showDepot %})</span>{% endif %}
+              {% endif %}
+            
+            </span>
           {% endfor %}
         </span>
       {% endif %}

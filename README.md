@@ -46,10 +46,13 @@ To use this module, add it to the modules array in the `MagicMirror/config/confi
 		scroll: "vertical", // One of ["none", "vertical", "horizontal"]
 		useGrouping: false,
 		currencyStyle: "code", // One of ["code", "symbol", "name"]
+		showColors: true,
 		showCurrency: true,
 		showChangePercent: true,
 		showChangeValue: false,
 		showChangeValueCurrency: false,
+		showDepot: false,
+		showDepotGrowthPercent: false,
 		showDepotGrowth: false,
 		numberDecimalsValues: 2,
 		numberDecimalsPercentages: 1,
@@ -73,11 +76,14 @@ To use this module, add it to the modules array in the `MagicMirror/config/confi
 | numberDecimalsValues		| (Number) Number of decimals for stock values  								| 2   	     			|
 | numberDecimalsPercentages	| (Number) Number of decimals for percentages									| 1	    				|
 | currencyStyle				| (String) Style of currency. Possible values: "code" (EUR), "symbol" (€), "name" (Euro)				| "code"	  			|
+| showColors				| (Boolean) Colorize positive numbers in green, negatives in red				| true   				|
 | showCurrency				| (Boolean) Show stocks currency												| true   				|
 | showChangePercent			| (Boolean) Show stocks change against last close in percent					| true   				|
 | showChangeValue			| (Boolean) Show stocks change against last close in absolute value				| false   				|
 | showChangeValueCurrency	| (Boolean) Show currency for change value										| false   				|
-| showDepotGrowth			| (Boolean) Show depot value growth summary in ticker							| false   				|
+| showDepot					| (Boolean) Show depot value													| false   				|
+| showDepotGrowth			| (Boolean) Show depot value growth summary										| false   				|
+| showDepotGrowthPercent	| (Boolean) Show depot value growth summary in percent							| false   				|
 | useGrouping				| (Boolean) Add grouping to high value numbers (i.e. BTC 60,000.00 EUR)			| false   				|
 
 ### Stock Object

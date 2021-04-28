@@ -1,4 +1,4 @@
-import { DepotGrowth } from '../models/DepotGrowth'
+import { Depot } from '../models/Depot'
 import { StockResponse } from '../models/StockResponse'
 import { Config } from '../models/Config'
 
@@ -91,35 +91,58 @@ export default class JastUtils {
     return stock.meta.name || stock.price.longName
   }
 
-  getStockGrowthAsString(growth: DepotGrowth) {
-    return growth.value.toLocaleString(
+  getDepotValueAsString(depot: Depot) {
+    return depot.value.toLocaleString(
       this.config.locale,
       Object.assign(this.currentValueStyle, {
-        currency: growth.currency
+        currency: depot.currency
       })
     )
   }
 
-  getDepotGrowth(stocks: StockResponse[]): DepotGrowth[] {
-    let depotGrowth: DepotGrowth[] = []
+  getDepotChangeAsString(depot: Depot) {
+    const change = depot.value - depot.oldValue
+    return change.toLocaleString(
+      this.config.locale,
+      Object.assign(this.currentValueStyle, {
+        currency: depot.currency
+      })
+    )
+  }
+
+  getDepotChangePercentAsString(depot: Depot): string {
+    const change = (depot.value - depot.oldValue) / depot.oldValue
+    return change.toLocaleString(
+      this.config.locale,
+      this.percentStyle
+    )
+  }
+  
+
+  getDepot(stocks: StockResponse[]): Depot[] {
+    let depot: Depot[] = []
     for (const stock of stocks) {
       try {
         const configStock = this.config.stocks?.find(
           (current) => current.symbol === stock.meta?.symbol
         )
         if (configStock?.quantity) {
-          const growthForStock =
-            stock.price?.regularMarketChange * configStock.quantity
-          const existingCurrency = depotGrowth.find(
+          const currentStockValue =
+            stock.price?.regularMarketPrice * configStock.quantity
+          const lastStockValue =
+            stock.price?.regularMarketPreviousClose * configStock.quantity
+          const existingCurrency = depot.find(
             (growth) => growth.currency === stock.price.currency
           )
+          console.log("add", currentStockValue, lastStockValue, stock.meta.name)
           if (existingCurrency) {
-            existingCurrency.value = existingCurrency.value + growthForStock
+            existingCurrency.value = existingCurrency.value + currentStockValue
+            existingCurrency.oldValue = existingCurrency.oldValue + lastStockValue
           } else {
-            depotGrowth.push({
-              value: growthForStock,
-              currency: stock.price.currency,
-              valueAsString: growthForStock.toLocaleString()
+            depot.push({
+              value: currentStockValue,
+              oldValue: lastStockValue,
+              currency: stock.price.currency
             })
           }
         }
@@ -128,11 +151,7 @@ export default class JastUtils {
       }
     }
 
-    depotGrowth.forEach((growth) => {
-      growth.value = Number(
-        growth.value.toFixed(this.config.numberDecimalsValues)
-      )
-    })
-    return depotGrowth
+    console.log("depot", depot)
+    return depot
   }
 }

@@ -21,11 +21,14 @@ Module.register("MMM-Jast", {
     maxWidth: "100%",
     numberDecimalsValues: 2,
     numberDecimalsPercentages: 1,
+    showColors: true,
     showCurrency: true,
     showChangePercent: true,
     showChangeValue: false,
     showChangeValueCurrency: false,
-    showDepotGrowth: false
+    showDepot: false,
+    showDepotGrowth: false,
+    showDepotGrowthPercent: false
   } as Config,
 
   getStyles() {

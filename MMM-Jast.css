@@ -47,10 +47,10 @@
   margin-left: 0.4em;
 }
 
-.jast-wrapper .jast-stock span.high {
+.jast-wrapper:not(.monochrome) .jast-stock span.high {
   color: green;
 }
-.jast-wrapper .jast-stock span.low {
+.jast-wrapper:not(.monochrome) .jast-stock span.low {
   color: red;
 }
 
