@@ -134,7 +134,7 @@ export default class JastUtils {
           const existingCurrency = depot.find(
             (growth) => growth.currency === stock.price.currency
           )
-          console.log("add", currentStockValue, lastStockValue, stock.meta.name)
+          
           if (existingCurrency) {
             existingCurrency.value = existingCurrency.value + currentStockValue
             existingCurrency.oldValue = existingCurrency.oldValue + lastStockValue
@@ -151,7 +151,7 @@ export default class JastUtils {
       }
     }
 
-    console.log("depot", depot)
+    console.debug("Depot", depot)
     return depot
   }
 }

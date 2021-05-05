@@ -3,7 +3,6 @@ import { Config } from "../models/Config";
 
 Module.register("MMM-Jast", {
   defaults: {
-    header: null,
     locale: config.locale || "en-GB",
     updateIntervalInSeconds: 600,
     useGrouping: false,
@@ -55,10 +54,6 @@ Module.register("MMM-Jast", {
     };
   },
 
-  getHeader() {
-    return this.config.header;
-  },
-
   start() {
     // Override defaults
     this.nunjucksEnvironment().loaders[0].async = false;
@@ -88,7 +83,7 @@ Module.register("MMM-Jast", {
     if (notificationIdentifier === "STOCKS_RESULT") {
       this.stocks = payload;
       this.updateDom();
-      console.log("Stock results", this.stocks);
+      console.debug("Stocks", this.stocks);
     }
   }
 });
