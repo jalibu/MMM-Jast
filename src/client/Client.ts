@@ -27,7 +27,8 @@ Module.register("MMM-Jast", {
     showChangeValueCurrency: false,
     showDepot: false,
     showDepotGrowth: false,
-    showDepotGrowthPercent: false
+    showDepotGrowthPercent: false,
+    virtualHorizontalMultiplier: 2
   } as Config,
 
   getStyles() {

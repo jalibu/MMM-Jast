@@ -18,6 +18,7 @@ export type Config = {
   showDepot: boolean
   showDepotGrowth: boolean
   showDepotGrowthPercent: boolean
+  virtualHorizontalMultiplier: number
 }
 
 type Stock = {
