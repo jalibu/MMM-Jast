@@ -1,0 +1,309 @@
+{
+    "schema": {
+        "MMM-Jast": {
+            "type": "object",
+            "title": "properties for MMM-Jast",
+            "properties": {
+                "module": {
+                    "type": "string",
+                    "title": "module",
+                    "default": "MMM-Jast",
+                    "readonly": true
+                },
+                "disabled": {
+                    "type": "boolean",
+                    "title": "disabled",
+                    "default": false
+                },
+                "position": {
+                    "type": "string",
+                    "title": "module position",
+                    "readonly": "true"
+                },
+                "classes": {
+                    "type": "string",
+                    "title": "classes",
+                    "default": ""
+                },
+                "order": {
+                    "type": "string",
+                    "title": "order",
+                    "default": "*"
+                },
+                "inconfig": {
+                    "type": "string",
+                    "title": "inconfig",
+                    "default": "0"
+                },
+                "index": {
+                    "type": "integer"
+                },
+                "config": {
+                    "type": "object",
+                    "title": "config",
+                    "properties": {
+                        "locale": {
+                            "type": "string"
+                        },
+                        "updateIntervalInSeconds": {
+                            "type": "integer"
+                        },
+                        "useGrouping": {
+                            "type": "boolean"
+                        },
+                        "currencyStyle": {
+                            "type": "string",
+                            "enum": [
+                                "code",
+                                "symbol",
+                                "name"
+                            ]
+                        },
+                        "fadeSpeedInSeconds": {
+                            "type": "integer"
+                        },
+                        "stocks": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "symbol": {
+                                        "type": "string"
+                                    },
+                                    "quantity": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        },
+                        "scroll": {
+                            "type": "string",
+                            "enum": [
+                                "horizontal",
+                                "vertical",
+                                "none"
+                            ]
+                        },
+                        "maxWidth": {
+                            "type": "string"
+                        },
+                        "numberDecimalsValues": {
+                            "type": "integer"
+                        },
+                        "numberDecimalsPercentages": {
+                            "type": "integer"
+                        },
+                        "showColors": {
+                            "type": "boolean"
+                        },
+                        "showCurrency": {
+                            "type": "boolean"
+                        },
+                        "showChangePercent": {
+                            "type": "boolean"
+                        },
+                        "showChangeValue": {
+                            "type": "boolean"
+                        },
+                        "showChangeValueCurrency": {
+                            "type": "boolean"
+                        },
+                        "showDepot": {
+                            "type": "boolean"
+                        },
+                        "showDepotGrowth": {
+                            "type": "boolean"
+                        },
+                        "showDepotGrowthPercent": {
+                            "type": "boolean"
+                        },
+                        "virtualHorizontalMultiplier": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "form": [
+        {
+            "key": "MMM-Jast.disabled",
+            "htmlClass": "disabled_checkbox",
+            "description": "when checked the module will not be used by MagicMirror"
+        },
+        {
+            "key": "MMM-Jast.position",
+            "description": "use Module Positions section below to set or change"
+        },
+        {
+            "key": "MMM-Jast.classes",
+            "description": "css classes to use for this module, beyond what MagicMirror uses"
+        },
+        {
+            "key": "MMM-Jast.order",
+            "type": "hidden"
+        },
+        {
+            "key": "MMM-Jast.inconfig",
+            "type": "hidden"
+        },
+        {
+            "key": "MMM-Jast.index",
+            "type": "hidden"
+        },
+        {
+            "type": "section",
+            "title": "config",
+            "items": [
+                {
+                    "title": "updateIntervalInSeconds",
+                    "key": "MMM-Jast.config.updateIntervalInSeconds",
+                    "description": "Interval in seconds to refresh stock data from server (min. 120)"
+                },
+                {
+                    "title": "useGrouping",
+                    "key": "MMM-Jast.config.useGrouping",
+                    "description": "Add grouping to high value numbers (i.e. BTC 60,000.00 EUR)"
+                },
+                {
+                    "title": "currencyStyle",
+                    "key": "MMM-Jast.config.currencyStyle",
+                    "description": "Style of currency. Possible values: \"code\" (EUR), \"symbol\" (€), \"name\" (Euro)"
+                },
+                {
+                    "title": "fadeSpeedInSeconds",
+                    "key": "MMM-Jast.config.fadeSpeedInSeconds",
+                    "description": "Animation speed for ticker.<br>Higher value: vertical -> faster<br>horizontal -> slower"
+                },
+                {
+                    "title": "stocks",
+                    "key": "MMM-Jast.config.stocks",
+                    "description": "List of stocks"
+                },
+                {
+                    "title": "scroll",
+                    "key": "MMM-Jast.config.scroll",
+                    "description": "Animation direction for ticker"
+                },
+                {
+                    "title": "maxWidth",
+                    "key": "MMM-Jast.config.maxWidth",
+                    "description": "CSS style to limit ticker width for vertical styles"
+                },
+                {
+                    "title": "numberDecimalsValues",
+                    "key": "MMM-Jast.config.numberDecimalsValues",
+                    "description": "Number of decimals for stock values"
+                },
+                {
+                    "title": "numberDecimalsPercentages",
+                    "key": "MMM-Jast.config.numberDecimalsPercentages",
+                    "description": "Number of decimals for percentages"
+                },
+                {
+                    "title": "showColors",
+                    "key": "MMM-Jast.config.showColors",
+                    "description": "Colorize positive numbers in green, negatives in red"
+                },
+                {
+                    "title": "showCurrency",
+                    "key": "MMM-Jast.config.showCurrency",
+                    "description": "Show stocks currency"
+                },
+                {
+                    "title": "showChangePercent",
+                    "key": "MMM-Jast.config.showChangePercent",
+                    "description": "Show stocks change against last close in percent"
+                },
+                {
+                    "title": "showChangeValue",
+                    "key": "MMM-Jast.config.showChangeValue",
+                    "description": "Show stocks change against last close in absolute value"
+                },
+                {
+                    "title": "showChangeValueCurrency",
+                    "key": "MMM-Jast.config.showChangeValueCurrency",
+                    "description": "Show currency for change value"
+                },
+                {
+                    "title": "showDepot",
+                    "key": "MMM-Jast.config.showDepot",
+                    "description": "Show depot value"
+                },
+                {
+                    "title": "showDepotGrowth",
+                    "key": "MMM-Jast.config.showDepotGrowth",
+                    "description": "Show depot value growth summary"
+                },
+                {
+                    "title": "showDepotGrowthPercent",
+                    "key": "MMM-Jast.config.showDepotGrowthPercent",
+                    "description": "Show depot value growth summary in percent"
+                },
+                {
+                    "title": "virtualHorizontalMultiplier",
+                    "key": "MMM-Jast.config.virtualHorizontalMultiplier",
+                    "description": "Virtually repeats the stocklist in horizontal mode to avoid whitespaces"
+                }
+            ]
+        }
+    ],
+    "value": {
+        "disabled": true,
+        "module": "MMM-Jast",
+        "position": "none",
+        "order": "*",
+        "inconfig": "0",
+        "config": {
+            "locale": "en-GB",
+            "updateIntervalInSeconds": 600,
+            "useGrouping": false,
+            "currencyStyle": "code",
+            "fadeSpeedInSeconds": 3.5,
+            "stocks": [
+                {
+                    "name": "BASF",
+                    "symbol": "BAS.DE",
+                    "quantity": 100
+                },
+                {
+                    "name": "SAP",
+                    "symbol": "SAP.DE",
+                    "quantity": 200
+                },
+                {
+                    "name": "Henkel",
+                    "symbol": "HEN3.DE"
+                },
+                {
+                    "name": "AbbVie",
+                    "symbol": "4AB.DE"
+                },
+                {
+                    "name": "Bitcoin",
+                    "symbol": "BTC-EUR"
+                },
+                {
+                    "name": "Alibaba",
+                    "symbol": "BABA"
+                }
+            ],
+            "scroll": "vertical",
+            "maxWidth": "100%",
+            "numberDecimalsValues": 2,
+            "numberDecimalsPercentages": 1,
+            "showColors": true,
+            "showCurrency": true,
+            "showChangePercent": true,
+            "showChangeValue": false,
+            "showChangeValueCurrency": false,
+            "showDepot": false,
+            "showDepotGrowth": false,
+            "showDepotGrowthPercent": false,
+            "virtualHorizontalMultiplier": 2
+        }
+    }
+}
