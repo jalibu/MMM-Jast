@@ -12,16 +12,18 @@ module.exports = NodeHelper.create({
     let results = []
     for (const stock of config.stocks) {
       try {
-        const { summaryDetail, price } = await yahooFinance.quoteSummary(
+        const { price } = await yahooFinance.quoteSummary(
           stock.symbol
         )
-        if (summaryDetail && price) {
+        if (price) {
           const meta = {
             symbol: stock.symbol,
             name: stock.name,
             quantity: stock.quantity
           }
-          results.push({ summaryDetail, price, meta })
+          results.push({ price, meta })
+        } else {
+          console.warn(`Response for ${stock.symbol} does not satisfy expected payload.`)
         }
       } catch (err) {
         console.error('There was an error requesting the API.', err.message)

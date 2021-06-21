@@ -66,7 +66,7 @@ export default class JastUtils {
     return this.getStockChange(stock).toLocaleString(
       this.config.locale,
       Object.assign(this.changeValueStyle, {
-        currency: stock.summaryDetail.currency
+        currency: stock.price.currency
       })
     )
   }
@@ -82,7 +82,7 @@ export default class JastUtils {
     return this.getCurrentValue(stock).toLocaleString(
       this.config.locale,
       Object.assign(this.currentValueStyle, {
-        currency: stock.summaryDetail.currency
+        currency: stock.price.currency
       })
     )
   }
