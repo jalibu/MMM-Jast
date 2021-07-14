@@ -15,9 +15,9 @@ export type Config = {
   showChangePercent: boolean
   showChangeValue: boolean
   showChangeValueCurrency: boolean
-  showDepot: boolean
-  showDepotGrowth: boolean
-  showDepotGrowthPercent: boolean
+  showPortfolioValue: boolean
+  showPortfolioGrowth: boolean
+  showPortfolioGrowthPercent: boolean
   virtualHorizontalMultiplier: number
 }
 

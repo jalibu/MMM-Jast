@@ -1,4 +1,4 @@
-import { Depot } from '../models/Depot'
+import { Portfolio } from '../models/Portfolio'
 import { StockResponse } from '../models/StockResponse'
 import { Config } from '../models/Config'
 
@@ -91,27 +91,27 @@ export default class JastUtils {
     return stock.meta.name || stock.price.longName
   }
 
-  getDepotValueAsString(depot: Depot) {
-    return depot.value.toLocaleString(
+  getPortfolioValueAsString(portfolio: Portfolio) {
+    return portfolio.value.toLocaleString(
       this.config.locale,
       Object.assign(this.currentValueStyle, {
-        currency: depot.currency
+        currency: portfolio.currency
       })
     )
   }
 
-  getDepotChangeAsString(depot: Depot) {
-    const change = depot.value - depot.oldValue
+  getPortfolioChangeAsString(portfolio: Portfolio) {
+    const change = portfolio.value - portfolio.oldValue
     return change.toLocaleString(
       this.config.locale,
       Object.assign(this.currentValueStyle, {
-        currency: depot.currency
+        currency: portfolio.currency
       })
     )
   }
 
-  getDepotChangePercentAsString(depot: Depot): string {
-    const change = (depot.value - depot.oldValue) / depot.oldValue
+  getPortfolioChangePercentAsString(portfolio: Portfolio): string {
+    const change = (portfolio.value - portfolio.oldValue) / portfolio.oldValue
     return change.toLocaleString(
       this.config.locale,
       this.percentStyle
@@ -119,8 +119,8 @@ export default class JastUtils {
   }
   
 
-  getDepot(stocks: StockResponse[]): Depot[] {
-    let depot: Depot[] = []
+  getPortfolio(stocks: StockResponse[]): Portfolio[] {
+    let portfolio: Portfolio[] = []
     for (const stock of stocks) {
       try {
         const configStock = this.config.stocks?.find(
@@ -131,7 +131,7 @@ export default class JastUtils {
             stock.price?.regularMarketPrice * configStock.quantity
           const lastStockValue =
             stock.price?.regularMarketPreviousClose * configStock.quantity
-          const existingCurrency = depot.find(
+          const existingCurrency = portfolio.find(
             (growth) => growth.currency === stock.price.currency
           )
           
@@ -139,7 +139,7 @@ export default class JastUtils {
             existingCurrency.value = existingCurrency.value + currentStockValue
             existingCurrency.oldValue = existingCurrency.oldValue + lastStockValue
           } else {
-            depot.push({
+            portfolio.push({
               value: currentStockValue,
               oldValue: lastStockValue,
               currency: stock.price.currency
@@ -151,7 +151,7 @@ export default class JastUtils {
       }
     }
 
-    console.debug("Depot", depot)
-    return depot
+    console.debug("Portfolio", portfolio)
+    return portfolio
   }
 }

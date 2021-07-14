@@ -120,6 +120,15 @@
                         "showDepotGrowthPercent": {
                             "type": "boolean"
                         },
+                        "showPortfolioValue": {
+                            "type": "boolean"
+                        },
+                        "showPortfolioGrowth": {
+                            "type": "boolean"
+                        },
+                        "showPortfolioGrowthPercent": {
+                            "type": "boolean"
+                        },
                         "virtualHorizontalMultiplier": {
                             "type": "integer"
                         }
@@ -229,19 +238,34 @@
                     "description": "Show currency for change value"
                 },
                 {
+                    "title": "showPortfolioValue",
+                    "key": "MMM-Jast.config.showPortfolioValue",
+                    "description": "Show portfolio value"
+                },
+                {
+                    "title": "showPortfolioGrowth",
+                    "key": "MMM-Jast.config.showPortfolioGrowth",
+                    "description": "Show portfolio value growth summary"
+                },
+                {
+                    "title": "showPortfolioGrowthPercent",
+                    "key": "MMM-Jast.config.showPortfolioGrowthPercent",
+                    "description": "Show portfolio value growth summary in percent"
+                },
+                {
                     "title": "showDepot",
                     "key": "MMM-Jast.config.showDepot",
-                    "description": "Show depot value"
+                    "description": "[DEPRECATED] This property was replaced by 'showPortfolio'. This field should be set to false, as it will be removed in laters versions."
                 },
                 {
                     "title": "showDepotGrowth",
                     "key": "MMM-Jast.config.showDepotGrowth",
-                    "description": "Show depot value growth summary"
+                    "description": "[DEPRECATED] This property was replaced by 'showPortfolioGrowth'. This field should be set to false, as it will be removed in laters versions."
                 },
                 {
                     "title": "showDepotGrowthPercent",
                     "key": "MMM-Jast.config.showDepotGrowthPercent",
-                    "description": "Show depot value growth summary in percent"
+                    "description": "[DEPRECATED] This property was replaced by 'showPortfolioGrowthPercent'. This field should be set to false, as it will be removed in laters versions."
                 },
                 {
                     "title": "virtualHorizontalMultiplier",
@@ -303,6 +327,9 @@
             "showDepot": false,
             "showDepotGrowth": false,
             "showDepotGrowthPercent": false,
+            "showPortfolioValue": false,
+            "showPortfolioGrowth": false,
+            "showPortfolioGrowthPercent": false,
             "virtualHorizontalMultiplier": 2
         }
     }

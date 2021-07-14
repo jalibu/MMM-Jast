@@ -9,7 +9,7 @@ Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builder
     * cryptocurrencies
 * No API Key required
 * Vertical or horizontal scrolling or static list
-* Depot value growth summary
+* Share Portfolio value and growth summary
 * Very customizable
 * Easy to use
 
@@ -51,9 +51,9 @@ To use this module, add it to the modules array in the `MagicMirror/config/confi
 		showChangePercent: true,
 		showChangeValue: false,
 		showChangeValueCurrency: false,
-		showDepot: false,
-		showDepotGrowthPercent: false,
-		showDepotGrowth: false,
+		showPortfolioValue: false,
+		showPortfolioGrowthPercent: false,
+		showPortfolioGrowth: false,
 		numberDecimalsValues: 2,
 		numberDecimalsPercentages: 1,
 		virtualHorizontalMultiplier: 2,
@@ -82,9 +82,9 @@ To use this module, add it to the modules array in the `MagicMirror/config/confi
 | showChangePercent				| (Boolean) Show stocks change against last close in percent						| true   		|
 | showChangeValue				| (Boolean) Show stocks change against last close in absolute value					| false   		|
 | showChangeValueCurrency		| (Boolean) Show currency for change value											| false   		|
-| showDepot						| (Boolean) Show depot value														| false   		|
-| showDepotGrowth				| (Boolean) Show depot value growth summary											| false   		|
-| showDepotGrowthPercent		| (Boolean) Show depot value growth summary in percent								| false   		|
+| showPortfolioValue			| (Boolean) Show portfolio value													| false   		|
+| showPortfolioGrowth			| (Boolean) Show portfolio value growth summary										| false   		|
+| showPortfolioGrowthPercent	| (Boolean) Show portfolio value growth summary in percent							| false   		|
 | useGrouping					| (Boolean) Add grouping to high value numbers (i.e. BTC 60,000.00 EUR)				| false   		|
 | virtualHorizontalMultiplier	| (Number) Virtually repeats the stocklist in horizontal mode to avoid whitespaces	| 2   			|
 
@@ -93,7 +93,7 @@ To use this module, add it to the modules array in the `MagicMirror/config/confi
 | -------- 			| -------- 															| -------- 	|
 | symbol   			| (String) Stock's symbol/key   									| "BABA"   	|
 | name   			| (String) Optional: Stock's display name   						| "Alibaba"	|
-| quantity   		| (Integer) Optional: To calculate depotGrowth   					| 500   	|
+| quantity   		| (Integer) Optional: To calculate portfolio value and growth   	| 500   	|
 
 ### Where the hack do I get the symbol for my favorite stocks?!
 The easiest way to get the symbol for your stock is to open [finance.yahoo.com](https://finance.yahoo.com) and use the search field on the top. You'll find the symbol either in the search preview or in the result page's URL (i.e. https://finance.yahoo.com/quote/BMW.DE?p=BMW.DE where BMW.DE would be the symbol).

@@ -24,10 +24,10 @@
         </span>
       </span>
     {% endfor %}
-    {% if config.showDepot or config.showDepotGrowth or config.showDepotGrowthPercent%}
-      {% set depot = utils.getDepot(stocks) %}
-        <span class="jast-stock">{{ "depot" | translate | safe }}
-          {% for entry in depot %}
+    {% if config.showPortfolioValue or config.showPortfolioGrowth or config.showPortfolioGrowthPercent%}
+      {% set portfolio = utils.getPortfolio(stocks) %}
+        <span class="jast-stock">{{ "portfolio" | translate | safe }}
+          {% for entry in portfolio %}
             {% if entry.value > entry.oldValue %}
               {% set colorClass = "high" %}
             {% elif entry.value < entry.oldValue %}
@@ -36,13 +36,13 @@
               {% set colorClass = "" %}
             {% endif %}
             <span class="{{ colorClass }}{% if loop.index != 1 %} jast-multi-currency{% endif %}">
-              {% if config.showDepot %} {{ utils.getDepotValueAsString(entry) }} {% endif %}
+              {% if config.showPortfolioValue %} {{ utils.getPortfolioValueAsString(entry) }} {% endif %}
               
-              {% if config.showDepotGrowth or config.showDepotGrowthPercent %}
-                {% if config.showDepot %}<span class="jast-change">({% endif %}
-                {% if config.showDepotGrowth %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getDepotChangeAsString(entry) }}</span>{% endif %}
-                {% if config.showDepotGrowthPercent %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getDepotChangePercentAsString(entry) }}</span>{% endif %}
-                {% if config.showDepot %})</span>{% endif %}
+              {% if config.showPortfolioGrowth or config.showPortfolioGrowthPercent %}
+                {% if config.showPortfolioValue %}<span class="jast-change">({% endif %}
+                {% if config.showPortfolioGrowth %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getPortfolioChangeAsString(entry) }}</span>{% endif %}
+                {% if config.showPortfolioGrowthPercent %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getPortfolioChangePercentAsString(entry) }}</span>{% endif %}
+                {% if config.showPortfolioValue %})</span>{% endif %}
               {% endif %}
             
             </span>
