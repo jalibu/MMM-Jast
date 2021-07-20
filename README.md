@@ -93,7 +93,7 @@ To use this module, add it to the modules array in the `MagicMirror/config/confi
 | -------- 			| -------- 															| -------- 	|
 | symbol   			| (String) Stock's symbol/key   									| "BABA"   	|
 | name   			| (String) Optional: Stock's display name   						| "Alibaba"	|
-| quantity   		| (Integer) Optional: To calculate portfolio value and growth   	| 500   	|
+| quantity   		| (Number) Optional: To calculate portfolio value and growth   	| 500   	|
 
 ### Where the hack do I get the symbol for my favorite stocks?!
 The easiest way to get the symbol for your stock is to open [finance.yahoo.com](https://finance.yahoo.com) and use the search field on the top. You'll find the symbol either in the search preview or in the result page's URL (i.e. https://finance.yahoo.com/quote/BMW.DE?p=BMW.DE where BMW.DE would be the symbol).
