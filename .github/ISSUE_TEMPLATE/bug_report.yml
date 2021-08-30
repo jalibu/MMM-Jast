@@ -1,0 +1,101 @@
+name: Bug Report
+description: Think you found a bug? Let us know!
+labels: [bug, to check]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Hello and thank you for helping to improve this module.
+        Please make sure to only submit reproducible issues.
+
+  - type: input
+    attributes:
+      label: Platform
+      description: |
+        Tell us about the platform on which you run your MagicMirror.
+      placeholder: 'Raspberry Pi OS'
+    validations:
+      required: false
+  - type: input
+    attributes:
+      label: Node.js Version
+      description: |
+        You'll get your Node.js version by executing `node -v` in your terminal.
+      placeholder: '14.17.5'
+    validations:
+      required: false
+  - type: input
+    attributes:
+      label: MagicMirror Version
+      description: |
+        Which version of MagicMirror are you running? It can be found in the `MagicMirror/package.log` file.
+      placeholder: '2.16.0'
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Module Version
+      description: |
+        What's the module's version / Commit ID? You can get this information by executing `git log` within the module's directory.
+      placeholder: 'v.2.0.2 or f8ae15ffb6b5e4f5d5f9cc436f8e697d02737982'
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Description
+      description: Please describe the bug as clear and concise as possible. 
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected behavior
+      description: What should actually happen?
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Current behavior
+      description: What happened instead?
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Possible solution
+      description: You can suggest a reason for the bug, if know about it.
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: Please give details about how do you reach that behavior
+      placeholder: |
+        1. Start MM...
+        2. Wait until everything loads
+        3. Click button...
+        4. See error...
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Log
+      description: |
+        Paste the log you're getting, and possibly the error.
+        **Please don't forget to remove sensitive information!**
+      render: shell
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: config.js
+      description: |
+        Paste here your config.js file.
+        **Please don't forget to remove sensitive information!**
+      render: javascript
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional info
+      description: Everything else that you think could be useful.
+    validations:
+      required: false
