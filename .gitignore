@@ -106,3 +106,5 @@ dist
 *.pem
 
 debugResponse.json
+
+.DS_Store

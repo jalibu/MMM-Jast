@@ -62,9 +62,6 @@ Module.register('MMM-Jast', {
     this.config.showPortfolioGrowthPercent =
       this.config.showDepotGrowthPercent || this.config.showPortfolioGrowthPercent
 
-    // Override defaults
-    this.nunjucksEnvironment().loaders[0].async = false
-    this.nunjucksEnvironment().loaders[0].useCache = true
     this.stocks = []
     this.loadData()
     this.scheduleUpdate()
