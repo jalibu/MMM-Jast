@@ -1,3 +1,4 @@
+[![dependencies Status](https://status.david-dm.org/gh/jalibu/MMM-Jast.svg)](https://david-dm.org/jalibu/MMM-Jast)  [![Known Vulnerabilities](https://snyk.io/test/github/jalibu/MMM-Jast/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jalibu/MMM-Jast?targetFile=package.json)  
 # MMM-JaST - **J**ust **a**nother **S**tock **T**icker
 This is a minimalistic stock ticker based on Yahoo's finance API for the [MagicMirror²](https://magicmirror.builders/) platform.  
 
