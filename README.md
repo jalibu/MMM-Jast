@@ -1,9 +1,10 @@
 # MMM-JaST - **J**ust **a**nother **S**tock **T**icker
-This is a minimalistic stock ticker for [Magic Mirror](https://magicmirror.builders/) based on Yahoo's finance API.  
+This is a minimalistic stock ticker based on Yahoo's finance API for the [MagicMirror²](https://magicmirror.builders/) platform.  
+
 Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/topic/12507/mmm-jast-just-another-stock-ticker).
 
 #### Support
-If you like this module and want to thank, please buy me a beer.
+If you like this module and want to thank, please rate this repository with a star or buy me a coffee :-)
 
 <a href="https://www.buymeacoffee.com/jalibu" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Beer" style="height: 45px !important;width: 180px !important;" ></a>
 
