@@ -1,6 +1,5 @@
 export type Config = {
   locale: string
-  header: string
   updateIntervalInSeconds: number
   fadeSpeedInSeconds: number
   stocks: Stock[]
@@ -9,7 +8,7 @@ export type Config = {
   numberDecimalsValues: number
   numberDecimalsPercentages: number
   showCurrency: boolean
-  showColors: boolean,
+  showColors: boolean
   currencyStyle: 'symbol' | 'code' | 'name'
   useGrouping: boolean
   showChangePercent: boolean
@@ -21,7 +20,7 @@ export type Config = {
   virtualHorizontalMultiplier: number
 }
 
-type Stock = {
+export type Stock = {
   symbol: string
   name?: string
   quantity?: number

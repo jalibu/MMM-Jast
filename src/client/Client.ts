@@ -1,13 +1,13 @@
 import Utils from './Utils'
-import { Config } from '../models/Config'
+import { Config } from '../types/Config'
 
-Module.register('MMM-Jast', {
+Module.register<Config>('MMM-Jast', {
   defaults: {
     locale: config.locale || 'en-GB',
     updateIntervalInSeconds: 600,
     useGrouping: false,
     currencyStyle: 'code',
-    fadeSpeedInSeconds: 3.5, // Higher value: vertical -> faster // horizontal -> slower
+    fadeSpeedInSeconds: 3.5,
     stocks: [
       { name: 'BASF', symbol: 'BAS.DE', quantity: 100 },
       { name: 'SAP', symbol: 'SAP.DE', quantity: 200 },
@@ -29,7 +29,7 @@ Module.register('MMM-Jast', {
     showPortfolioGrowth: false,
     showPortfolioGrowthPercent: false,
     virtualHorizontalMultiplier: 2
-  } as Config,
+  },
 
   getStyles() {
     return ['MMM-Jast.css']
@@ -50,19 +50,12 @@ Module.register('MMM-Jast', {
     const utils = new Utils(this.config)
     return {
       config: this.config,
-      stocks: this.stocks,
+      stocks: this._stocks,
       utils
     }
   },
 
   start() {
-    // Config compatibility to older versions
-    this.config.showPortfolioValue = this.config.showDepot || this.config.showPortfolioValue
-    this.config.showPortfolioGrowth = this.config.showDepotGrowth || this.config.showPortfolioGrowth
-    this.config.showPortfolioGrowthPercent =
-      this.config.showDepotGrowthPercent || this.config.showPortfolioGrowthPercent
-
-    this.stocks = []
     this.loadData()
     this.scheduleUpdate()
     this.updateDom()
@@ -83,9 +76,8 @@ Module.register('MMM-Jast', {
 
   socketNotificationReceived(notificationIdentifier: string, payload: any) {
     if (notificationIdentifier === 'STOCKS_RESULT') {
-      this.stocks = payload
+      this._stocks = payload
       this.updateDom()
-      console.debug('Stocks', this.stocks)
     }
   }
 })

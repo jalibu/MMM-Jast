@@ -1,7 +1,7 @@
 {
   "name": "mmm-jast",
-  "version": "2.0.0",
-  "description": "This is just another stock ticker for [Magic Mirror](https://magicmirror.builders/).",
+  "version": "2.5.0",
+  "description": "A minimalistic stock ticker based on Yahoo's finance API for the MagicMirror² platform.",
   "main": "MMM-Jast.js",
   "repository": {
     "type": "git",
@@ -14,22 +14,24 @@
   },
   "homepage": "https://github.com/jalibu/MMM-Jast#readme",
   "dependencies": {
-    "yahoo-finance2": "^1.10.0"
+    "yahoo-finance2": "^1.14.4"
   },
   "scripts": {
-    "build": "webpack --mode production",
-    "dev": "npm run build -- --watch --mode development"
+    "build": "rollup -c",
+    "dev": "rollup -c --sourcemap=inline",
+    "dev:watch": "npm run dev -- --watch"
   },
   "devDependencies": {
-    "@types/express": "^4.17.11",
-    "@types/node": "^14.14.22",
-    "eslint": "^7.25.0",
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@rollup/plugin-typescript": "^8.2.5",
+    "@types/magicmirror-module": "^2.16.0",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb-typescript-prettier": "^4.2.0",
-    "prettier": "^2.2.1",
-    "ts-loader": "^8.0.14",
-    "typescript": "^4.2.4",
-    "webpack": "^5.17.0",
-    "webpack-cli": "^4.4.0",
-    "webpack-node-externals": "^2.5.2"
+    "prettier": "^2.3.2",
+    "rollup": "^2.56.3",
+    "rollup-plugin-banner2": "^1.2.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "typescript": "^4.4.2"
   }
 }

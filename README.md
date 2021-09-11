@@ -102,3 +102,10 @@ To use this module, add it to the modules array in the `MagicMirror/config/confi
 
 ### Where the hack do I get the symbol for my favorite stocks?!
 The easiest way to get the symbol for your stock is to open [finance.yahoo.com](https://finance.yahoo.com) and use the search field on the top. You'll find the symbol either in the search preview or in the result page's URL (i.e. https://finance.yahoo.com/quote/BMW.DE?p=BMW.DE where BMW.DE would be the symbol).
+
+## Contribution and Development
+This module is written in TypeScript and compiled with Rollup.  
+The source files are located in the `/src` folder.
+Compile target files with `npm run build`.
+
+Contribution for this module is welcome!

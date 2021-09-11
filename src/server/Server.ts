@@ -1,7 +1,7 @@
 import * as NodeHelper from 'node_helper'
-import { Config } from '../models/Config'
+import { Config } from '../types/Config'
 import yahooFinance from 'yahoo-finance2'
-import { StockResponse } from '../models/StockResponse'
+import { StockResponse } from '../types/StockResponse'
 
 module.exports = NodeHelper.create({
   start() {
@@ -12,9 +12,7 @@ module.exports = NodeHelper.create({
     let results = []
     for (const stock of config.stocks) {
       try {
-        const { price } = await yahooFinance.quoteSummary(
-          stock.symbol
-        )
+        const { price } = await yahooFinance.quoteSummary(stock.symbol)
         if (price) {
           const meta = {
             symbol: stock.symbol,
@@ -33,9 +31,9 @@ module.exports = NodeHelper.create({
     return results
   },
 
-  async socketNotificationReceived(notification, config) {
+  async socketNotificationReceived(notification, payload) {
     if (notification) {
-      const stocks = await this.requestStocks(config)
+      const stocks = await this.requestStocks(payload)
 
       this.sendSocketNotification('STOCKS_RESULT', stocks)
     } else {

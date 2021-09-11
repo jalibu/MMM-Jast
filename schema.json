@@ -111,15 +111,6 @@
                         "showChangeValueCurrency": {
                             "type": "boolean"
                         },
-                        "showDepot": {
-                            "type": "boolean"
-                        },
-                        "showDepotGrowth": {
-                            "type": "boolean"
-                        },
-                        "showDepotGrowthPercent": {
-                            "type": "boolean"
-                        },
                         "showPortfolioValue": {
                             "type": "boolean"
                         },
@@ -253,21 +244,6 @@
                     "description": "Show portfolio value growth summary in percent"
                 },
                 {
-                    "title": "showDepot",
-                    "key": "MMM-Jast.config.showDepot",
-                    "description": "[DEPRECATED] This property was replaced by 'showPortfolio'. This field should be set to false, as it will be removed in laters versions."
-                },
-                {
-                    "title": "showDepotGrowth",
-                    "key": "MMM-Jast.config.showDepotGrowth",
-                    "description": "[DEPRECATED] This property was replaced by 'showPortfolioGrowth'. This field should be set to false, as it will be removed in laters versions."
-                },
-                {
-                    "title": "showDepotGrowthPercent",
-                    "key": "MMM-Jast.config.showDepotGrowthPercent",
-                    "description": "[DEPRECATED] This property was replaced by 'showPortfolioGrowthPercent'. This field should be set to false, as it will be removed in laters versions."
-                },
-                {
                     "title": "virtualHorizontalMultiplier",
                     "key": "MMM-Jast.config.virtualHorizontalMultiplier",
                     "description": "Virtually repeats the stocklist in horizontal mode to avoid whitespaces"
@@ -324,9 +300,6 @@
             "showChangePercent": true,
             "showChangeValue": false,
             "showChangeValueCurrency": false,
-            "showDepot": false,
-            "showDepotGrowth": false,
-            "showDepotGrowthPercent": false,
             "showPortfolioValue": false,
             "showPortfolioGrowth": false,
             "showPortfolioGrowthPercent": false,
