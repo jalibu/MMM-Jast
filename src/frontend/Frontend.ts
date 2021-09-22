@@ -48,9 +48,10 @@ Module.register<Config>('MMM-Jast', {
 
   getTemplateData() {
     const utils = new Utils(this.config)
+
     return {
       config: this.config,
-      stocks: this._stocks,
+      stocks: this.stocks,
       utils
     }
   },
@@ -62,11 +63,10 @@ Module.register<Config>('MMM-Jast', {
   },
 
   scheduleUpdate() {
-    const self = this
     this.config.updateIntervalInSeconds =
       this.config.updateIntervalInSeconds < 120 ? 120 : this.config.updateIntervalInSeconds
     setInterval(() => {
-      self.loadData()
+      this.loadData()
     }, this.config.updateIntervalInSeconds * 1000)
   },
 
@@ -76,8 +76,8 @@ Module.register<Config>('MMM-Jast', {
 
   socketNotificationReceived(notificationIdentifier: string, payload: any) {
     if (notificationIdentifier === 'STOCKS_RESULT') {
-      this._stocks = payload
-      console.log("Stocks", this._stocks)
+      this.stocks = payload
+      console.log('Stocks', this.stocks)
       this.updateDom()
     }
   }

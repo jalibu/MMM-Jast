@@ -94,6 +94,7 @@ export default class JastUtils {
 
   getPortfolioChangeAsString(portfolio: Portfolio) {
     const change = portfolio.value - portfolio.oldValue
+
     return change.toLocaleString(
       this.config.locale,
       Object.assign(this.currentValueStyle, {
@@ -104,11 +105,12 @@ export default class JastUtils {
 
   getPortfolioChangePercentAsString(portfolio: Portfolio): string {
     const change = (portfolio.value - portfolio.oldValue) / portfolio.oldValue
+
     return change.toLocaleString(this.config.locale, this.percentStyle)
   }
 
   getPortfolio(stocks: StockResponse[]): Portfolio[] {
-    let portfolio: Portfolio[] = []
+    const portfolio: Portfolio[] = []
     for (const stock of stocks) {
       try {
         const configStock = this.config.stocks?.find((current) => current.symbol === stock.meta?.symbol)
@@ -118,8 +120,8 @@ export default class JastUtils {
           const existingCurrency = portfolio.find((growth) => growth.currency === stock.price.currency)
 
           if (existingCurrency) {
-            existingCurrency.value = existingCurrency.value + currentStockValue
-            existingCurrency.oldValue = existingCurrency.oldValue + lastStockValue
+            existingCurrency.value += currentStockValue
+            existingCurrency.oldValue += lastStockValue
           } else {
             portfolio.push({
               value: currentStockValue,
@@ -133,7 +135,6 @@ export default class JastUtils {
       }
     }
 
-    console.debug('Portfolio', portfolio)
     return portfolio
   }
 }

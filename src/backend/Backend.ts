@@ -1,6 +1,6 @@
 import * as NodeHelper from 'node_helper'
-import { Config } from '../types/Config'
 import yahooFinance from 'yahoo-finance2'
+import { Config } from '../types/Config'
 import { StockResponse } from '../types/StockResponse'
 
 const sanityFields = [
@@ -18,7 +18,7 @@ module.exports = NodeHelper.create({
   },
 
   async requestStocks(config: Config): Promise<StockResponse[]> {
-    let results = []
+    const results = []
     for (const stock of config.stocks) {
       try {
         const { price } = await yahooFinance.quoteSummary(stock.symbol)
@@ -46,14 +46,14 @@ module.exports = NodeHelper.create({
 
       stocks = stocks.filter((stock) =>
         sanityFields.every((item) => {
-          if (stock?.price?.hasOwnProperty(item)) {
+          if (Object.prototype.hasOwnProperty.call(stock.price, item)) {
             return true
-          } else {
-            console.warn(
-              `Skipped symbol '${stock.meta.symbol}' as it's response did not have required property '${item}'. This is usually the case when a symbol is misspelled`
-            )
-            return false
           }
+          console.warn(
+            `Skipped symbol '${stock.meta.symbol}' as it's response did not have required property '${item}'. This is usually the case when a symbol is misspelled`
+          )
+
+          return false
         })
       )
 
