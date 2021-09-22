@@ -179,9 +179,27 @@
                     "description": "Animation speed for ticker.<br>Higher value: vertical -> faster<br>horizontal -> slower"
                 },
                 {
-                    "title": "stocks",
+                    "title": "List of Stocks",
+                    "type": "array",
                     "key": "MMM-Jast.config.stocks",
-                    "description": "List of stocks"
+                    "description": "add (+) or remove (-) (last) stock, to change order, drag using pancake stack icon",
+                    "items": {
+                        "type": "fieldset",
+                        "items":[
+                            {
+                                "title":"name",
+                                "key":"MMM-Jast.config.stocks[].name"
+                            },
+                            {
+                                "title":"symbol",
+                                "key":"MMM-Jast.config.stocks[].symbol"
+                            },
+                            {
+                                "title":"quantity",
+                                "key":"MMM-Jast.config.stocks[].quantity"
+                            }
+                        ]
+                    }
                 },
                 {
                     "title": "scroll",
