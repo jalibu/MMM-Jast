@@ -77,6 +77,7 @@ Module.register<Config>('MMM-Jast', {
   socketNotificationReceived(notificationIdentifier: string, payload: any) {
     if (notificationIdentifier === 'STOCKS_RESULT') {
       this._stocks = payload
+      console.log("Stocks", this._stocks)
       this.updateDom()
     }
   }

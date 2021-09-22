@@ -22,7 +22,7 @@ const bannerText = `/*! ********************************************************
 `
 export default [
   {
-    input: './src/client/Client.ts',
+    input: './src/frontend/Frontend.ts',
     plugins: [typescript({ module: 'ESNext' }), nodeResolve(), commonjs(), terser(), banner2(() => bannerText)],
     output: {
       file: './' + pkg.main,
@@ -30,7 +30,7 @@ export default [
     }
   },
   {
-    input: './src/server/Server.ts',
+    input: './src/backend/Backend.ts',
     external: ['node_helper', 'yahoo-finance2'],
     plugins: [typescript({ module: 'ESNext' }), terser(), banner2(() => bannerText)],
     output: {

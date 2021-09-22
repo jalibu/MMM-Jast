@@ -3,6 +3,15 @@ import { Config } from '../types/Config'
 import yahooFinance from 'yahoo-finance2'
 import { StockResponse } from '../types/StockResponse'
 
+const sanityFields = [
+  'regularMarketChange',
+  'regularMarketChangePercent',
+  'regularMarketPrice',
+  'currency',
+  'longName',
+  'regularMarketPreviousClose'
+]
+
 module.exports = NodeHelper.create({
   start() {
     console.log(`${this.name} helper method started...`)
@@ -33,7 +42,20 @@ module.exports = NodeHelper.create({
 
   async socketNotificationReceived(notification, payload) {
     if (notification) {
-      const stocks = await this.requestStocks(payload)
+      let stocks = await this.requestStocks(payload)
+
+      stocks = stocks.filter((stock) =>
+        sanityFields.every((item) => {
+          if (stock?.price?.hasOwnProperty(item)) {
+            return true
+          } else {
+            console.warn(
+              `Skipped symbol '${stock.meta.symbol}' as it's response did not have required property '${item}'. This is usually the case when a symbol is misspelled`
+            )
+            return false
+          }
+        })
+      )
 
       this.sendSocketNotification('STOCKS_RESULT', stocks)
     } else {
