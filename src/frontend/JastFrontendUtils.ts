@@ -1,3 +1,4 @@
+import * as Log from 'logger'
 import { Portfolio } from '../types/Portfolio'
 import { StockResponse } from '../types/StockResponse'
 import { Config } from '../types/Config'
@@ -131,7 +132,7 @@ export default class JastUtils {
           }
         }
       } catch (err) {
-        console.warn('There was a problem calculating the detpot growth', err)
+        Log.warn('There was a problem calculating the detpot growth', err)
       }
     }
 

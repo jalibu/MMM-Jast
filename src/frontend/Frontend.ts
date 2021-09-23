@@ -1,4 +1,5 @@
-import Utils from './Utils'
+import * as Log from 'logger'
+import Utils from './JastFrontendUtils'
 import { Config } from '../types/Config'
 
 Module.register<Config>('MMM-Jast', {
@@ -71,13 +72,13 @@ Module.register<Config>('MMM-Jast', {
   },
 
   loadData() {
-    this.sendSocketNotification('GET_STOCKS', this.config)
+    this.sendSocketNotification('JAST_STOCKS_REQUEST', this.config)
   },
 
-  socketNotificationReceived(notificationIdentifier: string, payload: any) {
-    if (notificationIdentifier === 'STOCKS_RESULT') {
+  socketNotificationReceived(notificationIdentifier: string, payload: unknown) {
+    if (notificationIdentifier === 'JAST_STOCKS_RESPONSE') {
       this.stocks = payload
-      console.log('Stocks', this.stocks)
+      Log.log('Stocks', this.stocks)
       this.updateDom()
     }
   }

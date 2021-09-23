@@ -1,7 +1,6 @@
 import * as NodeHelper from 'node_helper'
-import yahooFinance from 'yahoo-finance2'
-import { Config } from '../types/Config'
-import { StockResponse } from '../types/StockResponse'
+import * as Log from 'logger'
+import JastBackendUtils from './JastBackendUtils'
 
 const sanityFields = [
   'regularMarketChange',
@@ -14,42 +13,19 @@ const sanityFields = [
 
 module.exports = NodeHelper.create({
   start() {
-    console.log(`${this.name} helper method started...`)
-  },
-
-  async requestStocks(config: Config): Promise<StockResponse[]> {
-    const results = []
-    for (const stock of config.stocks) {
-      try {
-        const { price } = await yahooFinance.quoteSummary(stock.symbol)
-        if (price) {
-          const meta = {
-            symbol: stock.symbol,
-            name: stock.name,
-            quantity: stock.quantity
-          }
-          results.push({ price, meta })
-        } else {
-          console.warn(`Response for ${stock.symbol} does not satisfy expected payload.`)
-        }
-      } catch (err) {
-        console.error('There was an error requesting the API.', err.message)
-      }
-    }
-
-    return results
+    Log.log(`${this.name} helper method started...`)
   },
 
   async socketNotificationReceived(notification, payload) {
-    if (notification) {
-      let stocks = await this.requestStocks(payload)
+    if (notification === 'JAST_STOCKS_REQUEST') {
+      let stocks = await JastBackendUtils.requestStocks(payload)
 
       stocks = stocks.filter((stock) =>
         sanityFields.every((item) => {
           if (Object.prototype.hasOwnProperty.call(stock.price, item)) {
             return true
           }
-          console.warn(
+          Log.warn(
             `Skipped symbol '${stock.meta.symbol}' as it's response did not have required property '${item}'. This is usually the case when a symbol is misspelled`
           )
 
@@ -57,9 +33,9 @@ module.exports = NodeHelper.create({
         })
       )
 
-      this.sendSocketNotification('STOCKS_RESULT', stocks)
+      this.sendSocketNotification('JAST_STOCKS_RESPONSE', stocks)
     } else {
-      console.warn(`${notification} is invalid notification`)
+      Log.warn(`${notification} is invalid notification`)
     }
   }
 })
