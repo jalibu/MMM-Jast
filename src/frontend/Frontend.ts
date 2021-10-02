@@ -1,5 +1,10 @@
-import Utils from './Utils'
+import * as Log from 'logger'
+import Utils from './JastFrontendUtils'
 import { Config } from '../types/Config'
+
+// Global or injected variable declarations
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare const moment: any
 
 Module.register<Config>('MMM-Jast', {
   defaults: {
@@ -16,6 +21,7 @@ Module.register<Config>('MMM-Jast', {
       { name: 'Bitcoin', symbol: 'BTC-EUR' },
       { name: 'Alibaba', symbol: 'BABA' }
     ],
+    lastUpdateFormat: 'HH:mm',
     scroll: 'vertical',
     maxWidth: '100%',
     numberDecimalsValues: 2,
@@ -25,10 +31,15 @@ Module.register<Config>('MMM-Jast', {
     showChangePercent: true,
     showChangeValue: false,
     showChangeValueCurrency: false,
+    showLastUpdate: false,
     showPortfolioValue: false,
     showPortfolioGrowth: false,
     showPortfolioGrowthPercent: false,
     virtualHorizontalMultiplier: 2
+  },
+
+  getScripts() {
+    return ['moment.js']
   },
 
   getStyles() {
@@ -51,7 +62,8 @@ Module.register<Config>('MMM-Jast', {
 
     return {
       config: this.config,
-      stocks: this.stocks,
+      stocks: this.state?.stocks,
+      lastUpdate: moment(this.state?.lastUpdate).format(this.config.lastUpdateFormat),
       utils
     }
   },
@@ -71,13 +83,13 @@ Module.register<Config>('MMM-Jast', {
   },
 
   loadData() {
-    this.sendSocketNotification('GET_STOCKS', this.config)
+    this.sendSocketNotification('JAST_STOCKS_REQUEST', this.config)
   },
 
-  socketNotificationReceived(notificationIdentifier: string, payload: any) {
-    if (notificationIdentifier === 'STOCKS_RESULT') {
-      this.stocks = payload
-      console.log('Stocks', this.stocks)
+  socketNotificationReceived(notificationIdentifier: string, payload: unknown) {
+    if (notificationIdentifier === 'JAST_STOCKS_RESPONSE') {
+      this.state = payload
+      Log.log('JAST_STOCKS_RESPONSE', this.state)
       this.updateDom()
     }
   }

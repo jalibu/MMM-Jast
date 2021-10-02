@@ -1,8 +1,10 @@
 {% macro render() %}
-  {% if config.showPortfolioGrowth %}
-    {% set itemCount = stocks.length + 1 %}
-  {% else %}
-    {% set itemCount = stocks.length %}
+  {% set itemCount = stocks.length %}
+  {% if config.showPortfolioValue or config.showPortfolioGrowth or config.showPortfolioGrowthPercent %}
+    {% set itemCount = itemCount + 1 %}
+  {% endif %}
+  {% if config.showLastUpdate %}
+    {% set itemCount = itemCount + 1 %}
   {% endif %}
   {% set percentPerItem = 100 / itemCount %}
   <style type="text/css">
