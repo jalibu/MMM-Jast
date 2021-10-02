@@ -1,5 +1,6 @@
 import * as NodeHelper from 'node_helper'
 import * as Log from 'logger'
+import { State } from '../types/State'
 import JastBackendUtils from './JastBackendUtils'
 
 const sanityFields = [
@@ -33,7 +34,12 @@ module.exports = NodeHelper.create({
         })
       )
 
-      this.sendSocketNotification('JAST_STOCKS_RESPONSE', stocks)
+      const response: State = {
+        lastUpdate: Date.now(),
+        stocks
+      }
+
+      this.sendSocketNotification('JAST_STOCKS_RESPONSE', response)
     } else {
       Log.warn(`${notification} is invalid notification`)
     }

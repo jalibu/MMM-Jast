@@ -49,6 +49,9 @@
           {% endfor %}
         </span>
       {% endif %}
+      {% if config.showLastUpdate %}
+        <span class="jast-stock">{{ "lastUpdate" | translate | safe }} {{ lastUpdate }}</span>
+      {% endif %}
       {% endfor %}
     </span>
   </p>

@@ -31,7 +31,7 @@
           </span>
         </li>
       {% endfor %}
-    {% if config.showPortfolioValue or config.showPortfolioGrowth or config.showPortfolioGrowthPercent%}
+    {% if config.showPortfolioValue or config.showPortfolioGrowth or config.showPortfolioGrowthPercent %}
       {% set portfolio = utils.getPortfolio(stocks) %}
         <li class="jast-stock">{{ "portfolio" | translate | safe }}
           {% for entry in portfolio %}
@@ -54,6 +54,9 @@
             </span>
           {% endfor %}
         </li>
+      {% endif %}
+      {% if config.showLastUpdate %}
+        <li class="jast-stock">{{ "lastUpdate" | translate | safe }} {{ lastUpdate }}</li>
       {% endif %}
     </ul>
 {% endmacro %}

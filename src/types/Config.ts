@@ -9,11 +9,13 @@ export type Config = {
   numberDecimalsPercentages: number
   showCurrency: boolean
   showColors: boolean
+  lastUpdateFormat: string
   currencyStyle: 'symbol' | 'code' | 'name'
   useGrouping: boolean
   showChangePercent: boolean
   showChangeValue: boolean
   showChangeValueCurrency: boolean
+  showLastUpdate: boolean
   showPortfolioValue: boolean
   showPortfolioGrowth: boolean
   showPortfolioGrowthPercent: boolean
