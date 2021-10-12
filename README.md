@@ -1,6 +1,6 @@
 # MMM-JaST - **J**ust **a**nother **S**tock **T**icker
 
-[![version](https://img.shields.io/github/package-json/v/jalibu/MMM-Jast)](https://github.com/jalibu/MMM-Jast/releases) [![dependencies Status](https://status.david-dm.org/gh/jalibu/MMM-Jast.svg)](https://david-dm.org/jalibu/MMM-Jast) [![Known Vulnerabilities](https://snyk.io/test/github/jalibu/MMM-Jast/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jalibu/MMM-Jast?targetFile=package.json)
+[![version](https://img.shields.io/github/package-json/v/jalibu/MMM-Jast)](https://github.com/jalibu/MMM-Jast/releases) [![Known Vulnerabilities](https://snyk.io/test/github/jalibu/MMM-Jast/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jalibu/MMM-Jast?targetFile=package.json)
 
 This is a minimalistic stock ticker based on Yahoo's finance API for the [MagicMirror²](https://magicmirror.builders/) platform.  
 Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builders/topic/12507/mmm-jast-just-another-stock-ticker).
