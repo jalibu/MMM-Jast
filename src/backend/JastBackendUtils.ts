@@ -24,6 +24,12 @@ export default class JastBackendUtils {
           name: config.stocks[index].name,
           quantity: config.stocks[index].quantity
         }
+        // Manually convert GBp to GBP
+        if (response.price.currency === 'GBp') {
+          response.price.regularMarketPrice /= 100
+          response.price.regularMarketChange /= 100
+          response.price.currency = 'GBP'
+        }
         stocks.push({ price: response.price, meta })
       } else {
         Log.warn(`Response for ${config.stocks[index].symbol} does not satisfy expected payload.`)
