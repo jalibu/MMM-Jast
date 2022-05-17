@@ -7,11 +7,8 @@ Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builder
 
 Contribution welcome.
 
-#### Support
-
-If you like this module and want to thank, please rate this repository with a star or buy me a coffee :-)
-
-<a href="https://www.buymeacoffee.com/jalibu" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Beer" style="height: 45px !important;width: 180px !important;" ></a>
+### Support
+If you like this module and want to thank, please rate this repository with a star or [buy me a coffee](https://paypal.me/jalibu).
 
 ## Features
 
