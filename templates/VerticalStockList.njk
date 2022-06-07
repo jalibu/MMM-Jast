@@ -16,7 +16,7 @@
           {% if utils.getStockChange(stock) > 0 %}
             {% set colorClass = "high" %}
           {% elif utils.getStockChange(stock) < 0 %}
-            {% set colorClass = "low " %}
+            {% set colorClass = "low" %}
           {% else %}
             {% set colorClass = "" %}
           {% endif %}
@@ -38,7 +38,7 @@
             {% if entry.value > entry.oldValue %}
               {% set colorClass = "high" %}
             {% elif entry.value < entry.oldValue %}
-              {% set colorClass = "low " %}
+              {% set colorClass = "low" %}
             {% else %}
               {% set colorClass = "" %}
             {% endif %}
