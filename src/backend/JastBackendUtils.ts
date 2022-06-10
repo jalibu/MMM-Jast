@@ -30,6 +30,23 @@ export default class JastBackendUtils {
           response.price.regularMarketChange /= 100
           response.price.currency = 'GBP'
         }
+
+        // Override changes if they are older than maxChangeAge
+        if (config.maxChangeAge > 0) {
+          const maxChangeAge = new Date().getTime() - config.maxChangeAge
+          try {
+            const lastChange = Date.parse(response.price.regularMarketTime)
+
+            if (maxChangeAge > lastChange) {
+              response.price.regularMarketPreviousClose = response.price?.regularMarketPrice
+              response.price.regularMarketChange = 0
+              response.price.regularMarketChangePercent = 0
+            }
+          } catch (err) {
+            Log.warn('Could not parse lastChange date', err)
+          }
+        }
+
         stocks.push({ price: response.price, meta })
       } else {
         Log.warn(`Response for ${config.stocks[index].symbol} does not satisfy expected payload.`)

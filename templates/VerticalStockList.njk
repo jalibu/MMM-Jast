@@ -8,7 +8,7 @@
     {% else %}
       {% set fadeSpeed =  stocks.length %}
     {% endif %}
-      {% set animationStyle = ' style="animation-duration: ' + fadeSpeed * config.fadeSpeedInSeconds + 's"' %}
+    {% set animationStyle = ' style="animation-duration: ' + fadeSpeed * config.fadeSpeedInSeconds + 's"' %}
   {% endif %}
     <ul {{ animationStyle | safe }}>
       {% for stock in stocks %}
@@ -44,7 +44,7 @@
             {% endif %}
             <span class="{{ colorClass }}{% if loop.index != 1 %} jast-multi-currency{% endif %}">
               {% if config.showPortfolioValue %} {{ utils.getPortfolioValueAsString(entry) }} {% endif %}
-              {% if config.showPortfolioGrowth or config.showPortfolioGrowthPercent %}
+              {% if colorClass and (config.showPortfolioGrowth or config.showPortfolioGrowthPercent) %}
                 {% if config.showPortfolioValue %}<span class="jast-change">({% endif %}
                 {% if config.showPortfolioGrowth %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getPortfolioChangeAsString(entry) }}</span>{% endif %}
                 {% if config.showPortfolioGrowthPercent %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getPortfolioChangePercentAsString(entry) }}</span>{% endif %}

@@ -46,6 +46,7 @@ export default class JastUtils {
       minimumFractionDigits: config.numberDecimalsPercentages <= 8 ? config.numberDecimalsPercentages : 8
     }
   }
+
   getStockChange(stock: StockResponse): number {
     return stock.price?.regularMarketChange
   }
@@ -84,7 +85,7 @@ export default class JastUtils {
     return stock.meta.name || stock.price.longName
   }
 
-  getPortfolioValueAsString(portfolio: Portfolio) {
+  getPortfolioValueAsString(portfolio: Portfolio): string {
     return portfolio.value.toLocaleString(
       this.config.locale,
       Object.assign(this.currentValueStyle, {
@@ -93,7 +94,7 @@ export default class JastUtils {
     )
   }
 
-  getPortfolioChangeAsString(portfolio: Portfolio) {
+  getPortfolioChangeAsString(portfolio: Portfolio): string {
     const change = portfolio.value - portfolio.oldValue
 
     return change.toLocaleString(
@@ -117,7 +118,8 @@ export default class JastUtils {
         const configStock = this.config.stocks?.find((current) => current.symbol === stock.meta?.symbol)
         if (configStock?.quantity) {
           const currentStockValue = stock.price?.regularMarketPrice * configStock.quantity
-          const lastStockValue = stock.price?.regularMarketPreviousClose * configStock.quantity
+          const lastStockValue =
+            (stock.price?.regularMarketPrice - stock.price?.regularMarketChange) * configStock.quantity
           const existingCurrency = portfolio.find((growth) => growth.currency === stock.price.currency)
 
           if (existingCurrency) {

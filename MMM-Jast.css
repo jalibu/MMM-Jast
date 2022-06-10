@@ -76,4 +76,5 @@
 .MMM-Jast .jast-wrapper.none li.jast-stock {
   display: flex;
   justify-content: space-between;
+  column-gap: 1vmin;
 }

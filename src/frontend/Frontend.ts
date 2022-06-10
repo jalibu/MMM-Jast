@@ -24,6 +24,7 @@ Module.register<Config>('MMM-Jast', {
     lastUpdateFormat: 'HH:mm',
     scroll: 'vertical',
     maxWidth: '100%',
+    maxChangeAge: 1 * 24 * 60 * 60 * 1000,
     numberDecimalsValues: 2,
     numberDecimalsPercentages: 1,
     showColors: true,

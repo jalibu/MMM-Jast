@@ -8,6 +8,7 @@ Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builder
 Contribution welcome.
 
 ### Support
+
 If you like this module and want to thank, please rate this repository with a star or [buy me a coffee](https://paypal.me/jalibu).
 
 ## Features
@@ -60,6 +61,7 @@ Static
    		useGrouping: false,
    		currencyStyle: "code", // One of ["code", "symbol", "name"]
    		lastUpdateFormat: "HH:mm",
+   		maxChangeAge: 1 * 24 * 60 * 60 * 1000, // older changes are ignored (default: 24h)
    		showColors: true,
    		showCurrency: true,
    		showChangePercent: true,
@@ -84,28 +86,29 @@ Static
 
 ### Options
 
-| Field                       | Description                                                                            | Default    |
-| --------------------------- | -------------------------------------------------------------------------------------- | ---------- |
-| updateIntervalInSeconds     | (Integer) Interval to refresh stock data from server. (min. 120)                       | 300        |
-| fadeSpeedInSeconds          | (Integer) Animation speed for ticker.                                                  | 3.5        |
-| stocks                      | (Array<Stock>) Array of stocks to be displayed                                         | Sample set |
-| scroll                      | (String) Animation direction for ticker. Values: none, vertical or horizontal          | "vertical" |
-| lastUpdateFormat            | (String) Define dateformat, if the last update should be displayed                     | "HH:mm"    |
-| maxWidth                    | (String) CSS style to limit ticker width for vertical styles                           | "100%"     |
-| numberDecimalsValues        | (Number) Number of decimals for stock values                                           | 2          |
-| numberDecimalsPercentages   | (Number) Number of decimals for percentages                                            | 1          |
-| currencyStyle               | (String) Style of currency. Possible values: "code" (EUR), "symbol" (€), "name" (Euro) | "code"     |
-| showColors                  | (Boolean) Colorize positive numbers in green, negatives in red                         | true       |
-| showCurrency                | (Boolean) Show stocks currency                                                         | true       |
-| showChangePercent           | (Boolean) Show stocks change against last close in percent                             | true       |
-| showChangeValue             | (Boolean) Show stocks change against last close in absolute value                      | false      |
-| showChangeValueCurrency     | (Boolean) Show currency for change value                                               | false      |
-| showLastUpdate              | (Boolean) Show when the data was updated                                               | false      |
-| showPortfolioValue          | (Boolean) Show portfolio value                                                         | false      |
-| showPortfolioGrowth         | (Boolean) Show portfolio value growth summary                                          | false      |
-| showPortfolioGrowthPercent  | (Boolean) Show portfolio value growth summary in percent                               | false      |
-| useGrouping                 | (Boolean) Add grouping to high value numbers (i.e. BTC 60,000.00 EUR)                  | false      |
-| virtualHorizontalMultiplier | (Number) Virtually repeats the stocklist in horizontal mode to avoid whitespaces       | 2          |
+| Field                       | Description                                                                            | Default                        |
+| --------------------------- | -------------------------------------------------------------------------------------- | ------------------------------ |
+| updateIntervalInSeconds     | (Integer) Interval to refresh stock data from server. (min. 120)                       | 300                            |
+| fadeSpeedInSeconds          | (Integer) Animation speed for ticker.                                                  | 3.5                            |
+| stocks                      | (Array<Stock>) Array of stocks to be displayed                                         | Sample set                     |
+| scroll                      | (String) Animation direction for ticker. Values: none, vertical or horizontal          | "vertical"                     |
+| lastUpdateFormat            | (String) Define dateformat, if the last update should be displayed                     | "HH:mm"                        |
+| maxChangeAge                | (number) Maximum age of the last change to be recognized as current in milliseconds    | 1 _ 24 _ 60 _ 60 _ 1000 => 24h |
+| maxWidth                    | (String) CSS style to limit ticker width for vertical styles                           | "100%"                         |
+| numberDecimalsValues        | (Number) Number of decimals for stock values                                           | 2                              |
+| numberDecimalsPercentages   | (Number) Number of decimals for percentages                                            | 1                              |
+| currencyStyle               | (String) Style of currency. Possible values: "code" (EUR), "symbol" (€), "name" (Euro) | "code"                         |
+| showColors                  | (Boolean) Colorize positive numbers in green, negatives in red                         | true                           |
+| showCurrency                | (Boolean) Show stocks currency                                                         | true                           |
+| showChangePercent           | (Boolean) Show stocks change against last close in percent                             | true                           |
+| showChangeValue             | (Boolean) Show stocks change against last close in absolute value                      | false                          |
+| showChangeValueCurrency     | (Boolean) Show currency for change value                                               | false                          |
+| showLastUpdate              | (Boolean) Show when the data was updated                                               | false                          |
+| showPortfolioValue          | (Boolean) Show portfolio value                                                         | false                          |
+| showPortfolioGrowth         | (Boolean) Show portfolio value growth summary                                          | false                          |
+| showPortfolioGrowthPercent  | (Boolean) Show portfolio value growth summary in percent                               | false                          |
+| useGrouping                 | (Boolean) Add grouping to high value numbers (i.e. BTC 60,000.00 EUR)                  | false                          |
+| virtualHorizontalMultiplier | (Number) Virtually repeats the stocklist in horizontal mode to avoid whitespaces       | 2                              |
 
 ### Stock Object
 
