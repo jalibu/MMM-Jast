@@ -10,7 +10,7 @@ Contribution welcome.
 ### Support
 
 I put a lot of time and effort into the creation and maintenance for this module and I'm glad so many people like it.  
-If you also like this module and want to thank, please rate this repository with a star or [donate a small amount that is worth it to you.](https://github.com/sponsors/jalibu).
+If you also like this module and want to thank, please rate this repository with a star or [donate a small amount that is worth it to you]([https://github.com/sponsors/jalibu](https://paypal.me/jalibu)).
 
 ## Features
 
