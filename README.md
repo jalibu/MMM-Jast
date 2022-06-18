@@ -8,7 +8,9 @@ Click here for the Magic Mirror [Forum Thread](https://forum.magicmirror.builder
 Contribution welcome.
 
 ### Support
-If you like this module and want to thank, please rate this repository with a star or [buy me a coffee](https://paypal.me/jalibu).
+
+I put a lot of time and effort into the creation and maintenance for this module and I'm glad so many people like it.  
+If you also like this module and want to thank, please rate this repository with a star or [donate a small amount that is worth it to you.](https://github.com/sponsors/jalibu).
 
 ## Features
 
@@ -53,13 +55,14 @@ Static
    	module: "MMM-Jast",
    	position: "top_left",
    	config: {
-   		maxWidth: "100%",
-   		updateIntervalInSeconds: 300,
-   		fadeSpeedInSeconds: 3.5,
-   		scroll: "vertical", // One of ["none", "vertical", "horizontal"]
-   		useGrouping: false,
    		currencyStyle: "code", // One of ["code", "symbol", "name"]
+   		fadeSpeedInSeconds: 3.5,
    		lastUpdateFormat: "HH:mm",
+   		maxChangeAge: 1 * 24 * 60 * 60 * 1000,
+   		maxWidth: "100%",
+   		numberDecimalsPercentages: 1,
+   		numberDecimalsValues: 2,
+   		scroll: "vertical", // One of ["none", "vertical", "horizontal"]
    		showColors: true,
    		showCurrency: true,
    		showChangePercent: true,
@@ -69,8 +72,8 @@ Static
    		showPortfolioValue: false,
    		showPortfolioGrowthPercent: false,
    		showPortfolioGrowth: false,
-   		numberDecimalsValues: 2,
-   		numberDecimalsPercentages: 1,
+   		updateIntervalInSeconds: 300,
+   		useGrouping: false,
    		virtualHorizontalMultiplier: 2,
    		stocks: [
    			{ name: "BASF", symbol: "BAS.DE", quantity: 10 },
@@ -84,36 +87,38 @@ Static
 
 ### Options
 
-| Field                       | Description                                                                            | Default    |
-| --------------------------- | -------------------------------------------------------------------------------------- | ---------- |
-| updateIntervalInSeconds     | (Integer) Interval to refresh stock data from server. (min. 120)                       | 300        |
-| fadeSpeedInSeconds          | (Integer) Animation speed for ticker.                                                  | 3.5        |
-| stocks                      | (Array<Stock>) Array of stocks to be displayed                                         | Sample set |
-| scroll                      | (String) Animation direction for ticker. Values: none, vertical or horizontal          | "vertical" |
-| lastUpdateFormat            | (String) Define dateformat, if the last update should be displayed                     | "HH:mm"    |
-| maxWidth                    | (String) CSS style to limit ticker width for vertical styles                           | "100%"     |
-| numberDecimalsValues        | (Number) Number of decimals for stock values                                           | 2          |
-| numberDecimalsPercentages   | (Number) Number of decimals for percentages                                            | 1          |
-| currencyStyle               | (String) Style of currency. Possible values: "code" (EUR), "symbol" (€), "name" (Euro) | "code"     |
-| showColors                  | (Boolean) Colorize positive numbers in green, negatives in red                         | true       |
-| showCurrency                | (Boolean) Show stocks currency                                                         | true       |
-| showChangePercent           | (Boolean) Show stocks change against last close in percent                             | true       |
-| showChangeValue             | (Boolean) Show stocks change against last close in absolute value                      | false      |
-| showChangeValueCurrency     | (Boolean) Show currency for change value                                               | false      |
-| showLastUpdate              | (Boolean) Show when the data was updated                                               | false      |
-| showPortfolioValue          | (Boolean) Show portfolio value                                                         | false      |
-| showPortfolioGrowth         | (Boolean) Show portfolio value growth summary                                          | false      |
-| showPortfolioGrowthPercent  | (Boolean) Show portfolio value growth summary in percent                               | false      |
-| useGrouping                 | (Boolean) Add grouping to high value numbers (i.e. BTC 60,000.00 EUR)                  | false      |
-| virtualHorizontalMultiplier | (Number) Virtually repeats the stocklist in horizontal mode to avoid whitespaces       | 2          |
+| Option                        | Description                                                                                                                                                                          |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `currencyStyle`               | Style of currency. <br><br>**Type:** `String` <br>**Allowed values:** `"code"` (EUR), `"symbol"` (€) or `"name"` (Euro)<br> **Default value:** `code`                                |
+| `fadeSpeedInSeconds`          | Animation speed for ticker. <br><br>**Type:** `Number`<br> **Default value:** `3.5`                                                                                                 |
+| `lastUpdateFormat`            | Define dateformat, if the last update should be displayed. <br><br>**Type:** `String`<br> **Default value:** `"HH:mm"`                                                              |
+| `locale`                      | Option to override the global/system locale for value formatting. <br><br>**Type:** `String`<br> **Default value:** `undefined` (system locale)                                      |
+| `maxChangeAge`                | Maximum age of the last change to be recognized as current in milliseconds. Set to `0` to disable. <br><br>**Type:** `Number`<br> **Default value:** `1 * 24 * 60 * 60 * 1000` (24h) |
+| `maxWidth`                    | CSS style to limit ticker width for vertical styles. <br><br>**Type:** `String`<br> **Default value:** `"100%"`                                                                      |
+| `numberDecimalsPercentages`   | Number of decimals for percentages. <br><br>**Type:** `Number`<br> **Default value:** `1`                                                                                           |
+| `numberDecimalsValues`        | Number of decimals for stock values. <br><br>**Type:** `Number`<br> **Default value:** `2`                                                                                          |
+| `scroll`                      | Animation direction for ticker. <br><br>**Type:** `String`<br>**Allowed Values:** `"none"`, `"vertical"` or `"horizontal"` <br>**Default value:** `"vertical"`                        |
+| `showColors`                  | Colorize positive numbers in green, negatives in red. <br><br>**Type:** `Boolean`<br> **Default value:** `true`                                                                      |
+| `showCurrency`                | Show stock\`s currency. <br><br>**Type:** `Boolean`<br> **Default value:** ` true`                                                                                                   |
+| `showChangePercent`           | Show stocks change against last close in percent. <br><br>**Type:** `Boolean`<br> **Default value:** `true`                                                                          |
+| `showChangeValue`             | Show stocks change against last close in absolute value. <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                                  |
+| `showChangeValueCurrency`     | Show currency for change value. <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                                                          |
+| `showLastUpdate`              | Show when the data was updated. <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                                                           |
+| `showPortfolioGrowth`         | Show portfolio value growth summary. <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                                                     |
+| `showPortfolioGrowthPercent`  | Show portfolio value growth summary in percent. <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                                          |
+| `showPortfolioValue`          | Show portfolio value. <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                                                                     |
+| `updateIntervalInSeconds`     | Interval to refresh stock data from server. (min. 120) <br><br>**Type:** `Number`<br> **Default value:** `600` (10 min)                                                              |
+| `useGrouping`                 | Add grouping to high value numbers (i.e. BTC 60,000.00 EUR). <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                              |
+| `virtualHorizontalMultiplier` | Virtually repeats the stocklist in horizontal mode to avoid whitespaces. <br><br>**Type:** `Number`<br> **Default value:** `2`                                                       |
+| `stocks`                      | Array of stocks to be displayed. <br><br>**Type:** `Array<Stock>` (see below)<br> **Default value:** _`Sample set`_                                                                  |
 
 ### Stock Object
 
-| Field    | Description                                                | Example   |
-| -------- | ---------------------------------------------------------- | --------- |
-| symbol   | (String) Stock's symbol/key                                | "BABA"    |
-| name     | (String) Optional: Stock's display name                    | "Alibaba" |
-| quantity | (Number) Optional: To calculate portfolio value and growth | 500       |
+| Field      | Description                                                                                                |
+| ---------- | ---------------------------------------------------------------------------------------------------------- |
+| `symbol`   | Stock's symbol/key <br><br>**Type:** `String` <br> **Example value:** `"SAP.DE"`                           |
+| `name`     | Optional: Stock's display name <br><br>**Type:** `String` <br> **Example value:** `"SAP"`                  |
+| `quantity` | Optional: To calculate portfolio value and growth <br><br>**Type:** `Number` <br> **Example value:** `500` |
 
 ### Where the hack do I get the symbol for my favorite stocks?!
 

@@ -67,3 +67,14 @@
 .jast-wrapper span.jast-change-value:nth-child(2)::before {
   content: " | ";
 }
+
+.MMM-Jast .jast-wrapper.none ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.MMM-Jast .jast-wrapper.none li.jast-stock {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 1vmin;
+}

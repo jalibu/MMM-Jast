@@ -8,11 +8,27 @@ declare const moment: any
 
 Module.register<Config>('MMM-Jast', {
   defaults: {
-    locale: config.locale || 'en-GB',
-    updateIntervalInSeconds: 600,
-    useGrouping: false,
     currencyStyle: 'code',
     fadeSpeedInSeconds: 3.5,
+    lastUpdateFormat: 'HH:mm',
+    locale: config.locale || 'en-GB',
+    maxChangeAge: 1 * 24 * 60 * 60 * 1000,
+    maxWidth: '100%',
+    numberDecimalsPercentages: 1,
+    numberDecimalsValues: 2,
+    scroll: 'vertical',
+    showColors: true,
+    showCurrency: true,
+    showChangePercent: true,
+    showChangeValue: false,
+    showChangeValueCurrency: false,
+    showLastUpdate: false,
+    showPortfolioGrowth: false,
+    showPortfolioGrowthPercent: false,
+    showPortfolioValue: false,
+    updateIntervalInSeconds: 600,
+    useGrouping: false,
+    virtualHorizontalMultiplier: 2,
     stocks: [
       { name: 'BASF', symbol: 'BAS.DE', quantity: 100 },
       { name: 'SAP', symbol: 'SAP.DE', quantity: 200 },
@@ -20,22 +36,7 @@ Module.register<Config>('MMM-Jast', {
       { name: 'AbbVie', symbol: '4AB.DE' },
       { name: 'Bitcoin', symbol: 'BTC-EUR' },
       { name: 'Alibaba', symbol: 'BABA' }
-    ],
-    lastUpdateFormat: 'HH:mm',
-    scroll: 'vertical',
-    maxWidth: '100%',
-    numberDecimalsValues: 2,
-    numberDecimalsPercentages: 1,
-    showColors: true,
-    showCurrency: true,
-    showChangePercent: true,
-    showChangeValue: false,
-    showChangeValueCurrency: false,
-    showLastUpdate: false,
-    showPortfolioValue: false,
-    showPortfolioGrowth: false,
-    showPortfolioGrowthPercent: false,
-    virtualHorizontalMultiplier: 2
+    ]
   },
 
   getScripts() {
