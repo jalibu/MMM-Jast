@@ -1,5 +1,5 @@
 {% macro render() %}
-  {% set itemCount = stocks.length %}
+  {% set itemCount = utils.getNumberOfDisplayedStocks(stocks, config) %}
   {% if config.showPortfolioValue or config.showPortfolioGrowth or config.showPortfolioGrowthPercent %}
     {% set itemCount = itemCount + 1 %}
   {% endif %}

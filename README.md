@@ -68,6 +68,7 @@ Static
    		showChangePercent: true,
    		showChangeValue: false,
    		showChangeValueCurrency: false,
+   		showHiddenStocks: false,
    		showLastUpdate: false,
    		showPortfolioValue: false,
    		showPortfolioGrowthPercent: false,
@@ -103,6 +104,7 @@ Static
 | `showChangePercent`           | Show stocks change against last close in percent. <br><br>**Type:** `Boolean`<br> **Default value:** `true`                                                                          |
 | `showChangeValue`             | Show stocks change against last close in absolute value. <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                                  |
 | `showChangeValueCurrency`     | Show currency for change value. <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                                                          |
+| `showHiddenStocks`              | Ignore the hidden property for each stock. This can be useful when you use the same set of stocks with multiple module instances. <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                                                           |
 | `showLastUpdate`              | Show when the data was updated. <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                                                           |
 | `showPortfolioGrowth`         | Show portfolio value growth summary. <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                                                     |
 | `showPortfolioGrowthPercent`  | Show portfolio value growth summary in percent. <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                                          |
@@ -118,6 +120,7 @@ Static
 | ---------- | ---------------------------------------------------------------------------------------------------------- |
 | `symbol`   | Stock's symbol/key <br><br>**Type:** `String` <br> **Example value:** `"SAP.DE"`                           |
 | `name`     | Optional: Stock's display name <br><br>**Type:** `String` <br> **Example value:** `"SAP"`                  |
+| `hidden`     | Optional: If set to true, this stock is not shown in the ticker but it is still used for portfolio calculation. <br><br>**Type:** `String` <br> **Default value:** `false`         |
 | `quantity` | Optional: To calculate portfolio value and growth <br><br>**Type:** `Number` <br> **Example value:** `500` |
 
 ### Where the hack do I get the symbol for my favorite stocks?!

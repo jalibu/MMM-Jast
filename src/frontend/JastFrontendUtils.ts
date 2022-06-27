@@ -18,104 +18,105 @@ type PercentStyle = {
 }
 
 export default class JastUtils {
-  config: Config
-  currentValueStyle: CurrencyStyle
-  changeValueStyle: CurrencyStyle
-  percentStyle: PercentStyle
-
-  constructor(config: Config) {
-    this.config = config
-
-    this.currentValueStyle = {
+  static getCurrentValueStyle(config: Config): CurrencyStyle {
+    return {
       style: config.showCurrency ? 'currency' : 'decimal',
       useGrouping: config.useGrouping,
       currencyDisplay: config.currencyStyle,
       minimumFractionDigits: config.numberDecimalsValues <= 8 ? config.numberDecimalsValues : 8
     }
+  }
 
-    this.changeValueStyle = {
+  static getChangeValueStyle(config: Config): CurrencyStyle {
+    return {
       style: config.showChangeValueCurrency ? 'currency' : 'decimal',
       useGrouping: config.useGrouping,
       currencyDisplay: config.currencyStyle,
       minimumFractionDigits: config.numberDecimalsValues <= 8 ? config.numberDecimalsValues : 8
     }
+  }
 
-    this.percentStyle = {
+  static getPercentStyle(config: Config): PercentStyle {
+    return {
       style: 'percent',
       useGrouping: config.useGrouping,
       minimumFractionDigits: config.numberDecimalsPercentages <= 8 ? config.numberDecimalsPercentages : 8
     }
   }
 
-  getStockChange(stock: StockResponse): number {
+  static getNumberOfDisplayedStocks(stocks: StockResponse[], config: Config): number {
+    return config.showHiddenStocks ? stocks.length : stocks.filter((stock) => !stock.meta.hidden).length
+  }
+
+  static getStockChange(stock: StockResponse): number {
     return stock.price?.regularMarketChange
   }
 
-  getStockChangePercent(stock: StockResponse): number {
+  static getStockChangePercent(stock: StockResponse): number {
     return stock.price?.regularMarketChangePercent
   }
 
-  getCurrentValue(stock: StockResponse): number {
+  static getCurrentValue(stock: StockResponse): number {
     return stock.price?.regularMarketPrice
   }
 
-  getStockChangeAsString(stock: StockResponse): string {
-    return this.getStockChange(stock).toLocaleString(
-      this.config.locale,
-      Object.assign(this.changeValueStyle, {
+  static getStockChangeAsString(stock: StockResponse, config: Config): string {
+    return JastUtils.getStockChange(stock).toLocaleString(
+      config.locale,
+      Object.assign(JastUtils.getChangeValueStyle(config), {
         currency: stock.price.currency
       })
     )
   }
 
-  getStockChangePercentAsString(stock: StockResponse): string {
-    return this.getStockChangePercent(stock).toLocaleString(this.config.locale, this.percentStyle)
+  static getStockChangePercentAsString(stock: StockResponse, config: Config): string {
+    return JastUtils.getStockChangePercent(stock).toLocaleString(config.locale, JastUtils.getPercentStyle(config))
   }
 
-  getCurrentValueAsString(stock: StockResponse): string {
-    return this.getCurrentValue(stock).toLocaleString(
-      this.config.locale,
-      Object.assign(this.currentValueStyle, {
+  static getCurrentValueAsString(stock: StockResponse, config: Config): string {
+    return JastUtils.getCurrentValue(stock).toLocaleString(
+      config.locale,
+      Object.assign(JastUtils.getCurrentValueStyle(config), {
         currency: stock.price.currency
       })
     )
   }
 
-  getStockName(stock: StockResponse): string {
+  static getStockName(stock: StockResponse): string {
     return stock.meta.name || stock.price.longName
   }
 
-  getPortfolioValueAsString(portfolio: Portfolio): string {
+  static getPortfolioValueAsString(portfolio: Portfolio, config: Config): string {
     return portfolio.value.toLocaleString(
-      this.config.locale,
-      Object.assign(this.currentValueStyle, {
+      config.locale,
+      Object.assign(JastUtils.getCurrentValueStyle(config), {
         currency: portfolio.currency
       })
     )
   }
 
-  getPortfolioChangeAsString(portfolio: Portfolio): string {
+  static getPortfolioChangeAsString(portfolio: Portfolio, config: Config): string {
     const change = portfolio.value - portfolio.oldValue
 
     return change.toLocaleString(
-      this.config.locale,
-      Object.assign(this.currentValueStyle, {
+      config.locale,
+      Object.assign(JastUtils.getCurrentValueStyle(config), {
         currency: portfolio.currency
       })
     )
   }
 
-  getPortfolioChangePercentAsString(portfolio: Portfolio): string {
+  static getPortfolioChangePercentAsString(portfolio: Portfolio, config: Config): string {
     const change = (portfolio.value - portfolio.oldValue) / portfolio.oldValue
 
-    return change.toLocaleString(this.config.locale, this.percentStyle)
+    return change.toLocaleString(config.locale, JastUtils.getPercentStyle(config))
   }
 
-  getPortfolio(stocks: StockResponse[]): Portfolio[] {
+  static getPortfolio(stocks: StockResponse[], config: Config): Portfolio[] {
     const portfolio: Portfolio[] = []
     for (const stock of stocks) {
       try {
-        const configStock = this.config.stocks?.find((current) => current.symbol === stock.meta?.symbol)
+        const configStock = config.stocks?.find((current) => current.symbol === stock.meta?.symbol)
         if (configStock?.quantity) {
           const currentStockValue = stock.price?.regularMarketPrice * configStock.quantity
           const lastStockValue =

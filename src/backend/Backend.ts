@@ -18,7 +18,8 @@ module.exports = NodeHelper.create({
   },
 
   async socketNotificationReceived(notification, payload) {
-    if (notification === 'JAST_STOCKS_REQUEST') {
+    if (notification.includes('JAST_STOCKS_REQUEST')) {
+      const identifier = notification.substring('JAST_STOCKS_REQUEST'.length + 1)
       let stocks = await JastBackendUtils.requestStocks(payload)
 
       stocks = stocks.filter((stock) =>
@@ -39,7 +40,7 @@ module.exports = NodeHelper.create({
         stocks
       }
 
-      this.sendSocketNotification('JAST_STOCKS_RESPONSE', response)
+      this.sendSocketNotification(`JAST_STOCKS_RESPONSE-${identifier}`, response)
     } else {
       Log.warn(`${notification} is invalid notification`)
     }

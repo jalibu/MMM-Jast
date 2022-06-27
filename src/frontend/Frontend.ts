@@ -22,6 +22,7 @@ Module.register<Config>('MMM-Jast', {
     showChangePercent: true,
     showChangeValue: false,
     showChangeValueCurrency: false,
+    showHiddenStocks: false,
     showLastUpdate: false,
     showPortfolioGrowth: false,
     showPortfolioGrowthPercent: false,
@@ -59,13 +60,11 @@ Module.register<Config>('MMM-Jast', {
   },
 
   getTemplateData() {
-    const utils = new Utils(this.config)
-
     return {
       config: this.config,
       stocks: this.state?.stocks,
       lastUpdate: moment(this.state?.lastUpdate).format(this.config.lastUpdateFormat),
-      utils
+      utils: Utils
     }
   },
 
@@ -84,11 +83,11 @@ Module.register<Config>('MMM-Jast', {
   },
 
   loadData() {
-    this.sendSocketNotification('JAST_STOCKS_REQUEST', this.config)
+    this.sendSocketNotification(`JAST_STOCKS_REQUEST-${this.identifier}`, this.config)
   },
 
   socketNotificationReceived(notificationIdentifier: string, payload: unknown) {
-    if (notificationIdentifier === 'JAST_STOCKS_RESPONSE') {
+    if (notificationIdentifier === `JAST_STOCKS_RESPONSE-${this.identifier}`) {
       this.state = payload
       Log.log('JAST_STOCKS_RESPONSE', this.state)
       this.updateDom()

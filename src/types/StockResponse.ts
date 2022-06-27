@@ -6,5 +6,6 @@ export type StockResponse = {
     displayCurrency?: string
     name: string
     quantity?: number
+    hidden?: boolean
   }
 }
