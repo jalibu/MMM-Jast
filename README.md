@@ -79,7 +79,7 @@ Static
    		stocks: [
    			{ name: "BASF", symbol: "BAS.DE", quantity: 10 },
    			{ name: "SAP", symbol: "SAP.DE", quantity: 15 },
-   			{ name: "Henkel", symbol: "HEN3.DE" },
+   			{ name: "Henkel", symbol: "HEN3.DE", hidden: true },
    			{ name: "Alibaba", symbol: "BABA"}
    		]
    	}
@@ -120,7 +120,7 @@ Static
 | ---------- | ---------------------------------------------------------------------------------------------------------- |
 | `symbol`   | Stock's symbol/key <br><br>**Type:** `String` <br> **Example value:** `"SAP.DE"`                           |
 | `name`     | Optional: Stock's display name <br><br>**Type:** `String` <br> **Example value:** `"SAP"`                  |
-| `hidden`     | Optional: If set to true, this stock is not shown in the ticker but it is still used for portfolio calculation. <br><br>**Type:** `String` <br> **Default value:** `false`         |
+| `hidden`     | Optional: If set to true, this stock is not shown in the ticker but it is still used for portfolio calculation. <br><br>**Type:** `Boolean` <br> **Default value:** `false`         |
 | `quantity` | Optional: To calculate portfolio value and growth <br><br>**Type:** `Number` <br> **Example value:** `500` |
 
 ### Where the hack do I get the symbol for my favorite stocks?!
