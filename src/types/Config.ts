@@ -1,25 +1,26 @@
 export type Config = {
-  locale: string
-  updateIntervalInSeconds: number
+  currencyStyle: 'symbol' | 'code' | 'name'
   fadeSpeedInSeconds: number
-  stocks: Stock[]
-  scroll: 'vertical' | 'horizontal' | 'none'
-  maxWidth: string
+  lastUpdateFormat: string
+  locale: string
   maxChangeAge: number
-  numberDecimalsValues: number
+  maxWidth: string
   numberDecimalsPercentages: number
+  numberDecimalsValues: number
+  scroll: 'vertical' | 'horizontal' | 'none'
   showCurrency: boolean
   showColors: boolean
-  lastUpdateFormat: string
-  currencyStyle: 'symbol' | 'code' | 'name'
-  useGrouping: boolean
   showChangePercent: boolean
   showChangeValue: boolean
   showChangeValueCurrency: boolean
+  showHiddenStocks: boolean
   showLastUpdate: boolean
-  showPortfolioValue: boolean
   showPortfolioGrowth: boolean
   showPortfolioGrowthPercent: boolean
+  showPortfolioValue: boolean
+  stocks: Stock[]
+  updateIntervalInSeconds: number
+  useGrouping: boolean
   virtualHorizontalMultiplier: number
 }
 
@@ -27,4 +28,5 @@ export type Stock = {
   symbol: string
   name?: string
   quantity?: number
+  hidden?: boolean
 }

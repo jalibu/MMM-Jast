@@ -1,11 +1,10 @@
 {% import "templates/VerticalStockList.njk" as verticalStockList with context %}
 {% import "templates/HorizontalScrollStyle.njk" as hss with context %}
 {% import "templates/HorizontalStockList.njk" as horizontalStockList with context %}
-
 {% if stocks.length > 0 %}
   <div class="normal medium jast-wrapper {{ config.scroll }}{% if not config.showColors %} monochrome{% endif %}" style="max-width: {{config.maxWidth}};">
     {% if config.scroll == "horizontal" %}
-      {{ hss.render(config) }}
+      {{ hss.render() }}
       {{ horizontalStockList.render() }}
       {{ horizontalStockList.render("2") }}
     {% else %}
