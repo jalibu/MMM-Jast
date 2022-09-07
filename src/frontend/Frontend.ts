@@ -89,7 +89,7 @@ Module.register<Config>('MMM-Jast', {
   socketNotificationReceived(notificationIdentifier: string, payload: unknown) {
     if (notificationIdentifier === `JAST_STOCKS_RESPONSE-${this.identifier}`) {
       this.state = payload
-      Log.log('JAST_STOCKS_RESPONSE', this.state)
+      Log.log('received JAST_STOCKS_RESPONSE', notificationIdentifier, this.state)
       this.updateDom()
     }
   }
