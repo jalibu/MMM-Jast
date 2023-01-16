@@ -18,6 +18,11 @@ export type Config = {
   showPortfolioGrowth: boolean
   showPortfolioGrowthPercent: boolean
   showPortfolioValue: boolean
+  showPortfolioPerformanceValue: boolean
+  showPortfolioPerformancePercent: boolean
+  showStockPerformanceValue: boolean,
+  showStockPerformanceValueSum: boolean,
+  showStockPerformancePercent: boolean,
   stocks: Stock[]
   updateIntervalInSeconds: number
   useGrouping: boolean

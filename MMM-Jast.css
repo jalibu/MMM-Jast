@@ -30,15 +30,11 @@
   animation-timing-function: cubic-bezier(1, 0, 0.5, 0);
 }
 .jast-wrapper.horizontal .jast-hticker {
-  margin: 0 auto;
-  white-space: nowrap;
   position: absolute;
+  display: flex;
 }
 .jast-wrapper.horizontal ul.jast-tickerframe {
-    width: 100%;
-    list-style-type: none;
-    margin: auto;
-    padding-left: 100%;
+  padding-left: 100%;
 }
 
 .jast-wrapper.horizontal li.jast-stock {
@@ -68,7 +64,7 @@
   font-size: calc(var(--size) - 0.3em);
 }
 
-.jast-wrapper span.jast-change-value:nth-child(2)::before {
+.jast-wrapper span.jast-change-value:nth-child(2)::before,span.jast-change-value:nth-child(3)::before {
   content: ' | ';
 }
 

@@ -27,7 +27,7 @@ export default [
     plugins: [typescript({ module: 'ESNext' }), nodeResolve(), commonjs(), terser(), banner2(() => bannerText)],
     output: {
       file: './' + pkg.main,
-      format: 'iife',
+      format: 'cjs',
       globals: {
         logger: 'Log'
       }
