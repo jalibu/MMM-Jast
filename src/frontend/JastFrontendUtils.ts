@@ -52,6 +52,19 @@ export default class JastUtils {
     return stock.price?.regularMarketChange
   }
 
+  static getStockPerformance(stock: StockResponse): number {
+    return stock.meta.purchasePrice ? stock.price - stock.meta.purchasePrice : 0
+  }
+
+  static getStockPerformanceAsString(stock: StockResponse, config: Config): string {
+    return JastUtils.getStockPerformance(stock).toLocaleString(
+      config.locale,
+      Object.assign(JastUtils.getChangeValueStyle(config), {
+        currency: stock.price.currency
+      })
+    )
+  }
+
   static getStockChangePercent(stock: StockResponse): number {
     return stock.price?.regularMarketChangePercent
   }

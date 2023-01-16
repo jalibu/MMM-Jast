@@ -23,7 +23,8 @@ export default class JastBackendUtils {
           symbol: config.stocks[index].symbol,
           name: config.stocks[index].name,
           quantity: config.stocks[index].quantity,
-          hidden: config.stocks[index].hidden
+          hidden: config.stocks[index].hidden,
+          purchasePrice: config.stocks[index].purchasePrice
         }
         // Manually convert GBp to GBP
         if (response.price.currency === 'GBp') {

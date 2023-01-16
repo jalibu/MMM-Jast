@@ -1,4 +1,3 @@
-import * as Log from 'logger'
 import Utils from './JastFrontendUtils'
 import { Config } from '../types/Config'
 
@@ -89,8 +88,8 @@ Module.register<Config>('MMM-Jast', {
   socketNotificationReceived(notificationIdentifier: string, payload: unknown) {
     if (notificationIdentifier === `JAST_STOCKS_RESPONSE-${this.identifier}`) {
       this.state = payload
-      Log.log('received JAST_STOCKS_RESPONSE', notificationIdentifier, this.state)
       this.updateDom()
+      console.log("data", payload)
     }
   }
 })

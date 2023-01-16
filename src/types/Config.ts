@@ -29,4 +29,5 @@ export type Stock = {
   name?: string
   quantity?: number
   hidden?: boolean
+  purchasePrice?: number
 }
