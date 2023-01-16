@@ -112,6 +112,15 @@ export default class JastUtils {
     )
   }
 
+  static getPurchasePriceAsString(stock: StockResponse, config: Config): string {
+    return stock.meta.purchasePrice.toLocaleString(
+      config.locale,
+      Object.assign(JastUtils.getCurrentValueStyle(config), {
+        currency: stock.price.currency
+      })
+    )
+  }
+
   static getStockName(stock: StockResponse): string {
     return stock.meta.name || stock.price.longName
   }

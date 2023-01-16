@@ -34,6 +34,7 @@ Module.register<Config>('MMM-Jast', {
     updateIntervalInSeconds: 600,
     useGrouping: false,
     virtualHorizontalMultiplier: 2,
+    stocksPerPage: 1,
     stocks: [
       { name: 'BASF', symbol: 'BAS.DE', quantity: 100 },
       { name: 'SAP', symbol: 'SAP.DE', quantity: 200 },
@@ -94,7 +95,7 @@ Module.register<Config>('MMM-Jast', {
     if (notificationIdentifier === `JAST_STOCKS_RESPONSE-${this.identifier}`) {
       this.state = payload
       this.updateDom()
-      console.log("data", payload)
+      console.log('data', payload)
     }
   }
 })

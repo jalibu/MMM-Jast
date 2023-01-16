@@ -1,5 +1,7 @@
 {% import "templates/StockList.njk" as stockList with context %}
+{% import "templates/HorizontalScrollStyle.njk" as hss with context %}
 {% macro render(num="1") %}
+  {{ hss.render() }}
   <span class="jast-hticker jast-ticker-no{{ num }}" >
     <ul class="jast-tickerframe">
     {% for i in range(0, config.virtualHorizontalMultiplier) -%}

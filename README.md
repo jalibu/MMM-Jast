@@ -62,7 +62,7 @@ Static
    		maxWidth: "100%",
    		numberDecimalsPercentages: 1,
    		numberDecimalsValues: 2,
-   		scroll: "vertical", // One of ["none", "vertical", "horizontal"]
+   		scroll: "vertical", // One of ["none", "vertical", "horizontal", "table"]
    		showColors: true,
    		showCurrency: true,
    		showChangePercent: true,
@@ -73,11 +73,12 @@ Static
    		showPortfolioValue: false,
    		showPortfolioGrowthPercent: false,
    		showPortfolioGrowth: false,
-		showPortfolioPerformanceValue: false,
-		showPortfolioPerformancePercent: false,
-		showStockPerformanceValue: false,
-		showStockPerformanceValueSum: false,
-		showStockPerformancePercent: false,
+   	showPortfolioPerformanceValue: false,
+   	showPortfolioPerformancePercent: false,
+   	showStockPerformanceValue: false,
+   	showStockPerformanceValueSum: false,
+   	showStockPerformancePercent: false,
+   	stocksPerPage: 2,
    		updateIntervalInSeconds: 300,
    		useGrouping: false,
    		virtualHorizontalMultiplier: 2,
@@ -119,6 +120,7 @@ Static
 | `showStockPerformanceValue`       | Show performance against purchase price value. <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                                                    |
 | `showStockPerformanceValueSum`    | Show performance against purchase price value in total. <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                                           |
 | `showStockPerformancePercent`     | Show performance against purchase price in percent. <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                                               |
+| `stocksPerPage`                   | Specifies how many stocks are displayed per page on table view. <br><br>**Type:** `number`<br> **Default value:** `2`                                                                        |
 | `updateIntervalInSeconds`         | Interval to refresh stock data from server. (min. 120) <br><br>**Type:** `Number`<br> **Default value:** `600` (10 min)                                                                      |
 | `useGrouping`                     | Add grouping to high value numbers (i.e. BTC 60,000.00 EUR). <br><br>**Type:** `Boolean`<br> **Default value:** `false`                                                                      |
 | `virtualHorizontalMultiplier`     | Virtually repeats the stocklist in horizontal mode to avoid whitespaces. <br><br>**Type:** `Number`<br> **Default value:** `2`                                                               |
@@ -132,7 +134,7 @@ Static
 | `name`          | Optional: Stock's display name <br><br>**Type:** `String` <br> **Example value:** `"SAP"`                                                                                                     |
 | `hidden`        | **Experimental!** Optional: If set to true, this stock is not shown in the ticker but it is still used for portfolio calculation. <br><br>**Type:** `Boolean` <br> **Default value:** `false` |
 | `quantity`      | Optional: To calculate portfolio value and growth <br><br>**Type:** `Number` <br> **Example value:** `500`                                                                                    |
-| `purchasePrice` | Optional: To calculate the stock and portfolio performance <br><br>**Type:** `Number` <br> **Example value:** `500`                                                                                    |
+| `purchasePrice` | Optional: To calculate the stock and portfolio performance <br><br>**Type:** `Number` <br> **Example value:** `500`                                                                           |
 
 ### Where the hack do I get the symbol for my favorite stocks?!
 

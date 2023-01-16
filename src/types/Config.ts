@@ -24,6 +24,7 @@ export type Config = {
   showStockPerformanceValueSum: boolean,
   showStockPerformancePercent: boolean,
   stocks: Stock[]
+  stocksPerPage: number
   updateIntervalInSeconds: number
   useGrouping: boolean
   virtualHorizontalMultiplier: number
