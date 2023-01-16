@@ -82,8 +82,8 @@ Static
    		useGrouping: false,
    		virtualHorizontalMultiplier: 2,
    		stocks: [
-   			{ name: "BASF", symbol: "BAS.DE", quantity: 10 },
-   			{ name: "SAP", symbol: "SAP.DE", quantity: 15 },
+   			{ name: "BASF", symbol: "BAS.DE", quantity: 10, purchasePrice: 70.4 },
+   			{ name: "SAP", symbol: "SAP.DE", quantity: 15, purchasePrice: 90.3 },
    			{ name: "Henkel", symbol: "HEN3.DE", hidden: true },
    			{ name: "Alibaba", symbol: "BABA"}
    		]
