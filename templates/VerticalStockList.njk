@@ -29,6 +29,19 @@
                 </span>
               {% endif %}
             </span>
+            {% if utils.getStockChangePercentToBuy(stock) > 0 %}
+              {% set colorClass = "high" %}
+            {% elif utils.getStockChangePercentToBuy(stock) < 0 %}
+              {% set colorClass = "low" %}
+            {% else %}
+              {% set colorClass = "" %}
+            {% endif %}
+            <span class="jast-change {{ colorClass }}">
+              {% if stock.meta.buyPrix > 0 %}
+              <span class="jast-change-value {{ colorClass }}">({% if utils.getStockChangePercentToBuy(stock) > 0 %}+{%endif%}{{ utils.getStockChangeProfitAsString(stock, config) }}</span>
+              <span class="jast-change-value {{ colorClass }}">{% if utils.getStockChangePercentToBuy(stock) > 0 %}+{%endif%}{{ utils.getStockChangePercentAsStringToBuy(stock, config) }})</span>
+              {% endif %}
+            </span>
           </li>
         {% endif %}
       {% endfor %}
