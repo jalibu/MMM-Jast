@@ -9,6 +9,7 @@ type CurrencyStyle = {
   currency?: string
   currencyDisplay: string
   minimumFractionDigits: number
+  maximumFractionDigits: number
 }
 
 type PercentStyle = {
@@ -23,7 +24,8 @@ export default class JastUtils {
       style: config.showCurrency ? 'currency' : 'decimal',
       useGrouping: config.useGrouping,
       currencyDisplay: config.currencyStyle,
-      minimumFractionDigits: config.numberDecimalsValues <= 8 ? config.numberDecimalsValues : 8
+      minimumFractionDigits: config.numberDecimalsValues <= 8 ? config.numberDecimalsValues : 8,
+      maximumFractionDigits: config.numberDecimalsValues <= 8 ? config.numberDecimalsValues : 8
     }
   }
 
@@ -32,7 +34,8 @@ export default class JastUtils {
       style: config.showChangeValueCurrency ? 'currency' : 'decimal',
       useGrouping: config.useGrouping,
       currencyDisplay: config.currencyStyle,
-      minimumFractionDigits: config.numberDecimalsValues <= 8 ? config.numberDecimalsValues : 8
+      minimumFractionDigits: config.numberDecimalsValues <= 8 ? config.numberDecimalsValues : 8,
+      maximumFractionDigits: config.numberDecimalsValues <= 8 ? config.numberDecimalsValues : 8
     }
   }
 
@@ -61,6 +64,7 @@ export default class JastUtils {
   }
 
   static getStockChangeAsString(stock: StockResponse, config: Config): string {
+    console.log("Style", JastUtils.getChangeValueStyle(config))
     return JastUtils.getStockChange(stock).toLocaleString(
       config.locale,
       Object.assign(JastUtils.getChangeValueStyle(config), {
