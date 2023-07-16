@@ -1,4 +1,7 @@
 {
   "portfolio": "Depot:",
-  "lastUpdate": "Stand:"
+  "lastUpdate": "Stand:",
+  "stockPrice": "Kurs",
+  "purchasePrice": "Einstiegspreis",
+  "priceGain": "Kursgewinn"
 }
