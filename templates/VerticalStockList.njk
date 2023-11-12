@@ -1,7 +1,7 @@
 {% import "templates/StockList.njk" as stockList with context %}
 {% import "templates/VerticalScrollStyle.njk" as vss with context %}
 {% macro render() %}
-  {% if config.scroll == "vertical" %}
+  {% if config.displayMode == "vertical" %}
     {{ vss.render(config) }}
     {% if config.showPortfolioGrowth %}
       {% set fadeSpeed =  stocks.length + 1 %}

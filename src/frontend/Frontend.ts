@@ -15,7 +15,7 @@ Module.register<Config>('MMM-Jast', {
     maxWidth: '100%',
     numberDecimalsPercentages: 1,
     numberDecimalsValues: 2,
-    scroll: 'vertical',
+    displayMode: 'vertical',
     showColors: true,
     showCurrency: true,
     showChangePercent: true,
@@ -34,14 +34,12 @@ Module.register<Config>('MMM-Jast', {
     updateIntervalInSeconds: 600,
     useGrouping: false,
     virtualHorizontalMultiplier: 2,
-    stocksPerPage: 1,
+    stocksPerPage: 2,
     stocks: [
-      { name: 'BASF', symbol: 'BAS.DE', quantity: 100 },
-      { name: 'SAP', symbol: 'SAP.DE', quantity: 200 },
-      { name: 'Henkel', symbol: 'HEN3.DE' },
-      { name: 'AbbVie', symbol: '4AB.DE' },
-      { name: 'Bitcoin', symbol: 'BTC-EUR' },
-      { name: 'Alibaba', symbol: 'BABA' }
+      { name: 'BASF', symbol: 'BAS.DE', quantity: 10, purchasePrice: 70.4 },
+      { name: 'SAP', symbol: 'SAP.DE', quantity: 15, purchasePrice: 90.3 },
+      { name: 'Henkel', symbol: 'HEN3.DE', hidden: true },
+      { name: 'Bitcoin', symbol: 'BTC-EUR' }
     ]
   },
 
@@ -74,6 +72,10 @@ Module.register<Config>('MMM-Jast', {
   },
 
   start() {
+    if(this.config.scroll){
+      console.warn("MMM-JAST config property 'scroll' is deprecated. Please use displayMode instead.")
+      this.config.displayMode = this.config.scroll
+    }
     this.loadData()
     this.scheduleUpdate()
     this.updateDom()

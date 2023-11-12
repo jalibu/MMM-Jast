@@ -7,7 +7,8 @@ export type Config = {
   maxWidth: string
   numberDecimalsPercentages: number
   numberDecimalsValues: number
-  scroll: 'vertical' | 'horizontal' | 'none'
+  displayMode: 'vertical' | 'horizontal' | 'none' | 'table'
+  scroll?: 'vertical' | 'horizontal' | 'none' | 'table'
   showCurrency: boolean
   showColors: boolean
   showChangePercent: boolean
@@ -20,9 +21,9 @@ export type Config = {
   showPortfolioValue: boolean
   showPortfolioPerformanceValue: boolean
   showPortfolioPerformancePercent: boolean
-  showStockPerformanceValue: boolean,
-  showStockPerformanceValueSum: boolean,
-  showStockPerformancePercent: boolean,
+  showStockPerformanceValue: boolean
+  showStockPerformanceValueSum: boolean
+  showStockPerformancePercent: boolean
   stocks: Stock[]
   stocksPerPage: number
   updateIntervalInSeconds: number

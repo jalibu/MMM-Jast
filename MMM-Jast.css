@@ -64,7 +64,8 @@
   font-size: calc(var(--size) - 0.3em);
 }
 
-.jast-wrapper span.jast-change-value:nth-child(2)::before,span.jast-change-value:nth-child(3)::before {
+.jast-wrapper span.jast-change-value:nth-child(2)::before,
+span.jast-change-value:nth-child(3)::before {
   content: ' | ';
 }
 
@@ -77,4 +78,12 @@
   display: flex;
   justify-content: space-between;
   column-gap: 1vmin;
+}
+.MMM-Jast .jast-wrapper.table table {
+  table-layout: fixed;
+}
+
+.MMM-Jast .jast-wrapper.table th,
+td {
+  padding-right: 0.5em;
 }

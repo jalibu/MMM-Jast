@@ -191,7 +191,7 @@ export default class JastUtils {
           } else {
             portfolio.push({
               value: currentStockValue,
-              purchaseValue: purchaseValue,
+              purchaseValue,
               oldValue: lastStockValue,
               currency: stock.price.currency
             })
