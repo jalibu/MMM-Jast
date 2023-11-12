@@ -1,12 +1,13 @@
 {% import "templates/VerticalStockList.njk" as verticalStockList with context %}
-{% import "templates/HorizontalScrollStyle.njk" as hss with context %}
 {% import "templates/HorizontalStockList.njk" as horizontalStockList with context %}
+{% import "templates/TableStockList.njk" as tableStockList with context %}
 {% if stocks.length > 0 %}
-  <div class="normal medium jast-wrapper {{ config.scroll }}{% if not config.showColors %} monochrome{% endif %}" style="max-width: {{config.maxWidth}};">
-    {% if config.scroll == "horizontal" %}
-      {{ hss.render() }}
+  <div class="normal medium jast-wrapper {{ config.displayMode }}{% if not config.showColors %} monochrome{% endif %}" style="max-width: {{config.maxWidth}};">
+    {% if config.displayMode == "horizontal" %}
       {{ horizontalStockList.render() }}
       {{ horizontalStockList.render("2") }}
+    {% elif config.displayMode == "table" %}
+      {{ tableStockList.render() }}
     {% else %}
       {{ verticalStockList.render() }}
     {% endif %}

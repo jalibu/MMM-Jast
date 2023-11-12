@@ -30,19 +30,19 @@
   animation-timing-function: cubic-bezier(1, 0, 0.5, 0);
 }
 .jast-wrapper.horizontal .jast-hticker {
-  margin: 0 auto;
-  white-space: nowrap;
-  overflow: hidden;
   position: absolute;
+  display: flex;
 }
-
-.jast-wrapper.horizontal span.jast-tickerframe {
-  display: inline-block;
+.jast-wrapper.horizontal ul.jast-tickerframe {
   padding-left: 100%;
 }
 
-.jast-wrapper.horizontal span.jast-stock:before {
-  content: "\2022";
+.jast-wrapper.horizontal li.jast-stock {
+  display: inline-block;
+}
+
+.jast-wrapper.horizontal li.jast-stock:before {
+  content: '\2022';
   margin-right: 0.4em;
   margin-left: 0.4em;
 }
@@ -56,7 +56,7 @@
 
 .jast-multi-currency::before {
   color: #999;
-  content: "| ";
+  content: '| ';
 }
 
 .jast-wrapper .jast-stock span.jast-change {
@@ -64,8 +64,9 @@
   font-size: calc(var(--size) - 0.3em);
 }
 
-.jast-wrapper span.jast-change-value:nth-child(2)::before {
-  content: " | ";
+.jast-wrapper span.jast-change-value:nth-child(2)::before,
+span.jast-change-value:nth-child(3)::before {
+  content: ' | ';
 }
 
 .MMM-Jast .jast-wrapper.none ul {
@@ -77,4 +78,12 @@
   display: flex;
   justify-content: space-between;
   column-gap: 1vmin;
+}
+.MMM-Jast .jast-wrapper.table table {
+  table-layout: fixed;
+}
+
+.MMM-Jast .jast-wrapper.table th,
+td {
+  padding-right: 0.5em;
 }

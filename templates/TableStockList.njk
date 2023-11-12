@@ -1,0 +1,130 @@
+{% macro render() %}
+<style>
+
+.jast-wrapper table {
+  font-size: 0.7em;
+  text-align: right;
+}
+
+.jast-wrapper span.badge {
+  background: grey;
+  color: white;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.jast-wrapper span.badge.high {
+  background: green;
+}
+
+.jast-wrapper span.badge.high span::before {
+  content: '+';
+}
+
+.jast-wrapper span.badge.low {
+  background: red;
+}
+
+.jast-wrapper thead {
+  color: #000;
+  opacity: 0.5;
+  background: #fff;
+}
+
+.jast-wrapper tbody tr {
+  display: none;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+
+.jast-wrapper .bold {
+font-weight: bold;
+}
+
+.jast-wrapper tbody tr.show{
+  display: table-row;
+  animation-name: fadeIn
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+</style>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>{{ "stockPrice" | translate | safe }}</th>
+      <th>{{ "purchasePrice" | translate | safe }}</th>
+      <th>{{ "priceGain" | translate | safe }}</th>
+    </tr>
+  </thead>
+  <tbody id="stockTableBody">
+  {% for stock in stocks %}
+      <tr class="hide">
+      <td><span class="bold">{{ utils.getStockName(stock) }}</span></td>
+      <td>
+          {% if utils.getStockChange(stock) > 0 %}
+          {% set colorClass = "high" %}
+        {% elif utils.getStockChange(stock) < 0 %}
+          {% set colorClass = "low" %}
+        {% else %}
+          {% set colorClass = "" %}
+        {% endif %}
+          <span>{{ utils.getCurrentValueAsString(stock, config) }}</span>
+
+        <span class="badge{% if colorClass == "high" %} high{% elif colorClass == "low" %} low{% endif %}">
+          <span>{{ utils.getStockChangeAsString(stock, config) }}</span>
+          <span>{{ utils.getStockChangePercentAsString(stock, config) }}</span>
+        </span>
+      </td>
+      <td>
+      {% if stock.meta.purchasePrice %}
+        {% if utils.getStockPerformance(stock) > 0 %}
+          {% set colorClassPerformance = "high" %}
+        {% elif utils.getStockPerformance(stock) < 0 %}
+          {% set colorClassPerformance = "low" %}
+        {% else %}
+          {% set colorClassPerformance = "" %}
+        {% endif %}
+        <span>{{ utils.getPurchasePriceAsString(stock, config) }}</span>
+        <span class="badge{% if colorClassPerformance == "high" %} high{% elif colorClassPerformance == "low" %} low{% endif %}">
+          <span>{{ utils.getStockPerformanceAsString(stock, config) }}</span>
+          <span>{{ utils.getStockPerformancePercentAsString(stock, config) }}</span>
+        </span>
+        {% endif %}
+      </td>
+      <td>
+      {% if stock.meta.purchasePrice %}
+        <span>{{ utils.getStockPerformanceSumAsString(stock, config) }}</span>
+      {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<style onload="(function(){
+  const tableBody = document.getElementById('stockTableBody')
+  const rows = Array.prototype.slice.call(tableBody.getElementsByTagName('tr'))
+
+  let currentRow = 0;
+
+  function showNextRow() {
+      rows.forEach(row => row.classList.replace('show', 'hide'))
+      for(let i = 1; i <= {{ config.stocksPerPage }}; i++){
+        rows[currentRow].classList.replace('hide', 'show')
+        currentRow = (currentRow + 1) % rows.length;
+      }
+  }
+  showNextRow()
+  setInterval(showNextRow, {{ config.fadeSpeedInSeconds }} * 1000); // show the next row every 2 seconds
+})()">
+
+{% endmacro %}

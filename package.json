@@ -1,6 +1,6 @@
 {
   "name": "mmm-jast",
-  "version": "2.8.2",
+  "version": "2.9.0",
   "description": "A minimalistic stock ticker based on Yahoo's finance API for the MagicMirror² platform.",
   "main": "MMM-Jast.js",
   "repository": {
@@ -9,29 +9,44 @@
   },
   "author": "Jan.Litzenburger@gmail.com",
   "license": "MIT",
+  "keywords": [
+    "magicmirror",
+    "stock",
+    "stocks",
+    "ticker",
+    "finance",
+    "yahoo",
+    "currency",
+    "currencies",
+    "crypto",
+    "market",
+    "shares"
+  ],
   "bugs": {
     "url": "https://github.com/jalibu/MMM-Jast/issues"
   },
   "homepage": "https://github.com/jalibu/MMM-Jast#readme",
   "dependencies": {
-    "yahoo-finance2": "^2.4.2"
+    "yahoo-finance2": "^2.8.1"
   },
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c --sourcemap=inline",
-    "dev:watch": "npm run dev -- --watch"
+    "dev:watch": "npm run dev -- --watch",
+    "lint": "eslint . && prettier --check .",
+    "lint:fix": "eslint --fix . && prettier --write ."
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^20.0.0",
-    "@rollup/plugin-node-resolve": "^13.0.4",
-    "@rollup/plugin-typescript": "^8.2.5",
-    "@types/magicmirror-module": "^2.16.0",
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb-typescript-prettier": "^4.2.0",
-    "prettier": "^2.4.1",
-    "rollup": "^2.56.3",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@types/magicmirror-module": "^2.16.5",
+    "eslint": "^8.53.0",
+    "eslint-config-airbnb-typescript-prettier": "^5.0.0",
+    "prettier": "^2.8.8",
+    "rollup": "^2.79.0",
     "rollup-plugin-banner2": "^1.2.2",
-    "rollup-plugin-terser": "^7.0.2",
-    "typescript": "^4.4.3"
+    "typescript": "^5.2.2"
   }
 }

@@ -1,10 +1,9 @@
 import banner2 from 'rollup-plugin-banner2'
 import commonjs from '@rollup/plugin-commonjs'
 import nodeResolve from '@rollup/plugin-node-resolve'
+import terser from '@rollup/plugin-terser'
 import typescript from '@rollup/plugin-typescript'
-import { terser } from 'rollup-plugin-terser'
-
-const pkg = require('./package.json')
+import pkg from './package.json'
 
 const bannerText = `/*! *****************************************************************************
   ${pkg.name}
@@ -26,7 +25,7 @@ export default [
     external: ['logger'],
     plugins: [typescript({ module: 'ESNext' }), nodeResolve(), commonjs(), terser(), banner2(() => bannerText)],
     output: {
-      file: './' + pkg.main,
+      file: `./${pkg.main}`,
       format: 'iife',
       globals: {
         logger: 'Log'
