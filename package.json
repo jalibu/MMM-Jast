@@ -30,8 +30,8 @@
     "yahoo-finance2": "^2.8.1"
   },
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c --sourcemap=inline",
+    "build": "rollup -c --bundleConfigAsCjs",
+    "dev": "rollup -c --sourcemap=inline --bundleConfigAsCjs",
     "dev:watch": "npm run dev -- --watch",
     "lint": "eslint . && prettier --check .",
     "lint:fix": "eslint --fix . && prettier --write ."
@@ -47,8 +47,8 @@
     "eslint": "^8.55.0",
     "eslint-config-prettier": "^9.1.0",
     "prettier": "^3.1.1",
-    "rollup": "^2.79.0",
+    "rollup": "^4.8.0",
     "rollup-plugin-banner2": "^1.2.2",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.3"
   }
 }

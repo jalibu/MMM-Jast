@@ -37,6 +37,7 @@ export default [
     external: ['node_helper', 'logger', 'yahoo-finance2'],
     plugins: [typescript({ module: 'ESNext' }), nodeResolve(), terser(), banner2(() => bannerText)],
     output: {
+      interop: 'auto',
       file: './node_helper.js',
       format: 'cjs'
     }
