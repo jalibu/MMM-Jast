@@ -27,11 +27,11 @@
   },
   "homepage": "https://github.com/jalibu/MMM-Jast#readme",
   "dependencies": {
-    "yahoo-finance2": "^2.8.1"
+    "yahoo-finance2": "^2.9.0"
   },
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c --sourcemap=inline",
+    "build": "rollup -c --bundleConfigAsCjs",
+    "dev": "rollup -c --sourcemap=inline --bundleConfigAsCjs",
     "dev:watch": "npm run dev -- --watch",
     "lint": "eslint . && prettier --check .",
     "lint:fix": "eslint --fix . && prettier --write ."
@@ -42,11 +42,13 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.5",
     "@types/magicmirror-module": "^2.16.5",
-    "eslint": "^8.53.0",
-    "eslint-config-airbnb-typescript-prettier": "^5.0.0",
-    "prettier": "^2.8.8",
-    "rollup": "^2.79.0",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.1.1",
+    "rollup": "^4.8.0",
     "rollup-plugin-banner2": "^1.2.2",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.3"
   }
 }
