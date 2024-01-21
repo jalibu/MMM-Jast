@@ -1,9 +1,13 @@
 @keyframes tickerh {
   0% {
-    transform: translate(0, 0);
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    will-change: transform;
   }
   100% {
-    transform: translate(-100%, 0);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    will-change: transform;
   }
 }
 .jast-wrapper {

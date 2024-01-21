@@ -2,7 +2,7 @@
   {% for stock in stocks %}
     {% if not stock.meta.hidden or config.showHiddenStocks %}
       <li class="jast-stock">
-        <span>{{ utils.getStockName(stock) }}:</span>
+        <span class="jast-stock-name">{{ utils.getStockName(stock) }}:</span>
         {% if utils.getStockChange(stock) > 0 %}
           {% set colorClass = "high" %}
         {% elif utils.getStockChange(stock) < 0 %}
@@ -10,8 +10,8 @@
         {% else %}
           {% set colorClass = "" %}
         {% endif %}
-        <span class="{{ colorClass }}">
-          <span>{{ utils.getCurrentValueAsString(stock, config) }}</span>
+        <span class="jast-values-wrapper {{ colorClass }}">
+          <span class="jast-change-wrapper">{{ utils.getCurrentValueAsString(stock, config) }}</span>
           {% if colorClass and (config.showChangeValue or config.showChangePercent) %}
             <span class="jast-change">
               ({% if config.showChangeValue %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getStockChangeAsString(stock, config) }}</span>{% endif %}
@@ -27,7 +27,7 @@
         {% else %}
           {% set colorClassPerformance = "" %}
         {% endif %}
-        <span class="{{ colorClassPerformance }}">
+          <span class="jast-performance {{ colorClassPerformance }}">
           {% if colorClassPerformance and (config.showStockPerformanceValue or config.showStockPerformancePercent) %}
             <span class="jast-change">
               (
@@ -37,8 +37,7 @@
               )
             </span>
           {% endif %}
-        </span>
-
+          </span>
       </li>
     {% endif %}
   {% endfor %}
