@@ -51,7 +51,7 @@ If you also like this module and want to thank, please rate this repository with
 1. Navigate to the `MagicMirror/modules` directory and execute the following command
 
    ```sh
-   git clone https://github.com/jalibu/MMM-Jast.git
+   git clone https://github.com/jalibu/MMM-Jast
    ```
 
 2. Change into the MMM-Jast module folder and install runtime dependencies with
