@@ -58,7 +58,7 @@ If you also like this module and want to thank, please rate this repository with
 
    ```sh
    cd MMM-Jast
-   npm install --omit=dev
+   npm install
    ```
 
 3. Add the module configuration into the `MagicMirror/config/config.js` file (sample configuration):
