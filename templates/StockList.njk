@@ -43,7 +43,7 @@
   {% endfor %}
   {% if config.showPortfolioValue or config.showPortfolioGrowth or config.showPortfolioGrowthPercent %}
     {% set portfolio = utils.getPortfolio(stocks, config) %}
-    <li class="jast-stock">{{ "portfolio" | translate | safe }}
+    <li class="jast-stock portfolio">{{ "portfolio" | translate | safe }}
       {% for entry in portfolio %}
         {% if entry.value > entry.oldValue %}
           {% set colorClass = "high" %}
@@ -52,7 +52,7 @@
         {% else %}
           {% set colorClass = "" %}
         {% endif %}
-        <span class="{{ colorClass }}{% if loop.index != 1 %} jast-multi-currency{% endif %}">
+        <span class="jast-portfolio {{ colorClass }}{% if loop.index != 1 %} jast-multi-currency{% endif %}">
           {% if config.showPortfolioValue %} {{ utils.getPortfolioValueAsString(entry, config) }} {% endif %}
           {% if colorClass and (config.showPortfolioGrowth or config.showPortfolioGrowthPercent) %}
             {% if config.showPortfolioValue %}<span class="jast-change">({% endif %}
@@ -68,7 +68,7 @@
         {% else %}
           {% set colorClassPerformance = "" %}
         {% endif %}
-        <span class="{{ colorClassPerformance }}{% if loop.index != 1 %} jast-multi-currency{% endif %}">
+        <span class="jast-portfolio-performance {{ colorClassPerformance }}{% if loop.index != 1 %} jast-multi-currency{% endif %}">
           {% if colorClass and (config.showPortfolioPerformancePercent or config.showPortfolioPerformanceValue) %}
             (
             {% if config.showPortfolioPerformanceValue %}<span class="jast-change-value">{% if colorClassPerformance == "high" %}+{%endif%}{{ utils.getPortfolioPerformanceValueAsString(entry, config) }}</span>{% endif %}
