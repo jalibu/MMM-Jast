@@ -80,7 +80,7 @@ If you also like this module and want to thank, please rate this repository with
     maxWidth: "100%",
     numberDecimalsPercentages: 1,
     numberDecimalsValues: 2,
-    displayMode: "vertical", // One of ["none", "vertical", "horizontal", "table"]
+    displayMode: "vertical", // One of ["none", "vertical", "horizontal", "table", "default-table"]
     showColors: true,
     showCurrency: true,
     showChangePercent: true,
@@ -113,9 +113,9 @@ If you also like this module and want to thank, please rate this repository with
 ### Options
 
 | Option                            | Description                                                                                                                                                                                  |
-| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| --------------------------------- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `currencyStyle`                   | Style of currency. <br><br>**Type:** `String` <br>**Allowed values:** `"code"` (EUR), `"symbol"` (€) or `"name"` (Euro)<br> **Default value:** `code`                                        |
-| `displayMode`                     | Display mode for ticker. <br><br>**Type:** `String`<br>**Allowed Values:** `"none"`, `"vertical"`, `"horizontal"` or `"table"` <br>**Default value:** `"vertical"`                           |
+| `displayMode`                     | Display mode for ticker. <br><br>**Type:** `String`<br>**Allowed Values:** `"none"`, `"vertical"`, `"horizontal"`, `"table"` or `"default-table"` <br>**Default value:** `"vertical"`        |
 | `fadeSpeedInSeconds`              | Animation speed for ticker. <br><br>**Type:** `Number`<br> **Default value:** `3.5`                                                                                                          |
 | `lastUpdateFormat`                | Define dateformat, if the last update should be displayed. <br><br>**Type:** `String`<br> **Default value:** `"HH:mm"`                                                                       |
 | `locale`                          | Option to override the global/system locale for value formatting. <br><br>**Type:** `String`<br> **Default value:** `undefined` (system locale)                                              |

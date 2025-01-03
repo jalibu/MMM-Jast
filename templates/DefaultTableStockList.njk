@@ -1,0 +1,26 @@
+{% macro render() %}
+<table class="{{ config.tableClass }}">
+  {% for stock in stocks %}
+  <tr>
+    <td class="bright"><span>{{ utils.getStockName(stock) }}</span></td>
+    <td>
+      {% if utils.getStockChange(stock) > 0 %}
+      {% set colorStyle = "green" %}
+      {% elif utils.getStockChange(stock) < 0 %}
+      {% set colorStyle = "red" %}
+      {% else %}
+      {% set colorStyle = "" %}
+      {% endif %}
+      <span>{{ utils.getCurrentValueAsString(stock, config) }}</span>
+    </td>
+    <td>
+      <span>
+        <span>
+          <span style="{% if colorStyle != "" %} color:{{ colorStyle }}{%endif%}">{% if colorStyle == "green" %}+{%endif%}{{ utils.getStockChangePercentAsString(stock, config) }}</span>
+        </span>
+      </span>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endmacro %}
