@@ -1,14 +1,17 @@
 import JastBackendUtils from './JastBackendUtils'
 import { Config } from '../types/Config'
 import { StockResponse } from '../types/StockResponse'
+import * as mockYahooFinanceModule from 'yahoo-finance2'
 
 describe('JastBackendUtils', () => {
-  let mockQuoteSummary: jest.MockedFunction<any>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let mockQuoteSummary: jest.Mock<any, any>
 
   beforeEach(() => {
     // Clear all mocks before each test
     jest.clearAllMocks()
-    const mockYahooFinance = require('yahoo-finance2')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const mockYahooFinance = mockYahooFinanceModule as any
     mockQuoteSummary = mockYahooFinance.mockQuoteSummary
   })
 

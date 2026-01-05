@@ -8,7 +8,9 @@ Click here for MagicMirror² [Forum Thread](https://forum.magicmirror.builders/t
 Contribution welcome.
 
 #### Notice
+
 Please note that there have been recent changes that may affect the function of this module and require your action. Please read the linked articles if you are facing one of these problems.
+
 1. [Choppy ticker animation since MM 2.26](https://github.com/jalibu/MMM-Jast/issues/64)
 2. [Stocks do not load - Getting error "Invalid Crumb"](https://github.com/jalibu/MMM-Jast/releases/tag/v2.9.4)
 

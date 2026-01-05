@@ -1,3 +1,5 @@
+/* global jest module */
+
 const mockQuoteSummary = jest.fn()
 
 const YahooFinance = jest.fn().mockImplementation(() => ({

@@ -1,4 +1,4 @@
-export type Portfolio = {
+export interface Portfolio {
   value: number
   oldValue: number
   purchaseValue: number

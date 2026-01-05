@@ -4,8 +4,8 @@ import type { QuoteSummaryResult } from 'yahoo-finance2/esm/src/modules/quoteSum
 import { Config } from '../types/Config'
 import { StockResponse } from '../types/StockResponse'
 
-export default class JastBackendUtils {
-  static async requestStocks(config: Config): Promise<StockResponse[]> {
+const JastBackendUtils = {
+  async requestStocks(config: Config): Promise<StockResponse[]> {
     const yahooFinance = new YahooFinance()
     const stocks = []
     const promises: Promise<QuoteSummaryResult>[] = []
@@ -59,3 +59,5 @@ export default class JastBackendUtils {
     return stocks
   }
 }
+
+export default JastBackendUtils

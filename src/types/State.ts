@@ -1,6 +1,6 @@
 import { StockResponse } from './StockResponse'
 
-export type State = {
+export interface State {
   lastUpdate: number
   stocks: StockResponse[]
 }

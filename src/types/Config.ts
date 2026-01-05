@@ -1,4 +1,4 @@
-export type Config = {
+export interface Config {
   currencyStyle: 'symbol' | 'code' | 'name'
   fadeSpeedInSeconds: number
   lastUpdateFormat: string
@@ -31,7 +31,7 @@ export type Config = {
   virtualHorizontalMultiplier: number
 }
 
-export type Stock = {
+export interface Stock {
   symbol: string
   name?: string
   quantity?: number
