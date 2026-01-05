@@ -1,11 +1,12 @@
 import * as Log from 'logger'
-import yahooFinance from 'yahoo-finance2'
-import { QuoteSummaryResult } from 'yahoo-finance2/dist/esm/src/modules/quoteSummary-iface'
+import YahooFinance from 'yahoo-finance2'
+import type { QuoteSummaryResult } from 'yahoo-finance2/esm/src/modules/quoteSummary'
 import { Config } from '../types/Config'
 import { StockResponse } from '../types/StockResponse'
 
 export default class JastBackendUtils {
   static async requestStocks(config: Config): Promise<StockResponse[]> {
+    const yahooFinance = new YahooFinance()
     const stocks = []
     const promises: Promise<QuoteSummaryResult>[] = []
 
