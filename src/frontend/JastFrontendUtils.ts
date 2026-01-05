@@ -5,16 +5,16 @@ import { Config } from '../types/Config'
 
 type CurrencyStyle = {
   useGrouping: boolean
-  style: string
+  style: 'currency' | 'decimal'
   currency?: string
-  currencyDisplay: string
+  currencyDisplay: 'symbol' | 'narrowSymbol' | 'code' | 'name'
   minimumFractionDigits: number
   maximumFractionDigits: number
 }
 
 type PercentStyle = {
   useGrouping: boolean
-  style?: string
+  style: 'percent'
   minimumFractionDigits: number
 }
 
