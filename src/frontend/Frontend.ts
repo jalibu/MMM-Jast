@@ -73,7 +73,7 @@ Module.register<Config>('MMM-Jast', {
 
   start() {
     if (this.config.scroll) {
-      console.warn("MMM-JAST config property 'scroll' is deprecated. Please use displayMode instead.")
+      Log.warn("MMM-JAST config property 'scroll' is deprecated. Please use displayMode instead.")
       this.config.displayMode = this.config.scroll
     }
     this.loadData()
