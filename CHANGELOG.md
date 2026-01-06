@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.10.1](https://github.com/jalibu/MMM-Jast/compare/v2.10.0...v2.10.1) (2026-01-06)
+
+### Fixed
+
+- implement continuous one-directional vertical scrolling ([cc53c24](https://github.com/jalibu/MMM-Jast/commit/cc53c24f2007cdb497214c274bedf86722d6e49b))
+
+### Code Refactoring
+
+- replace console.warn with Log.warn ([906384f](https://github.com/jalibu/MMM-Jast/commit/906384fd033ca61f5c10fd5e71d4199cf635f608))
+
 ## [2.10.0](https://github.com/jalibu/MMM-Jast/compare/v2.9.5...v2.10.0) (2026-01-06)
 
 ### Added
