@@ -1,6 +1,51 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [2.10.0](https://github.com/jalibu/MMM-Jast/compare/v2.9.5...v2.10.0) (2026-01-06)
+
+### Added
+
+- add default MagicMirror table layout with default size small ([#76](https://github.com/jalibu/MMM-Jast/issues/76)) ([f6b1000](https://github.com/jalibu/MMM-Jast/commit/f6b100091266d9651ef04c0ea5e8c6b4a621d884))
+
+### Fixed
+
+- **css:** improve layout alignment for static display mode ([14323a4](https://github.com/jalibu/MMM-Jast/commit/14323a435d280a0b1549c713777160bcdb1c2e7e)), closes [#69](https://github.com/jalibu/MMM-Jast/issues/69)
+- resolve yahoo-finance2 ESM/CommonJS interop and improve logging ([7c67938](https://github.com/jalibu/MMM-Jast/commit/7c67938a4bd4a0fea994be82a9dfeef8ba043e89))
+
+### Performance Improvements
+
+- **css:** optimize ticker animation for Raspberry Pi ([48e9dab](https://github.com/jalibu/MMM-Jast/commit/48e9dabefb09d443d9aaa5f445626fc8e1f724c8))
+
+### Documentation
+
+- add changelog ([1cd8477](https://github.com/jalibu/MMM-Jast/commit/1cd8477ad0dddd1ecd313a94e3d632fa3b480c48))
+- update installation instructions and add update section in README ([fd65d63](https://github.com/jalibu/MMM-Jast/commit/fd65d6342f2dfc61d5101932d7037927a661d4b6))
+- update README to enhance Raspberry Pi performance guidance ([126fad0](https://github.com/jalibu/MMM-Jast/commit/126fad0e64a8dbf23efb00457d3832d8d75b1b99))
+
+### Chores
+
+- add automated tests workflow ([bed1a1c](https://github.com/jalibu/MMM-Jast/commit/bed1a1cb188f89e3536c2bb5cbcc8ec1a0abe9c3))
+- add Code of Conduct file to promote community guidelines ([962d405](https://github.com/jalibu/MMM-Jast/commit/962d40599177a2809d23bb544fab86febabc4946))
+- add demo config file and script ([14c0846](https://github.com/jalibu/MMM-Jast/commit/14c08468157bd54e5e2f9468070b2f63331c49aa))
+- add Dependabot configuration for GitHub Actions and npm updates ([9bd17cb](https://github.com/jalibu/MMM-Jast/commit/9bd17cb53fcb3d2db850ac0b22ce340c6529f472))
+- add release script ([45a51e1](https://github.com/jalibu/MMM-Jast/commit/45a51e112a24ed4fac31e72f79f3da2216fb8493))
+- add simple-git-hooks and lint-staged for pre-commit checks ([529f82c](https://github.com/jalibu/MMM-Jast/commit/529f82c9a1ce5d4b84c573f251a29f2dfe86df85))
+- change license file to markdown ([6b626ae](https://github.com/jalibu/MMM-Jast/commit/6b626aef5da1694e854a4d1991513c546b41dd10))
+- migrate Prettier configuration to flat format ([33a44ed](https://github.com/jalibu/MMM-Jast/commit/33a44ed671b1bf8caf1bfbcc001712204970ca7a))
+- modernize build setup ([d057fa2](https://github.com/jalibu/MMM-Jast/commit/d057fa22703777cc358470ae5ae800535500370b))
+- modernize ESLint setup ([6a6e80a](https://github.com/jalibu/MMM-Jast/commit/6a6e80a8901313abd14d45fd8dc40fa85cada571))
+- update command syntax ([5fb6d6c](https://github.com/jalibu/MMM-Jast/commit/5fb6d6ca65ef91299e9911c59c31aad3ef339d72))
+- upgrade yahoo-finance2 to major version 3 ([#77](https://github.com/jalibu/MMM-Jast/issues/77)) ([76297e6](https://github.com/jalibu/MMM-Jast/commit/76297e6058d8ade9b7d4ebc92eae307ed6c7904b))
+
+### Code Refactoring
+
+- handle linter issues ([2857278](https://github.com/jalibu/MMM-Jast/commit/28572782fb4d22e05e1e4cabefb142b1b3ccf821))
+- **test:** add type safety to test mocks and fix optional chaining ([75e4715](https://github.com/jalibu/MMM-Jast/commit/75e47151f030497a3c629cf34f378291fe49dcf0))
+
+### Tests
+
+- migrate testing framework from Jest to Vitest ([0fe46a9](https://github.com/jalibu/MMM-Jast/commit/0fe46a9f411f80405e681e07f105f7439cd30956))
 
 ## [2.9.5] - 2024-06-04
 
