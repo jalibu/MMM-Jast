@@ -1,11 +1,16 @@
 import * as Log from 'logger'
+import * as yahooFinance2Module from 'yahoo-finance2'
 import type { QuoteSummaryResult } from 'yahoo-finance2/esm/src/modules/quoteSummary'
 import { Config } from '../types/Config'
 import { StockResponse } from '../types/StockResponse'
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const yahooFinance2Module = require('yahoo-finance2')
-const YahooFinance = yahooFinance2Module.default || yahooFinance2Module
+// Handle both ESM and CommonJS module formats
+// TypeScript sees the namespace import, but at runtime Rollup will provide the correct format
+const YahooFinance = ('default' in yahooFinance2Module
+  ? yahooFinance2Module.default
+  : yahooFinance2Module) as unknown as new (options: { suppressNotices: string[] }) => {
+  quoteSummary: (symbol: string, options: { modules: string[] }) => Promise<QuoteSummaryResult>
+}
 
 const JastBackendUtils = {
   async requestStocks(config: Config): Promise<StockResponse[]> {

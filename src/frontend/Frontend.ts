@@ -1,5 +1,6 @@
 import Utils from './JastFrontendUtils'
 import { Config } from '../types/Config'
+import * as Log from 'logger'
 
 // Global or injected variable declarations
 declare const moment: typeof import('moment')
@@ -96,7 +97,7 @@ Module.register<Config>('MMM-Jast', {
     if (notificationIdentifier === `JAST_STOCKS_RESPONSE-${this.identifier}`) {
       this.state = payload
       this.updateDom()
-      console.log('data', payload)
+      Log.debug('Stock data received:', payload)
     }
   }
 })

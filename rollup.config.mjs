@@ -47,22 +47,25 @@ export default [
   {
     input: './src/backend/Backend.ts',
     external: ['node_helper', 'logger', 'yahoo-finance2'],
+    output: {
+      banner: bannerText,
+      file: './node_helper.js',
+      format: 'cjs',
+      interop: 'auto'
+    },
     plugins: [
       json(),
       typescript({ module: 'ESNext' }),
       nodeResolve(),
-      commonjs(),
+      commonjs({
+        requireReturnsDefault: 'auto'
+      }),
       terser({
         format: {
           comments: false,
           preamble: bannerText.trim()
         }
       })
-    ],
-    output: {
-      banner: bannerText,
-      file: './node_helper.js',
-      format: 'cjs'
-    }
+    ]
   }
 ]

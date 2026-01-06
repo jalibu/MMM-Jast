@@ -1,12 +1,25 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import type { QuoteSummaryResult } from 'yahoo-finance2/esm/src/modules/quoteSummary'
-import JastBackendUtils from './JastBackendUtils'
 import { Config } from '../types/Config'
 import { StockResponse } from '../types/StockResponse'
-import { mockQuoteSummary } from '../../__mocks__/yahoo-finance2.js'
 
-vi.mock('yahoo-finance2')
-vi.mock('logger')
+const mockQuoteSummary = vi.fn()
+
+// Mocks must be called before imports
+vi.mock('yahoo-finance2', () => ({
+  default: class YahooFinanceMock {
+    quoteSummary = mockQuoteSummary
+  }
+}))
+
+vi.mock('logger', () => ({
+  warn: vi.fn(),
+  log: vi.fn(),
+  error: vi.fn(),
+  debug: vi.fn()
+}))
+
+import JastBackendUtils from './JastBackendUtils'
 
 describe('JastBackendUtils', () => {
   beforeEach(() => {
