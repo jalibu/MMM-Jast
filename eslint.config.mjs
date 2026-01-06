@@ -10,6 +10,6 @@ export default defineConfig(
   tseslint.configs.stylistic,
   jsdoc.configs['flat/recommended-typescript'],
   {
-    ignores: ['MMM-Jast.js', 'node_helper.js', 'config.demo.js']
+    ignores: ['MMM-Jast.js', 'node_helper.js', 'config.demo.js', 'changelog.config.js']
   }
 )
