@@ -1,14 +1,19 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "noImplicitAny": false,
+    "noImplicitAny": true,
+    "strict": true,
     "noUnusedLocals": true,
     "noImplicitThis": true,
     "sourceMap": false,
-    "target": "es6",
+    "target": "ES2024",
     "lib": ["DOM", "ESNext"],
     "types": ["node", "@types/magicmirror-module"],
+    "resolveJsonModule": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+    "noEmit": true
+  },
+  "include": ["src/**/*", "__mocks__/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
