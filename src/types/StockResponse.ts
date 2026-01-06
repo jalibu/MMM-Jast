@@ -4,10 +4,10 @@ export interface StockResponse {
   summaryDetail?: SummaryDetail
   price?: Price
   meta: {
-    purchasePrice: number
+    purchasePrice?: number
     symbol: string
     displayCurrency?: string
-    name: string
+    name?: string
     quantity?: number
     hidden?: boolean
   }

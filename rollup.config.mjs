@@ -51,6 +51,7 @@ export default [
       json(),
       typescript({ module: 'ESNext' }),
       nodeResolve(),
+      commonjs(),
       terser({
         format: {
           comments: false,

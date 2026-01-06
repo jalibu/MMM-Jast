@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
+import type { QuoteSummaryResult } from 'yahoo-finance2/esm/src/modules/quoteSummary'
 import JastBackendUtils from './JastBackendUtils'
 import { Config } from '../types/Config'
 import { StockResponse } from '../types/StockResponse'
@@ -75,7 +76,7 @@ describe('JastBackendUtils', () => {
           longName: 'Apple Inc.',
           symbol: 'AAPL'
         }
-      }
+      } as unknown as QuoteSummaryResult
 
       mockQuoteSummary.mockResolvedValue(mockResponse)
 
@@ -117,7 +118,7 @@ describe('JastBackendUtils', () => {
           longName: 'British Company',
           symbol: 'BRIT'
         }
-      }
+      } as unknown as QuoteSummaryResult
 
       mockQuoteSummary.mockResolvedValue(mockResponse)
 
@@ -136,9 +137,9 @@ describe('JastBackendUtils', () => {
 
       const result: StockResponse[] = await JastBackendUtils.requestStocks(configWithGBP)
 
-      expect(result[0].price.currency).toBe('GBP')
-      expect(result[0].price.regularMarketPrice).toBe(100)
-      expect(result[0].price.regularMarketChange).toBe(5)
+      expect(result[0].price?.currency).toBe('GBP')
+      expect(result[0].price?.regularMarketPrice).toBe(100)
+      expect(result[0].price?.regularMarketChange).toBe(5)
     })
 
     it('should handle API errors gracefully', async () => {
@@ -154,7 +155,7 @@ describe('JastBackendUtils', () => {
       mockQuoteSummary.mockResolvedValue({
         // No price property - triggers warning
         summaryDetail: { currency: 'USD' }
-      })
+      } as QuoteSummaryResult)
 
       const result: StockResponse[] = await JastBackendUtils.requestStocks(mockConfig)
 
@@ -177,7 +178,7 @@ describe('JastBackendUtils', () => {
           longName: 'Apple Inc.',
           symbol: 'AAPL'
         }
-      })
+      } as unknown as QuoteSummaryResult)
 
       const configWithMaxAge: Config = {
         ...mockConfig,

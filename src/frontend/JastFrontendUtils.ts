@@ -52,7 +52,7 @@ const JastUtils = {
   },
 
   getStockChange(stock: StockResponse): number {
-    return stock.price?.regularMarketChange
+    return stock.price?.regularMarketChange ?? 0
   },
 
   getStockPerformance(stock: StockResponse): number {
@@ -63,16 +63,16 @@ const JastUtils = {
     return JastUtils.getStockPerformance(stock).toLocaleString(
       config.locale,
       Object.assign(JastUtils.getChangeValueStyle(config), {
-        currency: stock.price.currency
+        currency: stock.price?.currency ?? 'USD'
       })
     )
   },
 
   getStockPerformanceSumAsString(stock: StockResponse, config: Config): string {
-    return (JastUtils.getStockPerformance(stock) * stock.meta.quantity).toLocaleString(
+    return (JastUtils.getStockPerformance(stock) * (stock.meta.quantity ?? 0)).toLocaleString(
       config.locale,
       Object.assign(JastUtils.getChangeValueStyle(config), {
-        currency: stock.price.currency
+        currency: stock.price?.currency ?? 'USD'
       })
     )
   },
@@ -86,18 +86,18 @@ const JastUtils = {
   },
 
   getStockChangePercent(stock: StockResponse): number {
-    return stock.price?.regularMarketChangePercent
+    return stock.price?.regularMarketChangePercent ?? 0
   },
 
   getCurrentValue(stock: StockResponse): number {
-    return stock.price?.regularMarketPrice
+    return stock.price?.regularMarketPrice ?? 0
   },
 
   getStockChangeAsString(stock: StockResponse, config: Config): string {
     return JastUtils.getStockChange(stock).toLocaleString(
       config.locale,
       Object.assign(JastUtils.getChangeValueStyle(config), {
-        currency: stock.price.currency
+        currency: stock.price?.currency ?? 'USD'
       })
     )
   },
@@ -110,22 +110,22 @@ const JastUtils = {
     return JastUtils.getCurrentValue(stock).toLocaleString(
       config.locale,
       Object.assign(JastUtils.getCurrentValueStyle(config), {
-        currency: stock.price.currency
+        currency: stock.price?.currency ?? 'USD'
       })
     )
   },
 
   getPurchasePriceAsString(stock: StockResponse, config: Config): string {
-    return stock.meta.purchasePrice.toLocaleString(
+    return (stock.meta.purchasePrice ?? 0).toLocaleString(
       config.locale,
       Object.assign(JastUtils.getCurrentValueStyle(config), {
-        currency: stock.price.currency
+        currency: stock.price?.currency ?? 'USD'
       })
     )
   },
 
   getStockName(stock: StockResponse): string {
-    return stock.meta.name || stock.price.longName
+    return stock.meta.name || stock.price?.longName || ''
   },
 
   getPortfolioValueAsString(portfolio: Portfolio, config: Config): string {
@@ -174,11 +174,11 @@ const JastUtils = {
     for (const stock of stocks) {
       try {
         const configStock = config.stocks?.find((current) => current.symbol === stock.meta?.symbol)
-        if (configStock?.quantity) {
-          const currentStockValue = stock.price?.regularMarketPrice * configStock.quantity
+        if (configStock?.quantity && stock.price) {
+          const currentStockValue = (stock.price.regularMarketPrice ?? 0) * configStock.quantity
           const lastStockValue =
-            (stock.price?.regularMarketPrice - stock.price?.regularMarketChange) * configStock.quantity
-          const existingCurrency = portfolio.find((growth) => growth.currency === stock.price.currency)
+            ((stock.price.regularMarketPrice ?? 0) - (stock.price.regularMarketChange ?? 0)) * configStock.quantity
+          const existingCurrency = portfolio.find((growth) => growth.currency === stock.price?.currency)
 
           const purchaseValue = configStock.purchasePrice
             ? configStock.purchasePrice * configStock.quantity
@@ -193,7 +193,7 @@ const JastUtils = {
               value: currentStockValue,
               purchaseValue,
               oldValue: lastStockValue,
-              currency: stock.price.currency
+              currency: stock.price.currency ?? ''
             })
           }
         }
