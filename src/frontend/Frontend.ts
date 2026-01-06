@@ -2,8 +2,7 @@ import Utils from './JastFrontendUtils'
 import { Config } from '../types/Config'
 
 // Global or injected variable declarations
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare const moment: any
+declare const moment: typeof import('moment')
 
 Module.register<Config>('MMM-Jast', {
   defaults: {

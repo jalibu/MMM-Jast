@@ -35,24 +35,24 @@
     "dev:watch": "npm run dev -- --watch",
     "lint": "eslint && prettier --check .",
     "lint:fix": "eslint --fix . && prettier --write .",
-    "test": "node --run lint && jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test": "node --run lint && vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@types/jest": "^30.0.0",
     "@types/magicmirror-module": "^2.16.6",
+    "@vitest/coverage-v8": "^4.0.16",
     "eslint": "^9.39.2",
     "eslint-plugin-jsdoc": "^61.5.0",
     "prettier": "^3.7.4",
     "rollup": "^4.9.6",
     "rollup-plugin-banner2": "^1.2.2",
-    "ts-jest": "^29.4.6",
-    "typescript": "^5.3.3",
-    "typescript-eslint": "^8.52.0"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.52.0",
+    "vitest": "^4.0.16"
   }
 }

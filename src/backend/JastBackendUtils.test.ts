@@ -1,18 +1,15 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import JastBackendUtils from './JastBackendUtils'
 import { Config } from '../types/Config'
 import { StockResponse } from '../types/StockResponse'
-import * as mockYahooFinanceModule from 'yahoo-finance2'
+import { mockQuoteSummary } from '../../__mocks__/yahoo-finance2.js'
+
+vi.mock('yahoo-finance2')
+vi.mock('logger')
 
 describe('JastBackendUtils', () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let mockQuoteSummary: jest.Mock<any, any>
-
   beforeEach(() => {
-    // Clear all mocks before each test
-    jest.clearAllMocks()
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const mockYahooFinance = mockYahooFinanceModule as any
-    mockQuoteSummary = mockYahooFinance.mockQuoteSummary
+    vi.clearAllMocks()
   })
 
   describe('requestStocks', () => {
@@ -165,8 +162,7 @@ describe('JastBackendUtils', () => {
     })
 
     it('should handle invalid date parsing in maxChangeAge logic', async () => {
-      const originalDateParse = Date.parse
-      Date.parse = jest.fn(() => {
+      const dateParsespy = vi.spyOn(Date, 'parse').mockImplementation(() => {
         throw new Error('Invalid date')
       })
 
@@ -192,7 +188,7 @@ describe('JastBackendUtils', () => {
 
       expect(result).toHaveLength(2) // Stock is still returned despite date parsing error
 
-      Date.parse = originalDateParse
+      dateParsespy.mockRestore()
     })
   })
 })

@@ -6,6 +6,9 @@
     "noImplicitThis": true,
     "sourceMap": false,
     "target": "es6",
-    "lib": ["DOM", "ESNext"]
+    "lib": ["DOM", "ESNext"],
+    "types": ["node", "@types/magicmirror-module"],
+    "esModuleInterop": true,
+    "skipLibCheck": true
   }
 }
