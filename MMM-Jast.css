@@ -66,6 +66,7 @@
 .jast-wrapper .jast-stock span.jast-change {
   vertical-align: top;
   font-size: calc(var(--size) - 0.3em);
+  white-space: nowrap;
 }
 
 .jast-wrapper span.jast-change-value:nth-child(2)::before,
@@ -79,9 +80,26 @@ span.jast-change-value:nth-child(3)::before {
 }
 
 .MMM-Jast .jast-wrapper.none li.jast-stock {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, auto) auto;
   column-gap: 1vmin;
+  align-items: baseline;
+}
+
+.MMM-Jast .jast-wrapper.none .jast-stock-name {
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.MMM-Jast .jast-wrapper.none .jast-values-wrapper {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.MMM-Jast .jast-wrapper.none .jast-performance {
+  display: none;
 }
 .MMM-Jast .jast-wrapper.table table {
   table-layout: fixed;
