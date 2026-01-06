@@ -7,12 +7,12 @@ Click here for MagicMirror² [Forum Thread](https://forum.magicmirror.builders/t
 
 Contribution welcome.
 
-#### Notice
+#### Performance on Raspberry Pi
 
-Please note that there have been recent changes that may affect the function of this module and require your action. Please read the linked articles if you are facing one of these problems.
+For optimal performance on Raspberry Pi devices, consider the following configuration adjustments:
 
-1. [Choppy ticker animation since MM 2.26](https://github.com/jalibu/MMM-Jast/issues/64)
-2. [Stocks do not load - Getting error "Invalid Crumb"](https://github.com/jalibu/MMM-Jast/releases/tag/v2.9.4)
+- Use `displayMode: "none"` (static display) for lowest resource usage
+- Increase `fadeSpeedInSeconds` to 5-6 seconds for smoother animations
 
 ## Support
 
