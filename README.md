@@ -2,7 +2,7 @@
 
 [![version](https://img.shields.io/github/package-json/v/jalibu/MMM-Jast)](https://github.com/jalibu/MMM-Jast/releases) [![Known Vulnerabilities](https://snyk.io/test/github/jalibu/MMM-Jast/badge.svg?targetFile=package.json)](https://snyk.io/test/github/jalibu/MMM-Jast?targetFile=package.json)
 
-This is a minimalistic stock ticker based on Yahoo's finance API for the [MagicMirror²](https://magicmirror.builders/) platform.  
+This is a minimalistic stock ticker based on Yahoo's finance API for the [MagicMirror²](https://magicmirror.builders/) platform.
 Click here for MagicMirror² [Forum Thread](https://forum.magicmirror.builders/topic/12507/mmm-jast-just-another-stock-ticker).
 
 Contribution welcome.
@@ -16,7 +16,7 @@ Please note that there have been recent changes that may affect the function of 
 
 ## Support
 
-I put a lot of time and effort into the creation and maintenance for this module and I'm glad so many people like it.  
+I put a lot of time and effort into the creation and maintenance for this module and I'm glad so many people like it.
 If you also like this module and want to thank, please rate this repository with a star or [donate a small amount that is worth it to you](https://paypal.me/jalibu).
 
 ## Features
@@ -162,8 +162,8 @@ The easiest way to get the symbol for your stock is to open [finance.yahoo.com](
 
 ## Contribution and Development
 
-This module is written in TypeScript and compiled with Rollup.  
+This module is written in TypeScript and compiled with Rollup.
 The source files are located in the `/src` folder.
-Compile target files with `npm run build`.
+Compile target files with `node --run build`.
 
 Contribution for this module is welcome!

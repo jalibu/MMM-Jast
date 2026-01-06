@@ -33,7 +33,7 @@
     "build": "rollup -c",
     "demo": "cd ../../ && MM_CONFIG_FILE=modules/MMM-Jast/config.demo.js node --run start:wayland:dev",
     "dev": "rollup -c --sourcemap=inline",
-    "dev:watch": "npm run dev -- --watch",
+    "dev:watch": "node --run dev -- --watch",
     "type-check": "tsc --noEmit",
     "lint": "eslint && prettier --check .",
     "lint:fix": "eslint --fix . && prettier --write .",
