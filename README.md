@@ -9,10 +9,18 @@ Contribution welcome.
 
 #### Performance on Raspberry Pi
 
-For optimal performance on Raspberry Pi devices, consider the following configuration adjustments:
+For optimal performance on Raspberry Pi devices (especially Pi Zero, Zero 2W, and older Pi models), consider the following configuration adjustments:
+
+**For best performance:**
 
 - Use `displayMode: "none"` (static display) for lowest resource usage
-- Increase `fadeSpeedInSeconds` to 5-6 seconds for smoother animations
+- This completely eliminates animation overhead
+
+**If you want scrolling:**
+
+- Increase `fadeSpeedInSeconds` to 5-7 seconds for smoother animations
+- Lower values require more frequent frame updates, which can cause stuttering on low-powered devices
+- The vertical scroll mode is now optimized for continuous one-directional scrolling
 
 ## Support
 
