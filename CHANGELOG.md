@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.10.2](https://github.com/jalibu/MMM-Jast/compare/v2.10.1...v2.10.2) (2026-01-07)
+
+### Fixed
+
+- **vertical:** only duplicate stock list for vertical scroll mode ([2443d6e](https://github.com/jalibu/MMM-Jast/commit/2443d6ecda27d8a0b1f43e4c67b02b67b8b8fc9a)), closes [#79](https://github.com/jalibu/MMM-Jast/issues/79)
+
 ## [2.10.1](https://github.com/jalibu/MMM-Jast/compare/v2.10.0...v2.10.1) (2026-01-06)
 
 ### Fixed
