@@ -12,6 +12,6 @@
   {% endif %}
     <ul {{ animationStyle | safe }}>
       {{ stockList.render() }}
-      {{ stockList.render() }}
+      {% if config.displayMode == "vertical" %}{{ stockList.render() }}{% endif %}
     </ul>
 {% endmacro %}
