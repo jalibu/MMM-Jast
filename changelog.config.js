@@ -11,6 +11,6 @@ module.exports = {
     { type: 'ci', section: 'Continuous Integration', hidden: false }
   ],
   scripts: {
-    postbump: 'npm run build && git add MMM-Jast.js node_helper.js'
+    postbump: 'node --run build && git add MMM-Jast.js node_helper.js'
   }
 }
