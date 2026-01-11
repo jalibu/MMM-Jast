@@ -9,9 +9,13 @@
       {% set fadeSpeed =  stocks.length %}
     {% endif %}
     {% set animationStyle = ' style="animation-duration: ' + fadeSpeed * config.fadeSpeedInSeconds + 's"' %}
+  {% else %}
+    {% set animationStyle = '' %}
   {% endif %}
     <ul {{ animationStyle | safe }}>
       {{ stockList.render() }}
-      {% if config.displayMode == "vertical" %}{{ stockList.render() }}{% endif %}
+      {% if config.displayMode == "vertical" %}
+        {{ stockList.render() }}
+      {% endif %}
     </ul>
 {% endmacro %}
