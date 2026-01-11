@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.10.3](https://github.com/jalibu/MMM-Jast/compare/v2.10.2...v2.10.3) (2026-01-11)
+
+### Fixed
+
+- **template:** explicitly set animationStyle for non-vertical modes ([e60373e](https://github.com/jalibu/MMM-Jast/commit/e60373e6897078f2d6758d0bd53b17e5682c366b))
+
+### Chores
+
+- add missing @eslint/js as a dev dependency ([cbddf9c](https://github.com/jalibu/MMM-Jast/commit/cbddf9c0784a3ecd3c1b86b28c7cb0aa167b85de))
+- change runner from ubuntu-latest to ubuntu-slim in automated tests ([687bf03](https://github.com/jalibu/MMM-Jast/commit/687bf03e86b8596f0963bd54f92523079f958534))
+- **lint:** update lint:fix script ([1a789bf](https://github.com/jalibu/MMM-Jast/commit/1a789bf517be7ba6f1697e94718b7873a67bcaa1))
+- update devDependencies ([e17e840](https://github.com/jalibu/MMM-Jast/commit/e17e840b07562a0382dadae8ad27c984f1d27e9e))
+- update postbump script to use node --run ([2012433](https://github.com/jalibu/MMM-Jast/commit/2012433f951e3b5f084ab310bad3b1d1d26ca2aa))
+
+### Code Refactoring
+
+- **date:** replace moment.js with custom formatDate function ([8e35a64](https://github.com/jalibu/MMM-Jast/commit/8e35a642f5e1805baf2721201a865efeaaa2c483))
+
 ## [2.10.2](https://github.com/jalibu/MMM-Jast/compare/v2.10.1...v2.10.2) (2026-01-07)
 
 ### Fixed
