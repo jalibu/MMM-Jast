@@ -36,7 +36,7 @@
     "dev:watch": "node --run dev -- --watch",
     "type-check": "tsc --noEmit",
     "lint": "eslint && prettier --check .",
-    "lint:fix": "eslint --fix . && prettier --write .",
+    "lint:fix": "eslint --fix && prettier --write .",
     "prepare": "node -e \"try{require('simple-git-hooks').run()}catch(e){}\"",
     "release": "commit-and-tag-version --commit-all --config ./changelog.config.js",
     "test": "node --run type-check && node --run lint && vitest run",
