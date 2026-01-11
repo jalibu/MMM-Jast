@@ -2,8 +2,24 @@ import Utils from './JastFrontendUtils'
 import { Config } from '../types/Config'
 import * as Log from 'logger'
 
-// Global or injected variable declarations
-declare const moment: typeof import('moment')
+/**
+ * Simple date formatter supporting common moment.js format tokens
+ * @param timestamp - Unix timestamp in milliseconds
+ * @param format - Format string (e.g., "HH:mm", "DD.MM.YYYY")
+ * @returns Formatted date string
+ */
+function formatDate(timestamp: number, format: string): string {
+  const date = new Date(timestamp)
+  const pad = (n: number) => String(n).padStart(2, '0')
+
+  return format
+    .replace('HH', pad(date.getHours()))
+    .replace('mm', pad(date.getMinutes()))
+    .replace('ss', pad(date.getSeconds()))
+    .replace('DD', pad(date.getDate()))
+    .replace('MM', pad(date.getMonth() + 1))
+    .replace('YYYY', String(date.getFullYear()))
+}
 
 Module.register<Config>('MMM-Jast', {
   defaults: {
@@ -43,10 +59,6 @@ Module.register<Config>('MMM-Jast', {
     ]
   },
 
-  getScripts() {
-    return ['moment.js']
-  },
-
   getStyles() {
     return ['MMM-Jast.css']
   },
@@ -66,7 +78,7 @@ Module.register<Config>('MMM-Jast', {
     return {
       config: this.config,
       stocks: this.state?.stocks,
-      lastUpdate: moment(this.state?.lastUpdate).format(this.config.lastUpdateFormat),
+      lastUpdate: formatDate(this.state?.lastUpdate ?? Date.now(), this.config.lastUpdateFormat),
       utils: Utils
     }
   },
