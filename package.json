@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/jalibu/MMM-Jast#readme",
   "dependencies": {
-    "yahoo-finance2": "^3.11.2"
+    "yahoo-finance2": "^3.13.0"
   },
   "scripts": {
     "build": "rollup -c",
