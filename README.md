@@ -68,6 +68,7 @@ Navigate to the `MagicMirror/modules` directory, clone this repository, and inst
 ```sh
 cd ~/MagicMirror/modules
 git clone https://github.com/jalibu/MMM-Jast
+cd MMM-Jast
 npm ci
 ```
 
