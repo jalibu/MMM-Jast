@@ -51,10 +51,10 @@
     ]
   },
   "dependencies": {
-    "yahoo-finance2": "^3.13.0"
+    "yahoo-finance2": "^3.13.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.2",
+    "@eslint/js": "^10.0.1",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
@@ -63,14 +63,14 @@
     "@types/magicmirror-module": "^2.16.6",
     "@vitest/coverage-v8": "^4.0.18",
     "commit-and-tag-version": "^12.6.1",
-    "eslint": "^9.39.2",
-    "eslint-plugin-jsdoc": "^62.7.0",
-    "lint-staged": "^16.2.7",
+    "eslint": "^10.0.2",
+    "eslint-plugin-jsdoc": "^62.7.1",
+    "lint-staged": "^16.3.0",
     "prettier": "^3.8.1",
-    "rollup": "^4.58.0",
+    "rollup": "^4.59.0",
     "simple-git-hooks": "^2.13.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.56.0",
+    "typescript-eslint": "^8.56.1",
     "vitest": "^4.0.18"
   }
 }
