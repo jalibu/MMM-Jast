@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.10.5](https://github.com/jalibu/MMM-Jast/compare/v2.10.4...v2.10.5) (2026-02-28)
+
+### Documentation
+
+- add missing step in installation section ([8e80a90](https://github.com/jalibu/MMM-Jast/commit/8e80a9066c7a839818d9d7acb3db891b63e10f91))
+- fix MagicMirror version reference in bug report template ([e71bb1a](https://github.com/jalibu/MMM-Jast/commit/e71bb1ac91f0ad5201d330921198fd7e594f85e8))
+
+### Chores
+
+- update dependencies ([0eea1ba](https://github.com/jalibu/MMM-Jast/commit/0eea1ba7b7c130f5be297cd8da372ed661d123cb))
+
+### Tests
+
+- add unit tests for JastFrontendUtils functionality ([bf57103](https://github.com/jalibu/MMM-Jast/commit/bf57103132dc98fc6ebd6001ddfcd310aa1d37bf))
+
 ## [2.10.4](https://github.com/jalibu/MMM-Jast/compare/v2.10.3...v2.10.4) (2026-02-21)
 
 ### Chores
