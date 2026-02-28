@@ -28,8 +28,8 @@ body:
     attributes:
       label: MagicMirror Version
       description: |
-        Which version of MagicMirror are you running? It can be found in the `MagicMirror/package.log` file.
-      placeholder: '2.16.0'
+        Which version of MagicMirror are you running? It can be found in the `MagicMirror/package.json` file.
+      placeholder: '2.3x.0'
     validations:
       required: true
   - type: input
