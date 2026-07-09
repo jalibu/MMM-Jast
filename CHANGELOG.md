@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.10.6](https://github.com/jalibu/MMM-Jast/compare/v2.10.5...v2.10.6) (2026-07-09)
+
+### Fixed
+
+- avoid s.create crash by default-importing node_helper ([44a42b9](https://github.com/jalibu/MMM-Jast/commit/44a42b96a1952843f1913c6fdcbe8bdbab4fec1b))
+- use bundler module resolution ([83ef0b0](https://github.com/jalibu/MMM-Jast/commit/83ef0b0162c5f293e4868454de5303ffcba0b4b1))
+- use exported yahoo-finance2 imports ([0a11a94](https://github.com/jalibu/MMM-Jast/commit/0a11a949338c82e6419e883e2061cc9f36d90391))
+
+### Chores
+
+- add missing build dependency ([24412a9](https://github.com/jalibu/MMM-Jast/commit/24412a920b236f994673ec05274730f2a3a0dbf6))
+- update actions/checkout to v7 ([a94f098](https://github.com/jalibu/MMM-Jast/commit/a94f09854e62651970216038ae1c7566303f088b))
+- update dependencies ([06cf7f9](https://github.com/jalibu/MMM-Jast/commit/06cf7f93b8216ceb9be57b88b4fbd775c6763c24))
+
 ## [2.10.5](https://github.com/jalibu/MMM-Jast/compare/v2.10.4...v2.10.5) (2026-02-28)
 
 ### Documentation

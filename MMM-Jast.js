@@ -1,6 +1,6 @@
 /*! *****************************************************************************
   mmm-jast
-  Version 2.10.5
+  Version 2.10.6
 
   A minimalistic stock ticker based on Yahoo's finance API for the MagicMirror² platform.
   Please submit bugs at https://github.com/jalibu/MMM-Jast/issues

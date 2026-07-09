@@ -1,6 +1,6 @@
 {
   "name": "mmm-jast",
-  "version": "2.10.5",
+  "version": "2.10.6",
   "description": "A minimalistic stock ticker based on Yahoo's finance API for the MagicMirror² platform.",
   "main": "MMM-Jast.js",
   "type": "commonjs",
