@@ -1,6 +1,6 @@
 import * as Log from 'logger'
 import * as yahooFinance2Module from 'yahoo-finance2'
-import type { QuoteSummaryResult } from 'yahoo-finance2/esm/src/modules/quoteSummary'
+import type { QuoteSummaryResult } from 'yahoo-finance2/modules/quoteSummary'
 import { Config } from '../types/Config'
 import { StockResponse } from '../types/StockResponse'
 

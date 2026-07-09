@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import type { QuoteSummaryResult } from 'yahoo-finance2/esm/src/modules/quoteSummary'
+import type { QuoteSummaryResult } from 'yahoo-finance2/modules/quoteSummary'
 import { Config } from '../types/Config'
 import { StockResponse } from '../types/StockResponse'
 

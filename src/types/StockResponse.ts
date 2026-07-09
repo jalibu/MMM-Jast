@@ -1,4 +1,4 @@
-import type { Price, SummaryDetail } from 'yahoo-finance2/esm/src/modules/quoteSummary-iface'
+import type { Price, SummaryDetail } from 'yahoo-finance2/modules/quoteSummary-iface'
 
 export interface StockResponse {
   summaryDetail?: SummaryDetail
