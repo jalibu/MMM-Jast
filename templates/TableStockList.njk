@@ -66,7 +66,7 @@ font-weight: bold;
       <th>{{ "priceGain" | translate | safe }}</th>
     </tr>
   </thead>
-  <tbody id="stockTableBody">
+  <tbody>
   {% for stock in stocks %}
       <tr class="hide">
       <td><span class="bold">{{ utils.getStockName(stock) }}</span></td>
@@ -111,7 +111,8 @@ font-weight: bold;
   </tbody>
 </table>
 <style onload="(function(){
-  const tableBody = document.getElementById('stockTableBody')
+  const tableBody = this.closest('.jast-wrapper')?.querySelector('tbody')
+  if (!tableBody) return
   const rows = Array.prototype.slice.call(tableBody.getElementsByTagName('tr'))
 
   let currentRow = 0;
