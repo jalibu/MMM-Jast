@@ -554,7 +554,7 @@ describe('JastFrontendUtils', () => {
         }
         const portfolio = JastFrontendUtils.getPortfolio(stocks, config)
 
-        expect(portfolio[0].purchaseValue).toBe(20000) // currentStockValue * quantity when no purchasePrice
+        expect(portfolio[0].purchaseValue).toBe(2000) // currentStockValue when no purchasePrice
       })
 
       it('should handle missing regularMarketChange gracefully', () => {

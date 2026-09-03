@@ -182,7 +182,7 @@ const JastUtils = {
 
           const purchaseValue = configStock.purchasePrice
             ? configStock.purchasePrice * configStock.quantity
-            : currentStockValue * configStock.quantity
+            : currentStockValue
 
           if (existingCurrency) {
             existingCurrency.value += currentStockValue
