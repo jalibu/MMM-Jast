@@ -51,7 +51,7 @@
     ]
   },
   "dependencies": {
-    "yahoo-finance2": "^3.15.4"
+    "yahoo-finance2": "^4.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -61,17 +61,20 @@
     "@rollup/plugin-terser": "^1.0.0",
     "@rollup/plugin-typescript": "^12.3.0",
     "@types/magicmirror-module": "^2.16.6",
-    "@vitest/coverage-v8": "^4.1.10",
-    "commit-and-tag-version": "^12.7.3",
-    "eslint": "^10.6.0",
-    "eslint-plugin-jsdoc": "^63.0.12",
-    "lint-staged": "^17.0.8",
-    "prettier": "^3.9.4",
-    "rollup": "^4.62.2",
-    "simple-git-hooks": "^2.13.1",
+    "@vitest/coverage-v8": "^4.1.11",
+    "commit-and-tag-version": "^13.1.2",
+    "eslint": "^10.9.1",
+    "eslint-plugin-jsdoc": "^64.3.4",
+    "lint-staged": "^17.4.1",
+    "prettier": "^3.9.6",
+    "rollup": "^4.63.1",
+    "simple-git-hooks": "^2.14.0",
     "tslib": "^2.8.1",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.63.0",
-    "vitest": "^4.1.10"
+    "typescript-eslint": "^8.69.0",
+    "vitest": "^4.1.11"
+  },
+  "allowScripts": {
+    "simple-git-hooks@2.14.0": true
   }
 }
