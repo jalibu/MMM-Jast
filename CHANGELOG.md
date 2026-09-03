@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.11.0](https://github.com/jalibu/MMM-Jast/compare/v2.10.6...v2.11.0) (2026-09-03)
+
+### Fixed
+
+- abort hanging yahoo-finance2 requests ([b0c03a3](https://github.com/jalibu/MMM-Jast/commit/b0c03a350c0346b23b21523b114a389a273ccf5e))
+- clean up polling intervals ([9cd6b59](https://github.com/jalibu/MMM-Jast/commit/9cd6b597176ee4f68c23e878935b667ef7c00582))
+- correct portfolio purchase value ([4f768f6](https://github.com/jalibu/MMM-Jast/commit/4f768f6556a2c3626be2486348bfd757f023ffcf))
+- guard portfolio percent against divide-by-zero ([751bc6b](https://github.com/jalibu/MMM-Jast/commit/751bc6b63639566638031147aa00bcd93faadc03))
+- handle optional yahoo-finance2 v4 price fields ([cf8331c](https://github.com/jalibu/MMM-Jast/commit/cf8331c8c202a31f0d53387fc53d981f9588197c))
+- scope table animation per module instance ([b385dd6](https://github.com/jalibu/MMM-Jast/commit/b385dd63d85ad584475ea594f67e0e67092e8daf))
+
+### Performance Improvements
+
+- batch Yahoo quote requests with quoteCombine ([68c8ae0](https://github.com/jalibu/MMM-Jast/commit/68c8ae05f435c8524285c55c1333dedc3d841471))
+- reuse YahooFinance client across polls ([104a841](https://github.com/jalibu/MMM-Jast/commit/104a841c162c1cef976136d58237fd6d060894e1))
+
+### Documentation
+
+- add release instructions ([28c9752](https://github.com/jalibu/MMM-Jast/commit/28c97520252f8701386868f604ccda15671ada17))
+- optimize sample config ([0f23f45](https://github.com/jalibu/MMM-Jast/commit/0f23f4517cd881f86c1486f412e3dfb62eaf952a))
+
+### Chores
+
+- update dependencies ([cccc79d](https://github.com/jalibu/MMM-Jast/commit/cccc79dc4da08dbf665c24965e8ba9df47b1349c))
+- update Node.js setup action ([e4cd2d8](https://github.com/jalibu/MMM-Jast/commit/e4cd2d815e19b6d2d775c5fc7217eb3d4c3765e9))
+
+### Tests
+
+- add coverage for Frontend and Backend ([4335f8d](https://github.com/jalibu/MMM-Jast/commit/4335f8d1ed0577632ae2d19d746de0e375364de2))
+- use realistic changePercent mock values ([0543e7c](https://github.com/jalibu/MMM-Jast/commit/0543e7ccfa026e9120c2fbfbfb82a65cc8cd7cee))
+
+### Build System
+
+- mark Vitest config as ESM ([f57ed61](https://github.com/jalibu/MMM-Jast/commit/f57ed6129de59ed95091fa9c0c06b30794ca0d90))
+
 ## [2.10.6](https://github.com/jalibu/MMM-Jast/compare/v2.10.5...v2.10.6) (2026-07-09)
 
 ### Fixed
