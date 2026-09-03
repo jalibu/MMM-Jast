@@ -111,7 +111,8 @@ font-weight: bold;
   </tbody>
 </table>
 <style onload="(function(){
-  const tableBody = this.closest('.jast-wrapper')?.querySelector('tbody')
+  const wrapper = this.closest('.jast-wrapper')
+  const tableBody = wrapper?.querySelector('tbody')
   if (!tableBody) return
   const rows = Array.prototype.slice.call(tableBody.getElementsByTagName('tr'))
 
@@ -125,7 +126,13 @@ font-weight: bold;
       }
   }
   showNextRow()
-  setInterval(showNextRow, {{ config.fadeSpeedInSeconds }} * 1000); // show the next row every 2 seconds
+  const intervalId = setInterval(() => {
+    if (!wrapper.isConnected) {
+      clearInterval(intervalId)
+      return
+    }
+    showNextRow()
+  }, {{ config.fadeSpeedInSeconds }} * 1000)
 })()">
 
 {% endmacro %}

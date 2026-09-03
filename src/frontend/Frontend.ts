@@ -59,6 +59,8 @@ Module.register<Config>('MMM-Jast', {
     ]
   },
 
+  updateInterval: null,
+
   getStyles() {
     return ['MMM-Jast.css']
   },
@@ -96,9 +98,19 @@ Module.register<Config>('MMM-Jast', {
   scheduleUpdate() {
     this.config.updateIntervalInSeconds =
       this.config.updateIntervalInSeconds < 120 ? 120 : this.config.updateIntervalInSeconds
-    setInterval(() => {
+    if (this.updateInterval) {
+      clearInterval(this.updateInterval)
+    }
+    this.updateInterval = setInterval(() => {
       this.loadData()
     }, this.config.updateIntervalInSeconds * 1000)
+  },
+
+  stop() {
+    if (this.updateInterval) {
+      clearInterval(this.updateInterval)
+      this.updateInterval = null
+    }
   },
 
   loadData() {
