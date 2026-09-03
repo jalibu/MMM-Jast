@@ -3,7 +3,9 @@ import type { QuoteSummaryResult } from 'yahoo-finance2/modules/quoteSummary'
 import { Config } from '../types/Config'
 import { StockResponse } from '../types/StockResponse'
 
-const mockQuoteSummary = vi.fn()
+// JastBackendUtils now creates its YahooFinance instance at module load time, so the mock
+// needs to exist before that import runs too - vi.hoisted() lifts it above the imports.
+const { mockQuoteSummary } = vi.hoisted(() => ({ mockQuoteSummary: vi.fn() }))
 
 // Mocks must be called before imports
 vi.mock('yahoo-finance2', () => ({

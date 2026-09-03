@@ -8,8 +8,7 @@ interface QuoteSummaryRequestOptions {
   fetchOptions?: RequestInit
 }
 
-// Handle both ESM and CommonJS module formats
-// TypeScript sees the namespace import, but at runtime Rollup will provide the correct format
+// TypeScript sees the namespace import, but Rollup provides the correct format at runtime
 const YahooFinance = ('default' in yahooFinance2Module
   ? yahooFinance2Module.default
   : yahooFinance2Module) as unknown as new (options: { suppressNotices: string[] }) => {
@@ -23,9 +22,11 @@ const YahooFinance = ('default' in yahooFinance2Module
 // Yahoo can occasionally accept a connection but never respond; abort rather than hang the whole update.
 const REQUEST_TIMEOUT_MS = 10_000
 
+// Reused across polls, since yahoo-finance2 v4 no longer shares cookie/crumb state across instances.
+const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey'] })
+
 const JastBackendUtils = {
   async requestStocks(config: Config): Promise<StockResponse[]> {
-    const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey'] })
     const stocks = []
     // All requests start at roughly the same time, so they can share one timeout budget.
     const requestOptions: QuoteSummaryRequestOptions = {
