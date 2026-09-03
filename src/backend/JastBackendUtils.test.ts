@@ -119,6 +119,29 @@ describe('JastBackendUtils', () => {
       expect(mockQuoteSummary).toHaveBeenCalledTimes(2)
     })
 
+    it('should pass an abort signal to time out hanging requests', async () => {
+      mockQuoteSummary.mockResolvedValue({
+        price: {
+          currency: 'USD',
+          regularMarketPrice: 200,
+          regularMarketChange: 5,
+          regularMarketChangePercent: 0.025,
+          regularMarketPreviousClose: 195,
+          regularMarketTime: '2024-01-01T10:00:00.000Z',
+          longName: 'Apple Inc.',
+          symbol: 'AAPL'
+        }
+      } as unknown as QuoteSummaryResult)
+
+      await JastBackendUtils.requestStocks(mockConfig)
+
+      expect(mockQuoteSummary).toHaveBeenCalledWith(
+        'AAPL',
+        { modules: ['price'] },
+        { fetchOptions: { signal: expect.any(AbortSignal) } }
+      )
+    })
+
     it('should handle GBp currency conversion', async () => {
       const mockResponse = {
         price: {

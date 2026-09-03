@@ -4,19 +4,36 @@ import type { QuoteSummaryResult } from 'yahoo-finance2/modules/quoteSummary'
 import { Config } from '../types/Config'
 import { StockResponse } from '../types/StockResponse'
 
+interface QuoteSummaryRequestOptions {
+  fetchOptions?: RequestInit
+}
+
 // Handle both ESM and CommonJS module formats
 // TypeScript sees the namespace import, but at runtime Rollup will provide the correct format
 const YahooFinance = ('default' in yahooFinance2Module
   ? yahooFinance2Module.default
   : yahooFinance2Module) as unknown as new (options: { suppressNotices: string[] }) => {
-  quoteSummary: (symbol: string, options: { modules: string[] }) => Promise<QuoteSummaryResult>
+  quoteSummary: (
+    symbol: string,
+    options: { modules: string[] },
+    requestOptions?: QuoteSummaryRequestOptions
+  ) => Promise<QuoteSummaryResult>
 }
+
+// Yahoo can occasionally accept a connection but never respond; abort rather than hang the whole update.
+const REQUEST_TIMEOUT_MS = 10_000
 
 const JastBackendUtils = {
   async requestStocks(config: Config): Promise<StockResponse[]> {
     const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey'] })
     const stocks = []
-    const promises = config.stocks.map((stock) => yahooFinance.quoteSummary(stock.symbol, { modules: ['price'] }))
+    // All requests start at roughly the same time, so they can share one timeout budget.
+    const requestOptions: QuoteSummaryRequestOptions = {
+      fetchOptions: { signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) }
+    }
+    const promises = config.stocks.map((stock) =>
+      yahooFinance.quoteSummary(stock.symbol, { modules: ['price'] }, requestOptions)
+    )
     const apiResponses = await Promise.all(promises.map((p) => p.catch((e) => e)))
 
     for (const [index, response] of apiResponses.entries()) {
