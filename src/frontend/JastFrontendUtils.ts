@@ -147,7 +147,7 @@ const JastUtils = {
   },
 
   getPortfolioPerformancePercentAsString(portfolio: Portfolio, config: Config): string {
-    const change = (portfolio.value - portfolio.purchaseValue) / portfolio.purchaseValue
+    const change = portfolio.purchaseValue ? (portfolio.value - portfolio.purchaseValue) / portfolio.purchaseValue : 0
 
     return change.toLocaleString(config.locale, JastUtils.getPercentStyle(config))
   },
@@ -164,7 +164,7 @@ const JastUtils = {
   },
 
   getPortfolioChangePercentAsString(portfolio: Portfolio, config: Config): string {
-    const change = (portfolio.value - portfolio.oldValue) / portfolio.oldValue
+    const change = portfolio.oldValue ? (portfolio.value - portfolio.oldValue) / portfolio.oldValue : 0
 
     return change.toLocaleString(config.locale, JastUtils.getPercentStyle(config))
   },

@@ -612,6 +612,13 @@ describe('JastFrontendUtils', () => {
           const formatted = JastFrontendUtils.getPortfolioPerformancePercentAsString(mockPortfolio, baseConfig)
           expect(formatted).toMatch(/25/) // (10000 - 8000) / 8000 = 0.25 = 25%
         })
+
+        it('should return 0% instead of dividing by zero when purchaseValue is 0', () => {
+          const portfolio = { ...mockPortfolio, purchaseValue: 0 }
+          const formatted = JastFrontendUtils.getPortfolioPerformancePercentAsString(portfolio, baseConfig)
+          expect(formatted).toMatch(/0%/)
+          expect(formatted).not.toMatch(/Infinity|NaN/)
+        })
       })
 
       describe('getPortfolioChangeAsString', () => {
@@ -625,6 +632,13 @@ describe('JastFrontendUtils', () => {
         it('should format change percentage', () => {
           const formatted = JastFrontendUtils.getPortfolioChangePercentAsString(mockPortfolio, baseConfig)
           expect(formatted).toMatch(/5\.26/) // (10000 - 9500) / 9500 ≈ 5.26%
+        })
+
+        it('should return 0% instead of dividing by zero when oldValue is 0', () => {
+          const portfolio = { ...mockPortfolio, oldValue: 0 }
+          const formatted = JastFrontendUtils.getPortfolioChangePercentAsString(portfolio, baseConfig)
+          expect(formatted).toMatch(/0%/)
+          expect(formatted).not.toMatch(/Infinity|NaN/)
         })
       })
     })
