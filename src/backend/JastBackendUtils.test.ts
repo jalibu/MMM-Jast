@@ -140,6 +140,30 @@ describe('JastBackendUtils', () => {
       )
     })
 
+    it('should convert changePercent from a percent number to a fraction (issue #101)', async () => {
+      // Real-world quoteCombine() values for MSFT: -0.84% is returned as -0.83999... (percent units),
+      // not as the -0.0084 fraction the rest of the app expects.
+      mockQuoteCombine.mockResolvedValue({
+        currency: 'USD',
+        regularMarketPrice: 496.82,
+        regularMarketChange: -4.19998,
+        regularMarketChangePercent: -0.83999,
+        regularMarketPreviousClose: 501.02,
+        regularMarketTime: new Date('2024-01-01T10:00:00.000Z'),
+        longName: 'Microsoft Corporation',
+        symbol: 'MSFT'
+      } as unknown as Quote)
+
+      const configWithSingleStock: Config = {
+        ...mockConfig,
+        stocks: [{ symbol: 'MSFT', quantity: 1 }]
+      }
+
+      const result: StockResponse[] = await JastBackendUtils.requestStocks(configWithSingleStock)
+
+      expect(result[0].price?.regularMarketChangePercent).toBeCloseTo(-0.0083999, 6)
+    })
+
     it('should handle GBp currency conversion', async () => {
       const mockResponse = {
         currency: 'GBp',

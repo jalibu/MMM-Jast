@@ -60,6 +60,12 @@ const JastBackendUtils = {
           hidden: config.stocks[index].hidden,
           purchasePrice: config.stocks[index].purchasePrice
         }
+        // quoteCombine() returns changePercent as a percent number (2.86 for 2.86%), but the rest of
+        // this module expects a fraction (0.0286), matching Intl.NumberFormat's percent style input.
+        if (response.regularMarketChangePercent !== undefined) {
+          response.regularMarketChangePercent /= 100
+        }
+
         // Manually convert GBp to GBP
         if (response.currency === 'GBp') {
           if (response.regularMarketPrice !== undefined) {
