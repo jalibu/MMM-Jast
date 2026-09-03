@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.11.1](https://github.com/jalibu/MMM-Jast/compare/v2.11.0...v2.11.1) (2026-09-03)
+
+### Fixed
+
+- convert quoteCombine changePercent to fraction (fixes [#101](https://github.com/jalibu/MMM-Jast/issues/101)) ([3cd79a2](https://github.com/jalibu/MMM-Jast/commit/3cd79a2fd7290a79c299e528c5dd17e84cf7dde9))
+
 ## [2.11.0](https://github.com/jalibu/MMM-Jast/compare/v2.10.6...v2.11.0) (2026-09-03)
 
 ### Fixed
