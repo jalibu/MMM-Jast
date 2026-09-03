@@ -184,6 +184,16 @@ Compile target files with `node --run build`.
 
 Contribution for this module is welcome!
 
+### Releasing
+
+Releases use [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) based on [Conventional Commits](https://www.conventionalcommits.org/). `npm run release` bumps the version, updates `CHANGELOG.md`, rebuilds the compiled files, and creates a commit + tag. The bump level is derived from commit messages (`fix:` → patch, `feat:` → minor, `BREAKING CHANGE:`/`!` → major), or force one explicitly:
+
+```sh
+npm run release -- --release-as patch|minor|major
+```
+
+Then push with `git push --follow-tags`.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
