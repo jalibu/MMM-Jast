@@ -178,6 +178,15 @@ describe('JastBackendUtils', () => {
       expect(result[0].price?.regularMarketChange).toBe(5)
     })
 
+    it('should return an empty list without calling the API when stocks is empty', async () => {
+      const configWithNoStocks: Config = { ...mockConfig, stocks: [] }
+
+      const result: StockResponse[] = await JastBackendUtils.requestStocks(configWithNoStocks)
+
+      expect(result).toEqual([])
+      expect(mockQuoteSummary).not.toHaveBeenCalled()
+    })
+
     it('should handle API errors gracefully', async () => {
       mockQuoteSummary.mockRejectedValue(new Error('API Error'))
 
