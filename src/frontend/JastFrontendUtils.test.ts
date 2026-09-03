@@ -131,7 +131,7 @@ describe('JastFrontendUtils', () => {
         currency: 'USD',
         regularMarketPrice: 200,
         regularMarketChange: 5,
-        regularMarketChangePercent: 2.5,
+        regularMarketChangePercent: 0.025, // Yahoo returns changePercent as a fraction, e.g. 0.025 for 2.5%
         regularMarketPreviousClose: 195,
         regularMarketTime: new Date('2024-01-01T10:00:00.000Z'),
         longName: 'Apple Inc.',
@@ -170,7 +170,7 @@ describe('JastFrontendUtils', () => {
 
     describe('getStockChangePercent', () => {
       it('should return regularMarketChangePercent', () => {
-        expect(JastFrontendUtils.getStockChangePercent(mockStock)).toBe(2.5)
+        expect(JastFrontendUtils.getStockChangePercent(mockStock)).toBe(0.025)
       })
 
       it('should return 0 when price is undefined', () => {
@@ -225,7 +225,7 @@ describe('JastFrontendUtils', () => {
         currency: 'USD',
         regularMarketPrice: 200,
         regularMarketChange: 5.5,
-        regularMarketChangePercent: 2.75,
+        regularMarketChangePercent: 0.0275, // Yahoo returns changePercent as a fraction, e.g. 0.0275 for 2.75%
         regularMarketPreviousClose: 194.5,
         regularMarketTime: new Date('2024-01-01T10:00:00.000Z'),
         longName: 'Apple Inc.',
@@ -285,14 +285,14 @@ describe('JastFrontendUtils', () => {
     describe('getStockChangePercentAsString', () => {
       it('should format percentage change', () => {
         const formatted = JastFrontendUtils.getStockChangePercentAsString(mockStock, baseConfig)
-        // toLocaleString with style:'percent' multiplies by 100, so 2.75% becomes "275%"
-        expect(formatted).toMatch(/275/)
+        // toLocaleString with style:'percent' turns the 0.0275 fraction into "2.75%"
+        expect(formatted).toMatch(/2\.75/)
       })
 
       it('should respect decimal configuration', () => {
         const config = { ...baseConfig, numberDecimalsPercentages: 4 }
         const formatted = JastFrontendUtils.getStockChangePercentAsString(mockStock, config)
-        expect(formatted).toContain('275')
+        expect(formatted).toContain('2.75')
       })
     })
 
