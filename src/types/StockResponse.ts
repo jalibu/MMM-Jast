@@ -1,8 +1,7 @@
-import type { Price, SummaryDetail } from 'yahoo-finance2/modules/quoteSummary-iface'
+import type { Quote } from 'yahoo-finance2/modules/quote'
 
 export interface StockResponse {
-  summaryDetail?: SummaryDetail
-  price?: Price
+  price?: Quote
   meta: {
     purchasePrice?: number
     symbol: string

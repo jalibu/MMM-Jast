@@ -1,16 +1,16 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import type { QuoteSummaryResult } from 'yahoo-finance2/modules/quoteSummary'
+import type { Quote } from 'yahoo-finance2/modules/quote'
 import { Config } from '../types/Config'
 import { StockResponse } from '../types/StockResponse'
 
 // JastBackendUtils now creates its YahooFinance instance at module load time, so the mock
 // needs to exist before that import runs too - vi.hoisted() lifts it above the imports.
-const { mockQuoteSummary } = vi.hoisted(() => ({ mockQuoteSummary: vi.fn() }))
+const { mockQuoteCombine } = vi.hoisted(() => ({ mockQuoteCombine: vi.fn() }))
 
 // Mocks must be called before imports
 vi.mock('yahoo-finance2', () => ({
   default: class YahooFinanceMock {
-    quoteSummary = mockQuoteSummary
+    quoteCombine = mockQuoteCombine
   }
 }))
 
@@ -81,19 +81,17 @@ describe('JastBackendUtils', () => {
       oldDate.setHours(oldDate.getHours() - 2) // 2 hours ago
 
       const mockResponse = {
-        price: {
-          currency: 'USD',
-          regularMarketPrice: 200,
-          regularMarketChange: 5,
-          regularMarketChangePercent: 2.5,
-          regularMarketPreviousClose: 195,
-          regularMarketTime: oldDate.toISOString(),
-          longName: 'Apple Inc.',
-          symbol: 'AAPL'
-        }
-      } as unknown as QuoteSummaryResult
+        currency: 'USD',
+        regularMarketPrice: 200,
+        regularMarketChange: 5,
+        regularMarketChangePercent: 2.5,
+        regularMarketPreviousClose: 195,
+        regularMarketTime: oldDate,
+        longName: 'Apple Inc.',
+        symbol: 'AAPL'
+      } as unknown as Quote
 
-      mockQuoteSummary.mockResolvedValue(mockResponse)
+      mockQuoteCombine.mockResolvedValue(mockResponse)
 
       const configWithMaxAge: Config = {
         ...mockConfig,
@@ -105,7 +103,7 @@ describe('JastBackendUtils', () => {
       expect(result).toHaveLength(2)
       expect(result[0]).toMatchObject({
         price: {
-          ...mockResponse.price,
+          ...mockResponse,
           regularMarketChange: 0, // Should be zeroed due to old data
           regularMarketChangePercent: 0,
           regularMarketPreviousClose: 200
@@ -118,47 +116,43 @@ describe('JastBackendUtils', () => {
           purchasePrice: 150
         }
       })
-      expect(mockQuoteSummary).toHaveBeenCalledTimes(2)
+      expect(mockQuoteCombine).toHaveBeenCalledTimes(2)
     })
 
     it('should pass an abort signal to time out hanging requests', async () => {
-      mockQuoteSummary.mockResolvedValue({
-        price: {
-          currency: 'USD',
-          regularMarketPrice: 200,
-          regularMarketChange: 5,
-          regularMarketChangePercent: 0.025,
-          regularMarketPreviousClose: 195,
-          regularMarketTime: '2024-01-01T10:00:00.000Z',
-          longName: 'Apple Inc.',
-          symbol: 'AAPL'
-        }
-      } as unknown as QuoteSummaryResult)
+      mockQuoteCombine.mockResolvedValue({
+        currency: 'USD',
+        regularMarketPrice: 200,
+        regularMarketChange: 5,
+        regularMarketChangePercent: 0.025,
+        regularMarketPreviousClose: 195,
+        regularMarketTime: new Date('2024-01-01T10:00:00.000Z'),
+        longName: 'Apple Inc.',
+        symbol: 'AAPL'
+      } as unknown as Quote)
 
       await JastBackendUtils.requestStocks(mockConfig)
 
-      expect(mockQuoteSummary).toHaveBeenCalledWith(
+      expect(mockQuoteCombine).toHaveBeenCalledWith(
         'AAPL',
-        { modules: ['price'] },
+        { fields: expect.arrayContaining(['regularMarketPrice', 'currency']) },
         { fetchOptions: { signal: expect.any(AbortSignal) } }
       )
     })
 
     it('should handle GBp currency conversion', async () => {
       const mockResponse = {
-        price: {
-          currency: 'GBp',
-          regularMarketPrice: 10000, // This should be converted to 100
-          regularMarketChange: 500, // This should be converted to 5
-          regularMarketChangePercent: 2.5,
-          regularMarketPreviousClose: 195,
-          regularMarketTime: '2024-01-01T10:00:00.000Z',
-          longName: 'British Company',
-          symbol: 'BRIT'
-        }
-      } as unknown as QuoteSummaryResult
+        currency: 'GBp',
+        regularMarketPrice: 10000, // This should be converted to 100
+        regularMarketChange: 500, // This should be converted to 5
+        regularMarketChangePercent: 2.5,
+        regularMarketPreviousClose: 195,
+        regularMarketTime: new Date('2024-01-01T10:00:00.000Z'),
+        longName: 'British Company',
+        symbol: 'BRIT'
+      } as unknown as Quote
 
-      mockQuoteSummary.mockResolvedValue(mockResponse)
+      mockQuoteCombine.mockResolvedValue(mockResponse)
 
       const configWithGBP: Config = {
         ...mockConfig,
@@ -186,57 +180,25 @@ describe('JastBackendUtils', () => {
       const result: StockResponse[] = await JastBackendUtils.requestStocks(configWithNoStocks)
 
       expect(result).toEqual([])
-      expect(mockQuoteSummary).not.toHaveBeenCalled()
+      expect(mockQuoteCombine).not.toHaveBeenCalled()
     })
 
     it('should handle API errors gracefully', async () => {
-      mockQuoteSummary.mockRejectedValue(new Error('API Error'))
+      mockQuoteCombine.mockRejectedValue(new Error('API Error'))
 
       const result: StockResponse[] = await JastBackendUtils.requestStocks(mockConfig)
 
       expect(result).toHaveLength(0)
-      expect(mockQuoteSummary).toHaveBeenCalledTimes(2)
+      expect(mockQuoteCombine).toHaveBeenCalledTimes(2)
     })
 
-    it('should handle responses without price data', async () => {
-      mockQuoteSummary.mockResolvedValue({
-        // No price property - triggers warning
-        summaryDetail: { currency: 'USD' }
-      } as QuoteSummaryResult)
+    it('should skip symbols that yahoo-finance2 resolves to undefined', async () => {
+      // quoteCombine() resolves with `undefined` (not a rejection) for unknown/misspelled symbols.
+      mockQuoteCombine.mockResolvedValue(undefined)
 
       const result: StockResponse[] = await JastBackendUtils.requestStocks(mockConfig)
 
       expect(result).toHaveLength(0)
-    })
-
-    it('should handle invalid date parsing in maxChangeAge logic', async () => {
-      const dateParsespy = vi.spyOn(Date, 'parse').mockImplementation(() => {
-        throw new Error('Invalid date')
-      })
-
-      mockQuoteSummary.mockResolvedValue({
-        price: {
-          currency: 'USD',
-          regularMarketPrice: 200,
-          regularMarketChange: 5,
-          regularMarketChangePercent: 2.5,
-          regularMarketPreviousClose: 195,
-          regularMarketTime: '2024-01-01T10:00:00.000Z',
-          longName: 'Apple Inc.',
-          symbol: 'AAPL'
-        }
-      } as unknown as QuoteSummaryResult)
-
-      const configWithMaxAge: Config = {
-        ...mockConfig,
-        maxChangeAge: 3600000
-      }
-
-      const result: StockResponse[] = await JastBackendUtils.requestStocks(configWithMaxAge)
-
-      expect(result).toHaveLength(2) // Stock is still returned despite date parsing error
-
-      dateParsespy.mockRestore()
     })
   })
 })
