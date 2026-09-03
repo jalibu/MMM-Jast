@@ -87,45 +87,45 @@ npm ci
 Add the module configuration into the `MagicMirror/config/config.js` file (sample configuration):
 
 ```javascript
-{
-  module: "MMM-Jast",
-  position: "top_left",
-  config: {
-    currencyStyle: "code", // One of ["code", "symbol", "name"]
-    fadeSpeedInSeconds: 3.5,
-    lastUpdateFormat: "HH:mm",
-    maxChangeAge: 1 * 24 * 60 * 60 * 1000,
-    maxWidth: "100%",
-    numberDecimalsPercentages: 1,
-    numberDecimalsValues: 2,
-    displayMode: "vertical", // One of ["none", "vertical", "horizontal", "table", "default-table"]
-    showColors: true,
-    showCurrency: true,
-    showChangePercent: true,
-    showChangeValue: false,
-    showChangeValueCurrency: false,
-    showHiddenStocks: false,
-    showLastUpdate: false,
-    showPortfolioValue: false,
-    showPortfolioGrowthPercent: false,
-    showPortfolioGrowth: false,
-    showPortfolioPerformanceValue: false,
-    showPortfolioPerformancePercent: false,
-    showStockPerformanceValue: false,
-    showStockPerformanceValueSum: false,
-    showStockPerformancePercent: false,
-    stocksPerPage: 2, // Only relevant for display mode "table"
-    updateIntervalInSeconds: 300,
-    useGrouping: false,
-    virtualHorizontalMultiplier: 2,
-    stocks: [
-      { name: 'BASF', symbol: 'BAS.DE', quantity: 10, purchasePrice: 70.4 },
-      { name: 'SAP', symbol: 'SAP.DE', quantity: 15, purchasePrice: 90.3 },
-      { name: 'Henkel', symbol: 'HEN3.DE', hidden: true },
-      { name: 'Bitcoin', symbol: 'BTC-EUR' }
-    ]
-  }
-}
+    {
+      module: "MMM-Jast",
+      position: "top_left",
+      config: {
+        currencyStyle: "code", // One of ["code", "symbol", "name"]
+        fadeSpeedInSeconds: 3.5,
+        lastUpdateFormat: "HH:mm",
+        maxChangeAge: 1 * 24 * 60 * 60 * 1000,
+        maxWidth: "100%",
+        numberDecimalsPercentages: 1,
+        numberDecimalsValues: 2,
+        displayMode: "vertical", // One of ["none", "vertical", "horizontal", "table", "default-table"]
+        showColors: true,
+        showCurrency: true,
+        showChangePercent: true,
+        showChangeValue: false,
+        showChangeValueCurrency: false,
+        showHiddenStocks: false,
+        showLastUpdate: false,
+        showPortfolioValue: false,
+        showPortfolioGrowthPercent: false,
+        showPortfolioGrowth: false,
+        showPortfolioPerformanceValue: false,
+        showPortfolioPerformancePercent: false,
+        showStockPerformanceValue: false,
+        showStockPerformanceValueSum: false,
+        showStockPerformancePercent: false,
+        stocksPerPage: 2, // Only relevant for display mode "table"
+        updateIntervalInSeconds: 300,
+        useGrouping: false,
+        virtualHorizontalMultiplier: 2,
+        stocks: [
+          { name: 'BASF', symbol: 'BAS.DE', quantity: 10, purchasePrice: 70.4 },
+          { name: 'SAP', symbol: 'SAP.DE', quantity: 15, purchasePrice: 90.3 },
+          { name: 'Henkel', symbol: 'HEN3.DE', hidden: true },
+          { name: 'Bitcoin', symbol: 'BTC-EUR' }
+        ]
+      }
+    },
 ```
 
 ### Options
