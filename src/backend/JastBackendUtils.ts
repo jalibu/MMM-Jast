@@ -16,12 +16,7 @@ const JastBackendUtils = {
   async requestStocks(config: Config): Promise<StockResponse[]> {
     const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey'] })
     const stocks = []
-    const promises: Promise<QuoteSummaryResult>[] = []
-
-    for (const stock of config.stocks) {
-      promises.push(yahooFinance.quoteSummary(stock.symbol, { modules: ['price'] }))
-    }
-
+    const promises = config.stocks.map((stock) => yahooFinance.quoteSummary(stock.symbol, { modules: ['price'] }))
     const apiResponses = await Promise.all(promises.map((p) => p.catch((e) => e)))
 
     for (const [index, response] of apiResponses.entries()) {
@@ -37,8 +32,12 @@ const JastBackendUtils = {
         }
         // Manually convert GBp to GBP
         if (response.price.currency === 'GBp') {
-          response.price.regularMarketPrice /= 100
-          response.price.regularMarketChange /= 100
+          if (response.price.regularMarketPrice !== undefined) {
+            response.price.regularMarketPrice /= 100
+          }
+          if (response.price.regularMarketChange !== undefined) {
+            response.price.regularMarketChange /= 100
+          }
           response.price.currency = 'GBP'
         }
 
@@ -46,7 +45,9 @@ const JastBackendUtils = {
         if (config.maxChangeAge > 0) {
           const maxChangeAge = new Date().getTime() - config.maxChangeAge
           try {
-            const lastChange = Date.parse(response.price.regularMarketTime)
+            const lastChange = response.price.regularMarketTime
+              ? new Date(response.price.regularMarketTime).getTime()
+              : Number.NaN
 
             if (maxChangeAge > lastChange) {
               response.price.regularMarketPreviousClose = response.price?.regularMarketPrice
