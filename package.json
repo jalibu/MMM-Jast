@@ -72,7 +72,7 @@
     "tslib": "^2.8.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.69.0",
-    "vitest": "^4.1.11"
+    "vitest": "^5.0.2"
   },
   "allowScripts": {
     "simple-git-hooks@2.14.0": true
