@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.12.0](https://github.com/jalibu/MMM-Jast/compare/v2.11.1...v2.12.0) (2026-10-13)
+
+### Added
+
+- add static horizontal display mode ([7b12cf4](https://github.com/jalibu/MMM-Jast/commit/7b12cf434af113db691b02b529f6a6f968cd4404))
+
+### Chores
+
+- update dependencies ([a4f2a0a](https://github.com/jalibu/MMM-Jast/commit/a4f2a0ad519d12675ff8593735d1a3fa63ba7e20))
+- use 'node --run' syntax ([386fefd](https://github.com/jalibu/MMM-Jast/commit/386fefd7077a008fb0d42ef179bb5311d8d91701))
+
+### Build System
+
+- centralize TypeScript module settings ([483844f](https://github.com/jalibu/MMM-Jast/commit/483844f5fd6c21d6e17654ed1e28e822f8f4267c))
+- target ES2025 ([fa9428d](https://github.com/jalibu/MMM-Jast/commit/fa9428ddbfff2e7f4fb82b7a86a6640a0581bf1b))
+
 ## [2.11.1](https://github.com/jalibu/MMM-Jast/compare/v2.11.0...v2.11.1) (2026-09-03)
 
 ### Fixed
