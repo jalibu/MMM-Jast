@@ -86,6 +86,7 @@ npm ci
 
 Add the module configuration into the `MagicMirror/config/config.js` file (sample configuration):
 
+<!-- prettier-ignore -->
 ```javascript
     {
       module: "MMM-Jast",
@@ -186,10 +187,10 @@ Contribution for this module is welcome!
 
 ### Releasing
 
-Releases use [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) based on [Conventional Commits](https://www.conventionalcommits.org/). `npm run release` bumps the version, updates `CHANGELOG.md`, rebuilds the compiled files, and creates a commit + tag. The bump level is derived from commit messages (`fix:` → patch, `feat:` → minor, `BREAKING CHANGE:`/`!` → major), or force one explicitly:
+Releases use [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) based on [Conventional Commits](https://www.conventionalcommits.org/). `node --run release` bumps the version, updates `CHANGELOG.md`, rebuilds the compiled files, and creates a commit + tag. The bump level is derived from commit messages (`fix:` → patch, `feat:` → minor, `BREAKING CHANGE:`/`!` → major), or force one explicitly:
 
 ```sh
-npm run release -- --release-as patch|minor|major
+node --run release -- --release-as patch|minor|major
 ```
 
 Then push with `git push --follow-tags`.
