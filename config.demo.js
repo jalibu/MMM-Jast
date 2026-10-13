@@ -65,7 +65,7 @@ const config = {
       }
     },
 
-    // Top Right: Horizontal Display with minimal settings
+    // Top Left: Horizontal Display with minimal settings
     {
       module: 'MMM-Jast',
       position: 'top_left',
@@ -93,6 +93,30 @@ const config = {
           { name: 'AMD', symbol: 'AMD' },
           { name: 'Meta', symbol: 'META' },
           { name: 'Netflix', symbol: 'NFLX' }
+        ]
+      }
+    },
+
+    // Top Right: Static Horizontal Display
+    {
+      module: 'MMM-Jast',
+      position: 'top_bar',
+      header: 'Stock Ticker (Static Horizontal)',
+      config: {
+        currencyStyle: 'symbol',
+        displayMode: 'horizontal-static',
+        maxWidth: '100%',
+        numberDecimalsPercentages: 1,
+        numberDecimalsValues: 2,
+        showColors: true,
+        showCurrency: true,
+        showChangePercent: true,
+        showChangeValue: false,
+        updateIntervalInSeconds: 300,
+        stocks: [
+          { name: 'Apple', symbol: 'AAPL' },
+          { name: 'Microsoft', symbol: 'MSFT' },
+          { name: 'NVIDIA', symbol: 'NVDA' }
         ]
       }
     },

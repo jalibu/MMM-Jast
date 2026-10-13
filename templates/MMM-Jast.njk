@@ -1,5 +1,6 @@
 {% import "templates/VerticalStockList.njk" as verticalStockList with context %}
 {% import "templates/HorizontalStockList.njk" as horizontalStockList with context %}
+{% import "templates/StockList.njk" as stockList with context %}
 {% import "templates/TableStockList.njk" as tableStockList with context %}
 {% import "templates/DefaultTableStockList.njk" as defaultTableStockList with context %}
 {% if stocks.length > 0 %}
@@ -10,6 +11,10 @@
       {% if config.displayMode == "horizontal" %}
         {{ horizontalStockList.render() }}
         {{ horizontalStockList.render("2") }}
+      {% elif config.displayMode == "horizontal-static" %}
+        <ul class="jast-static-horizontal-list">
+          {{ stockList.render() }}
+        </ul>
       {% elif config.displayMode == "table" %}
         {{ tableStockList.render() }}
       {% else %}

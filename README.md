@@ -38,6 +38,7 @@ If you also like this module and want to thank, please rate this repository with
   - Static
   - Vertical scroll
   - Horizontal scroll
+  - Static horizontal
   - Table
 - Share Portfolio value and growth summary
 - Very customizable
@@ -56,6 +57,10 @@ If you also like this module and want to thank, please rate this repository with
 #### Static
 
 <img src="docs/static.png" height="140px">
+
+#### Static horizontal
+
+Displays the stock list horizontally without scrolling. Items wrap onto additional lines when needed.
 
 #### Table
 
@@ -99,7 +104,7 @@ Add the module configuration into the `MagicMirror/config/config.js` file (sampl
         maxWidth: "100%",
         numberDecimalsPercentages: 1,
         numberDecimalsValues: 2,
-        displayMode: "vertical", // One of ["none", "vertical", "horizontal", "table", "default-table"]
+        displayMode: "vertical", // One of ["none", "vertical", "horizontal", "horizontal-static", "table", "default-table"]
         showColors: true,
         showCurrency: true,
         showChangePercent: true,
@@ -134,7 +139,7 @@ Add the module configuration into the `MagicMirror/config/config.js` file (sampl
 | Option                            | Description                                                                                                                                                                                  |
 | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `currencyStyle`                   | Style of currency. <br><br>**Type:** `String` <br>**Allowed values:** `"code"` (EUR), `"symbol"` (€) or `"name"` (Euro)<br> **Default value:** `code`                                        |
-| `displayMode`                     | Display mode for ticker. <br><br>**Type:** `String`<br>**Allowed Values:** `"none"`, `"vertical"`, `"horizontal"`, `"table"` or `"default-table"` <br>**Default value:** `"vertical"`        |
+| `displayMode`                     | Display mode: `"none"`, `"vertical"`, `"horizontal"`, `"horizontal-static"`, `"table"` or `"default-table"`. Default: `"vertical"`.                                                          |
 | `fadeSpeedInSeconds`              | Animation speed for ticker. <br><br>**Type:** `Number`<br> **Default value:** `3.5`                                                                                                          |
 | `lastUpdateFormat`                | Define dateformat, if the last update should be displayed. <br><br>**Type:** `String`<br> **Default value:** `"HH:mm"`                                                                       |
 | `locale`                          | Option to override the global/system locale for value formatting. <br><br>**Type:** `String`<br> **Default value:** `undefined` (system locale)                                              |

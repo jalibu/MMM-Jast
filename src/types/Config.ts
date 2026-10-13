@@ -7,7 +7,7 @@ export interface Config {
   maxWidth: string
   numberDecimalsPercentages: number
   numberDecimalsValues: number
-  displayMode: 'vertical' | 'horizontal' | 'none' | 'table' | 'default-table'
+  displayMode: 'vertical' | 'horizontal' | 'horizontal-static' | 'none' | 'table' | 'default-table'
   scroll?: 'vertical' | 'horizontal' | 'none' | 'table'
   showCurrency: boolean
   showColors: boolean
