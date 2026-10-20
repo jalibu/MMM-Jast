@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "currencyStyle": { "type": "string", "description": "Currency formatting style" },
+    "fadeSpeedInSeconds": { "type": "number", "minimum": 0 },
+    "lastUpdateFormat": { "type": "string", "description": "Date format used for the last update time" },
+    "locale": { "type": "string", "description": "Locale used for number and currency formatting" },
+    "maxChangeAge": { "type": "integer", "minimum": 0, "description": "Maximum age of change data in milliseconds" },
+    "maxWidth": { "type": "string", "description": "Maximum widget width as a CSS value" },
+    "numberDecimalsPercentages": { "type": "integer", "minimum": 0, "maximum": 8 },
+    "numberDecimalsValues": { "type": "integer", "minimum": 0, "maximum": 8 },
+    "displayMode": { "type": "string", "description": "Stock display layout" },
+    "showColors": { "type": "boolean" },
+    "showCurrency": { "type": "boolean" },
+    "showChangePercent": { "type": "boolean" },
+    "showChangeValue": { "type": "boolean" },
+    "showChangeValueCurrency": { "type": "boolean" },
+    "showHiddenStocks": { "type": "boolean" },
+    "showLastUpdate": { "type": "boolean" },
+    "showPortfolioGrowth": { "type": "boolean" },
+    "showPortfolioGrowthPercent": { "type": "boolean" },
+    "showPortfolioValue": { "type": "boolean" },
+    "showPortfolioPerformanceValue": { "type": "boolean" },
+    "showPortfolioPerformancePercent": { "type": "boolean" },
+    "showStockPerformanceValue": { "type": "boolean" },
+    "showStockPerformanceValueSum": { "type": "boolean" },
+    "showStockPerformancePercent": { "type": "boolean" },
+    "updateIntervalInSeconds": {
+      "type": "integer",
+      "minimum": 120,
+      "description": "Stock data refresh interval in seconds"
+    },
+    "useGrouping": { "type": "boolean", "description": "Use locale-specific digit grouping" },
+    "virtualHorizontalMultiplier": { "type": "number", "minimum": 1 },
+    "stocksPerPage": { "type": "integer", "minimum": 1 },
+    "stocks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "symbol": { "type": "string", "description": "Market ticker symbol" },
+          "quantity": { "type": "number" },
+          "purchasePrice": { "type": "number" },
+          "hidden": { "type": "boolean" }
+        }
+      },
+      "description": "Stocks to display and optional portfolio data"
+    }
+  }
+}
