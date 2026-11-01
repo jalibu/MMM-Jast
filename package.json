@@ -63,7 +63,7 @@
     "@types/magicmirror-module": "^2.16.6",
     "@vitest/coverage-v8": "^5.0.4",
     "commit-and-tag-version": "^13.2.2",
-    "eslint": "^10.12.0",
+    "eslint": "^10.13.0",
     "eslint-plugin-jsdoc": "^65.3.2",
     "lint-staged": "^17.6.0",
     "prettier": "^3.9.10",
