@@ -1,19 +1,11 @@
 {% macro render() %}
-  {% set itemCount = utils.getNumberOfDisplayedStocks(stocks, config) %}
-  {% if config.showPortfolioValue or config.showPortfolioGrowth or config.showPortfolioGrowthPercent %}
-    {% set itemCount = itemCount + 1 %}
-  {% endif %}
-  {% if config.showLastUpdate %}
-    {% set itemCount = itemCount + 1 %}
-  {% endif %}
-  {% set percentPerItem = 100 / itemCount %}
   <style type="text/css">
   @keyframes tickerv {
     0% {
       margin-top: 0;
     }
     100% {
-      margin-top: calc(var(--size) * -1.44 * {{ itemCount }});
+      margin-top: calc(var(--size) * -1.44 * {{ utils.getTickerItemCount(stocks, config) }});
     }
   }
   </style>

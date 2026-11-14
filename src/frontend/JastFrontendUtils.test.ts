@@ -421,6 +421,78 @@ describe('JastFrontendUtils', () => {
     })
   })
 
+  describe('View models', () => {
+    const stockOf = (change: number, extra: Partial<StockResponse['meta']> = {}) =>
+      ({
+        price: {
+          regularMarketPrice: 110,
+          regularMarketChange: change,
+          regularMarketChangePercent: 0.1,
+          currency: 'USD'
+        },
+        meta: { symbol: 'AAPL', name: 'Apple', ...extra }
+      }) as StockResponse
+
+    it('derives trend and sign from the change', () => {
+      const trendOf = (change: number) => JastFrontendUtils.getStockView(stockOf(change), baseConfig).change
+      expect(trendOf(1)).toMatchObject({ trend: 'high', sign: '+' })
+      expect(trendOf(-1)).toMatchObject({ trend: 'low', sign: '' })
+      expect(trendOf(0)).toMatchObject({ trend: '', sign: '' })
+    })
+
+    it('formats the stock values and performance', () => {
+      const view = JastFrontendUtils.getStockView(stockOf(1, { purchasePrice: 100, quantity: 2 }), baseConfig)
+
+      expect(view.name).toBe('Apple')
+      expect(view.value).toBe('$110.00')
+      expect(view.change).toEqual({ trend: 'high', sign: '+', value: '$1.00', percent: '10.00%' })
+      expect(view.performance).toEqual({ trend: 'high', sign: '+', value: '$10.00', percent: '10.00%' })
+      expect(view.performanceSum).toBe('$20.00')
+      expect(view.purchasePrice).toBe('$100.00')
+    })
+
+    it('omits the purchase price when none is configured', () => {
+      expect(JastFrontendUtils.getStockView(stockOf(1), baseConfig).purchasePrice).toBeUndefined()
+    })
+
+    it('hides hidden stocks unless showHiddenStocks is set', () => {
+      const hidden = stockOf(1, { hidden: true })
+
+      expect(JastFrontendUtils.getStockView(hidden, baseConfig).visible).toBe(false)
+      expect(JastFrontendUtils.getStockView(hidden, { ...baseConfig, showHiddenStocks: true }).visible).toBe(true)
+      expect(JastFrontendUtils.getStockView(stockOf(1), baseConfig).visible).toBe(true)
+    })
+
+    it('derives portfolio trends from growth and purchase value separately', () => {
+      const view = JastFrontendUtils.getPortfolioView(
+        { value: 90, oldValue: 80, purchaseValue: 100, currency: 'USD' },
+        baseConfig
+      )
+
+      expect(view.value).toBe('$90.00')
+      expect(view.change).toMatchObject({ trend: 'high', sign: '+', value: '$10.00' })
+      expect(view.performance).toMatchObject({ trend: 'low', sign: '', value: '-$10.00' })
+    })
+
+    it('counts ticker items including the optional portfolio and update lines', () => {
+      const stocks = [stockOf(1), stockOf(1, { hidden: true }), stockOf(1)]
+      const count = (overrides: Partial<Config>) =>
+        JastFrontendUtils.getTickerItemCount(stocks, { ...baseConfig, ...overrides })
+
+      expect(count({})).toBe(4)
+      expect(count({ showLastUpdate: false })).toBe(3)
+      expect(
+        count({
+          showLastUpdate: false,
+          showPortfolioValue: false,
+          showPortfolioGrowth: false,
+          showPortfolioGrowthPercent: false
+        })
+      ).toBe(2)
+      expect(count({ showHiddenStocks: true, showLastUpdate: false })).toBe(4)
+    })
+  })
+
   describe('getStockPage', () => {
     const stocks = ['A', 'B', 'C', 'D', 'E'].map((symbol) => ({ meta: { symbol } }) as StockResponse)
     const symbols = (offset: number, pageSize: number) =>

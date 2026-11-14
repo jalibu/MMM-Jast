@@ -18,6 +18,32 @@ interface PercentStyle {
   minimumFractionDigits: number
 }
 
+type Trend = 'high' | 'low' | ''
+
+/** A change (daily change, performance, ...) with everything a template needs to show it. */
+interface Delta {
+  trend: Trend
+  sign: '+' | ''
+  value: string
+  percent: string
+}
+
+interface StockView {
+  name: string
+  visible: boolean
+  value: string
+  change: Delta
+  performance: Delta
+  performanceSum: string
+  purchasePrice?: string
+}
+
+interface PortfolioView {
+  value: string
+  change: Delta
+  performance: Delta
+}
+
 const JastUtils = {
   getCurrentValueStyle(config: Config): CurrencyStyle {
     return {
@@ -61,6 +87,64 @@ const JastUtils = {
   getStockPage(stocks: StockResponse[], offset: number, pageSize: number): StockResponse[] {
     const size = Math.min(pageSize, stocks.length)
     return Array.from({ length: size }, (_, i) => stocks[(offset + i) % stocks.length])
+  },
+
+  getTrend(delta: number): Trend {
+    if (delta > 0) return 'high'
+    if (delta < 0) return 'low'
+    return ''
+  },
+
+  createDelta(delta: number, value: string, percent: string): Delta {
+    const trend = JastUtils.getTrend(delta)
+    return { trend, sign: trend === 'high' ? '+' : '', value, percent }
+  },
+
+  getStockView(stock: StockResponse, config: Config): StockView {
+    return {
+      name: JastUtils.getStockName(stock),
+      visible: !stock.meta.hidden || config.showHiddenStocks,
+      value: JastUtils.getCurrentValueAsString(stock, config),
+      change: JastUtils.createDelta(
+        JastUtils.getStockChange(stock),
+        JastUtils.getStockChangeAsString(stock, config),
+        JastUtils.getStockChangePercentAsString(stock, config)
+      ),
+      performance: JastUtils.createDelta(
+        JastUtils.getStockPerformance(stock),
+        JastUtils.getStockPerformanceAsString(stock, config),
+        JastUtils.getStockPerformancePercentAsString(stock, config)
+      ),
+      performanceSum: JastUtils.getStockPerformanceSumAsString(stock, config),
+      purchasePrice: stock.meta.purchasePrice ? JastUtils.getPurchasePriceAsString(stock, config) : undefined
+    }
+  },
+
+  getPortfolioView(portfolio: Portfolio, config: Config): PortfolioView {
+    return {
+      value: JastUtils.getPortfolioValueAsString(portfolio, config),
+      change: JastUtils.createDelta(
+        portfolio.value - portfolio.oldValue,
+        JastUtils.getPortfolioChangeAsString(portfolio, config),
+        JastUtils.getPortfolioChangePercentAsString(portfolio, config)
+      ),
+      performance: JastUtils.createDelta(
+        portfolio.value - portfolio.purchaseValue,
+        JastUtils.getPortfolioPerformanceValueAsString(portfolio, config),
+        JastUtils.getPortfolioPerformancePercentAsString(portfolio, config)
+      )
+    }
+  },
+
+  /**
+   * Counts the list items of the vertical ticker: displayed stocks plus the optional portfolio and update lines.
+   * @param stocks - All stocks
+   * @param config - Module config
+   * @returns The number of ticker items
+   */
+  getTickerItemCount(stocks: StockResponse[], config: Config): number {
+    const hasPortfolio = config.showPortfolioValue || config.showPortfolioGrowth || config.showPortfolioGrowthPercent
+    return JastUtils.getNumberOfDisplayedStocks(stocks, config) + Number(hasPortfolio) + Number(config.showLastUpdate)
   },
 
   getStockChange(stock: StockResponse): number {

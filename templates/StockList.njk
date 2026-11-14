@@ -1,78 +1,52 @@
 {% macro render() %}
   {% for stock in stocks %}
-    {% if not stock.meta.hidden or config.showHiddenStocks %}
+    {% set view = utils.getStockView(stock, config) %}
+    {% if view.visible %}
       <li class="jast-stock">
-        <span class="jast-stock-name">{{ utils.getStockName(stock) }}:</span>
-        {% if utils.getStockChange(stock) > 0 %}
-          {% set colorClass = "high" %}
-        {% elif utils.getStockChange(stock) < 0 %}
-          {% set colorClass = "low" %}
-        {% else %}
-          {% set colorClass = "" %}
-        {% endif %}
-        <span class="jast-values-wrapper {{ colorClass }}">
-          <span class="jast-change-wrapper">{{ utils.getCurrentValueAsString(stock, config) }}</span>
-          {% if colorClass and (config.showChangeValue or config.showChangePercent) %}
+        <span class="jast-stock-name">{{ view.name }}:</span>
+        <span class="jast-values-wrapper {{ view.change.trend }}">
+          <span class="jast-change-wrapper">{{ view.value }}</span>
+          {% if view.change.trend and (config.showChangeValue or config.showChangePercent) %}
             <span class="jast-change">
-              ({% if config.showChangeValue %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getStockChangeAsString(stock, config) }}</span>{% endif %}
-              {% if config.showChangePercent %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getStockChangePercentAsString(stock, config) }}</span>{% endif %})
+              ({% if config.showChangeValue %}<span class="jast-change-value">{{ view.change.sign }}{{ view.change.value }}</span>{% endif %}
+              {% if config.showChangePercent %}<span class="jast-change-value">{{ view.change.sign }}{{ view.change.percent }}</span>{% endif %})
             </span>
           {% endif %}
         </span>
 
-        {% if utils.getStockPerformance(stock) > 0 %}
-          {% set colorClassPerformance = "high" %}
-        {% elif utils.getStockPerformance(stock) < 0 %}
-          {% set colorClassPerformance = "low" %}
-        {% else %}
-          {% set colorClassPerformance = "" %}
-        {% endif %}
-          <span class="jast-performance {{ colorClassPerformance }}">
-          {% if colorClassPerformance and (config.showStockPerformanceValue or config.showStockPerformancePercent) %}
+        <span class="jast-performance {{ view.performance.trend }}">
+          {% if view.performance.trend and (config.showStockPerformanceValue or config.showStockPerformancePercent) %}
             <span class="jast-change">
               (
-                {% if config.showStockPerformanceValue %}<span class="jast-change-value">{% if colorClassPerformance == "high" %}+{%endif%}{{ utils.getStockPerformanceAsString(stock, config) }}</span>{% endif %}
-                {% if config.showStockPerformanceValueSum %}<span class="jast-change-value">{% if colorClassPerformance == "high" %}+{%endif%}{{ utils.getStockPerformanceSumAsString(stock, config) }}</span>{% endif %}
-                {% if config.showStockPerformancePercent %}<span class="jast-change-value">{% if colorClassPerformance == "high" %}+{%endif%}{{ utils.getStockPerformancePercentAsString(stock, config) }}</span>{% endif %}
+                {% if config.showStockPerformanceValue %}<span class="jast-change-value">{{ view.performance.sign }}{{ view.performance.value }}</span>{% endif %}
+                {% if config.showStockPerformanceValueSum %}<span class="jast-change-value">{{ view.performance.sign }}{{ view.performanceSum }}</span>{% endif %}
+                {% if config.showStockPerformancePercent %}<span class="jast-change-value">{{ view.performance.sign }}{{ view.performance.percent }}</span>{% endif %}
               )
             </span>
           {% endif %}
-          </span>
+        </span>
       </li>
     {% endif %}
   {% endfor %}
   {% if config.showPortfolioValue or config.showPortfolioGrowth or config.showPortfolioGrowthPercent %}
-    {% set portfolio = utils.getPortfolio(stocks, config) %}
     <li class="jast-stock portfolio">{{ "portfolio" | translate | safe }}
-      {% for entry in portfolio %}
-        {% if entry.value > entry.oldValue %}
-          {% set colorClass = "high" %}
-        {% elif entry.value < entry.oldValue %}
-          {% set colorClass = "low" %}
-        {% else %}
-          {% set colorClass = "" %}
-        {% endif %}
-        <span class="jast-portfolio {{ colorClass }}{% if loop.index != 1 %} jast-multi-currency{% endif %}">
-          {% if config.showPortfolioValue %} {{ utils.getPortfolioValueAsString(entry, config) }} {% endif %}
-          {% if colorClass and (config.showPortfolioGrowth or config.showPortfolioGrowthPercent) %}
+      {% for entry in utils.getPortfolio(stocks, config) %}
+        {% set view = utils.getPortfolioView(entry, config) %}
+        {% set extraCurrency = " jast-multi-currency" if loop.index != 1 else "" %}
+        <span class="jast-portfolio {{ view.change.trend }}{{ extraCurrency }}">
+          {% if config.showPortfolioValue %} {{ view.value }} {% endif %}
+          {% if view.change.trend and (config.showPortfolioGrowth or config.showPortfolioGrowthPercent) %}
             {% if config.showPortfolioValue %}<span class="jast-change">({% endif %}
-            {% if config.showPortfolioGrowth %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getPortfolioChangeAsString(entry, config) }}</span>{% endif %}
-            {% if config.showPortfolioGrowthPercent %}<span class="jast-change-value">{% if colorClass == "high" %}+{%endif%}{{ utils.getPortfolioChangePercentAsString(entry, config) }}</span>{% endif %}
+            {% if config.showPortfolioGrowth %}<span class="jast-change-value">{{ view.change.sign }}{{ view.change.value }}</span>{% endif %}
+            {% if config.showPortfolioGrowthPercent %}<span class="jast-change-value">{{ view.change.sign }}{{ view.change.percent }}</span>{% endif %}
             {% if config.showPortfolioValue %})</span>{% endif %}
           {% endif %}
         </span>
-        {% if entry.value > entry.purchaseValue %}
-          {% set colorClassPerformance = "high" %}
-        {% elif entry.value < entry.purchaseValue %}
-          {% set colorClassPerformance = "low" %}
-        {% else %}
-          {% set colorClassPerformance = "" %}
-        {% endif %}
-        <span class="jast-portfolio-performance {{ colorClassPerformance }}{% if loop.index != 1 %} jast-multi-currency{% endif %}">
-          {% if colorClass and (config.showPortfolioPerformancePercent or config.showPortfolioPerformanceValue) %}
+        <span class="jast-portfolio-performance {{ view.performance.trend }}{{ extraCurrency }}">
+          {% if view.change.trend and (config.showPortfolioPerformancePercent or config.showPortfolioPerformanceValue) %}
             (
-            {% if config.showPortfolioPerformanceValue %}<span class="jast-change-value">{% if colorClassPerformance == "high" %}+{%endif%}{{ utils.getPortfolioPerformanceValueAsString(entry, config) }}</span>{% endif %}
-            {% if config.showPortfolioGrowth %}<span class="jast-change-value">{% if colorClassPerformance == "high" %}+{%endif%}{{ utils.getPortfolioPerformancePercentAsString(entry, config) }}</span>{% endif %}
+            {% if config.showPortfolioPerformanceValue %}<span class="jast-change-value">{{ view.performance.sign }}{{ view.performance.value }}</span>{% endif %}
+            {% if config.showPortfolioGrowth %}<span class="jast-change-value">{{ view.performance.sign }}{{ view.performance.percent }}</span>{% endif %}
             )
           {% endif %}
         </span>

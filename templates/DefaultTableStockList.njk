@@ -1,22 +1,17 @@
 {% macro render() %}
 <table class="{{ config.tableClass }}">
   {% for stock in stocks %}
+  {% set view = utils.getStockView(stock, config) %}
+  {% set color = "green" if view.change.trend == "high" else ("red" if view.change.trend == "low" else "") %}
   <tr>
-    <td class="bright"><span>{{ utils.getStockName(stock) }}</span></td>
+    <td class="bright"><span>{{ view.name }}</span></td>
     <td>
-      {% if utils.getStockChange(stock) > 0 %}
-      {% set colorStyle = "green" %}
-      {% elif utils.getStockChange(stock) < 0 %}
-      {% set colorStyle = "red" %}
-      {% else %}
-      {% set colorStyle = "" %}
-      {% endif %}
-      <span>{{ utils.getCurrentValueAsString(stock, config) }}</span>
+      <span>{{ view.value }}</span>
     </td>
     <td>
       <span>
         <span>
-          <span style="{% if colorStyle != "" %} color:{{ colorStyle }}{%endif%}">{% if colorStyle == "green" %}+{%endif%}{{ utils.getStockChangePercentAsString(stock, config) }}</span>
+          <span style="{% if color %} color:{{ color }}{% endif %}">{{ view.change.sign }}{{ view.change.percent }}</span>
         </span>
       </span>
     </td>

@@ -61,43 +61,29 @@ font-weight: bold;
   </thead>
   <tbody>
   {% for stock in stocks %}
-      <tr>
-      <td><span class="bold">{{ utils.getStockName(stock) }}</span></td>
+    {% set view = utils.getStockView(stock, config) %}
+    <tr>
+      <td><span class="bold">{{ view.name }}</span></td>
       <td>
-          {% if utils.getStockChange(stock) > 0 %}
-          {% set colorClass = "high" %}
-        {% elif utils.getStockChange(stock) < 0 %}
-          {% set colorClass = "low" %}
-        {% else %}
-          {% set colorClass = "" %}
-        {% endif %}
-          <span>{{ utils.getCurrentValueAsString(stock, config) }}</span>
-
-        <span class="badge{% if colorClass == "high" %} high{% elif colorClass == "low" %} low{% endif %}">
-          <span>{{ utils.getStockChangeAsString(stock, config) }}</span>
-          <span>{{ utils.getStockChangePercentAsString(stock, config) }}</span>
+        <span>{{ view.value }}</span>
+        <span class="badge {{ view.change.trend }}">
+          <span>{{ view.change.value }}</span>
+          <span>{{ view.change.percent }}</span>
         </span>
       </td>
       <td>
-      {% if stock.meta.purchasePrice %}
-        {% if utils.getStockPerformance(stock) > 0 %}
-          {% set colorClassPerformance = "high" %}
-        {% elif utils.getStockPerformance(stock) < 0 %}
-          {% set colorClassPerformance = "low" %}
-        {% else %}
-          {% set colorClassPerformance = "" %}
-        {% endif %}
-        <span>{{ utils.getPurchasePriceAsString(stock, config) }}</span>
-        <span class="badge{% if colorClassPerformance == "high" %} high{% elif colorClassPerformance == "low" %} low{% endif %}">
-          <span>{{ utils.getStockPerformanceAsString(stock, config) }}</span>
-          <span>{{ utils.getStockPerformancePercentAsString(stock, config) }}</span>
-        </span>
+        {% if view.purchasePrice %}
+          <span>{{ view.purchasePrice }}</span>
+          <span class="badge {{ view.performance.trend }}">
+            <span>{{ view.performance.value }}</span>
+            <span>{{ view.performance.percent }}</span>
+          </span>
         {% endif %}
       </td>
       <td>
-      {% if stock.meta.purchasePrice %}
-        <span>{{ utils.getStockPerformanceSumAsString(stock, config) }}</span>
-      {% endif %}
+        {% if view.purchasePrice %}
+          <span>{{ view.performanceSum }}</span>
+        {% endif %}
       </td>
     </tr>
   {% endfor %}
