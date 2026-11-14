@@ -92,7 +92,7 @@
 }
 
 .jast-wrapper span.jast-change-value:nth-child(2)::before,
-span.jast-change-value:nth-child(3)::before {
+.jast-wrapper span.jast-change-value:nth-child(3)::before {
   content: ' | ';
 }
 
@@ -130,7 +130,7 @@ span.jast-change-value:nth-child(3)::before {
 }
 
 .MMM-Jast .jast-wrapper.table th,
-td {
+.MMM-Jast td {
   padding-right: 0.5em;
 }
 
