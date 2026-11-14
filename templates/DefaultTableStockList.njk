@@ -1,6 +1,6 @@
 {% macro render() %}
 <table class="{{ config.tableClass }}">
-  {% for stock in stocks %}
+  {% for stock in tableStocks %}
   {% set view = utils.getStockView(stock, config) %}
   {% set color = "green" if view.change.trend == "high" else ("red" if view.change.trend == "low" else "") %}
   <tr>

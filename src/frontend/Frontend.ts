@@ -80,11 +80,18 @@ Module.register<Config>('MMM-Jast', {
 
   getTemplateData() {
     const stocks = this.state?.stocks
-    const isTable = this.config.displayMode === 'table'
+    const { displayMode, stocksPerPage } = this.config
+    let tableStocks
+    if (stocks && (displayMode === 'table' || displayMode === 'default-table')) {
+      const visibleStocks = Utils.getVisibleStocks(stocks, this.config)
+      tableStocks =
+        displayMode === 'table' ? Utils.getStockPage(visibleStocks, this.pageOffset, stocksPerPage) : visibleStocks
+    }
 
     return {
       config: this.config,
-      stocks: isTable && stocks ? Utils.getStockPage(stocks, this.pageOffset, this.config.stocksPerPage) : stocks,
+      stocks,
+      tableStocks,
       lastUpdate: formatDate(this.state?.lastUpdate ?? Date.now(), this.config.lastUpdateFormat),
       utils: Utils
     }
@@ -117,8 +124,8 @@ Module.register<Config>('MMM-Jast', {
       return
     }
     this.pageInterval = setInterval(() => {
-      this.pageOffset += this.config.stocksPerPage
-      if ((this.state?.stocks.length ?? 0) > this.config.stocksPerPage) {
+      if (Utils.getVisibleStocks(this.state?.stocks ?? [], this.config).length > this.config.stocksPerPage) {
+        this.pageOffset += this.config.stocksPerPage
         this.updateDom()
       }
     }, this.config.fadeSpeedInSeconds * 1000)

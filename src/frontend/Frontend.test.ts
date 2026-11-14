@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url'
+import nunjucks from 'nunjucks'
 import { describe, it, expect, vi, beforeAll, beforeEach } from 'vitest'
 import type { Config } from '../types/Config'
 
@@ -20,6 +22,8 @@ interface FrontendModule {
 }
 
 let registeredModule: FrontendModule
+const env = nunjucks.configure(fileURLToPath(new URL('../..', import.meta.url)), { autoescape: true })
+env.addFilter('translate', (key: string) => key)
 
 beforeAll(async () => {
   ;(globalThis as unknown as { config: { locale?: string } }).config = { locale: 'de-DE' }
@@ -136,7 +140,7 @@ describe('Frontend', () => {
   describe('table paging', () => {
     const stocks = ['A', 'B', 'C', 'D', 'E'].map((symbol) => ({ meta: { symbol } }))
     const shownSymbols = (instance: ReturnType<typeof createInstance>) =>
-      (instance.getTemplateData().stocks as typeof stocks).map((stock) => stock.meta.symbol)
+      (instance.getTemplateData().tableStocks as typeof stocks).map((stock) => stock.meta.symbol)
 
     it('rotates through the stocks page by page, including wraparound', () => {
       const instance = createInstance({ displayMode: 'table', stocksPerPage: 2, fadeSpeedInSeconds: 1 })
@@ -162,6 +166,107 @@ describe('Frontend', () => {
 
       expect(instance.updateDom).not.toHaveBeenCalled()
     })
+
+    it('skips hidden stocks before paging and shows them again with showHiddenStocks', () => {
+      const withHidden = [
+        { meta: { symbol: 'A' } },
+        { meta: { symbol: 'H', hidden: true } },
+        { meta: { symbol: 'B' } },
+        { meta: { symbol: 'C' } }
+      ]
+      const create = (showHiddenStocks: boolean) => {
+        const instance = createInstance({
+          displayMode: 'table',
+          stocksPerPage: 2,
+          fadeSpeedInSeconds: 1,
+          showHiddenStocks
+        })
+        instance.start()
+        instance.socketNotificationReceived('JAST_STOCKS_RESPONSE-instance_1', { stocks: withHidden, lastUpdate: 0 })
+        return instance
+      }
+
+      const hiding = create(false)
+      expect(shownSymbols(hiding)).toEqual(['A', 'B'])
+      vi.advanceTimersByTime(1000)
+      expect(shownSymbols(hiding)).toEqual(['C', 'A'])
+
+      expect(shownSymbols(create(true))).toEqual(['A', 'H'])
+    })
+
+    it('does not re-render when the visible stocks fit on one page', () => {
+      const instance = createInstance({ displayMode: 'table', stocksPerPage: 2, fadeSpeedInSeconds: 1 })
+      const payload = {
+        stocks: [{ meta: { symbol: 'A' } }, { meta: { symbol: 'H', hidden: true } }, { meta: { symbol: 'B' } }],
+        lastUpdate: 0
+      }
+      instance.start()
+      instance.socketNotificationReceived('JAST_STOCKS_RESPONSE-instance_1', payload)
+      instance.updateDom.mockClear()
+
+      vi.advanceTimersByTime(3000)
+
+      expect(instance.updateDom).not.toHaveBeenCalled()
+      instance.socketNotificationReceived('JAST_STOCKS_RESPONSE-instance_1', payload)
+      expect(shownSymbols(instance)).toEqual(['A', 'B'])
+    })
+
+    it('hides hidden stocks in default-table mode without paging', () => {
+      const instance = createInstance({ displayMode: 'default-table', stocksPerPage: 1 })
+      instance.socketNotificationReceived('JAST_STOCKS_RESPONSE-instance_1', {
+        stocks: [{ meta: { symbol: 'A' } }, { meta: { symbol: 'H', hidden: true } }, { meta: { symbol: 'B' } }],
+        lastUpdate: 0
+      })
+
+      expect(shownSymbols(instance)).toEqual(['A', 'B'])
+    })
+
+    it.each(['table', 'default-table'] as const)(
+      'renders an empty %s instead of loading when all stocks are hidden',
+      (displayMode) => {
+        const instance = createInstance({ displayMode })
+        const render = () => env.render('templates/MMM-Jast.njk', instance.getTemplateData())
+        expect(render()).toContain('LOADING')
+
+        instance.socketNotificationReceived('JAST_STOCKS_RESPONSE-instance_1', { stocks: [], lastUpdate: 0 })
+        expect(render()).toContain('LOADING')
+
+        instance.socketNotificationReceived('JAST_STOCKS_RESPONSE-instance_1', {
+          stocks: [{ meta: { symbol: 'H', name: 'Hidden', hidden: true } }],
+          lastUpdate: 0
+        })
+        expect(shownSymbols(instance)).toEqual([])
+        const html = render()
+        expect(html).toContain('<table')
+        expect(html).not.toContain('LOADING')
+        expect(html).not.toContain('Hidden')
+      }
+    )
+
+    it('shows hidden stocks in default-table mode when enabled', () => {
+      const instance = createInstance({ displayMode: 'default-table', showHiddenStocks: true })
+      instance.socketNotificationReceived('JAST_STOCKS_RESPONSE-instance_1', {
+        stocks: [{ meta: { symbol: 'H', hidden: true } }],
+        lastUpdate: 0
+      })
+      expect(shownSymbols(instance)).toEqual(['H'])
+    })
+
+    it.each(['table', 'default-table'] as const)(
+      'renders only visible stocks in %s, unless showHiddenStocks is enabled',
+      (displayMode) => {
+        const instance = createInstance({ displayMode })
+        instance.socketNotificationReceived('JAST_STOCKS_RESPONSE-instance_1', {
+          stocks: [{ meta: { symbol: 'A', name: 'Visible' } }, { meta: { symbol: 'H', name: 'Hidden', hidden: true } }],
+          lastUpdate: 0
+        })
+        const render = () => env.render('templates/MMM-Jast.njk', instance.getTemplateData())
+        expect(render()).toContain('Visible')
+        expect(render()).not.toContain('Hidden')
+        instance.config.showHiddenStocks = true
+        expect(render()).toContain('Hidden')
+      }
+    )
 
     it('only pages in table mode and stops paging once stopped', () => {
       const vertical = createInstance({ displayMode: 'vertical', fadeSpeedInSeconds: 1 })

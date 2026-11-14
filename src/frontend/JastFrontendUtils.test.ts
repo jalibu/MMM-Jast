@@ -389,34 +389,25 @@ describe('JastFrontendUtils', () => {
       })
     })
 
-    describe('getNumberOfDisplayedStocks', () => {
+    describe('getVisibleStocks', () => {
       const stocks: StockResponse[] = [
-        {
-          price: { symbol: 'AAPL' } as any,
-          meta: { symbol: 'AAPL', quantity: 1, hidden: false }
-        },
-        {
-          price: { symbol: 'GOOGL' } as any,
-          meta: { symbol: 'GOOGL', quantity: 1, hidden: true }
-        },
-        {
-          price: { symbol: 'MSFT' } as any,
-          meta: { symbol: 'MSFT', quantity: 1, hidden: false }
-        }
+        { price: { symbol: 'AAPL' } as any, meta: { symbol: 'AAPL', quantity: 1, hidden: false } },
+        { price: { symbol: 'GOOGL' } as any, meta: { symbol: 'GOOGL', quantity: 1, hidden: true } },
+        { price: { symbol: 'MSFT' } as any, meta: { symbol: 'MSFT', quantity: 1 } }
       ]
+      const symbols = (config: Config) =>
+        JastFrontendUtils.getVisibleStocks(stocks, config).map((stock) => stock.meta.symbol)
 
-      it('should count all stocks when showHiddenStocks is true', () => {
-        const config = { ...baseConfig, showHiddenStocks: true }
-        expect(JastFrontendUtils.getNumberOfDisplayedStocks(stocks, config)).toBe(3)
+      it('should return all stocks when showHiddenStocks is true', () => {
+        expect(symbols({ ...baseConfig, showHiddenStocks: true })).toEqual(['AAPL', 'GOOGL', 'MSFT'])
       })
 
       it('should exclude hidden stocks when showHiddenStocks is false', () => {
-        const config = { ...baseConfig, showHiddenStocks: false }
-        expect(JastFrontendUtils.getNumberOfDisplayedStocks(stocks, config)).toBe(2)
+        expect(symbols({ ...baseConfig, showHiddenStocks: false })).toEqual(['AAPL', 'MSFT'])
       })
 
       it('should handle empty array', () => {
-        expect(JastFrontendUtils.getNumberOfDisplayedStocks([], baseConfig)).toBe(0)
+        expect(JastFrontendUtils.getVisibleStocks([], baseConfig)).toEqual([])
       })
     })
   })

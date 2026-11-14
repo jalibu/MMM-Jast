@@ -73,8 +73,12 @@ const JastUtils = {
     }
   },
 
-  getNumberOfDisplayedStocks(stocks: StockResponse[], config: Config): number {
-    return config.showHiddenStocks ? stocks.length : stocks.filter((stock) => !stock.meta.hidden).length
+  isStockVisible(stock: StockResponse, config: Config): boolean {
+    return !stock.meta.hidden || config.showHiddenStocks
+  },
+
+  getVisibleStocks(stocks: StockResponse[], config: Config): StockResponse[] {
+    return stocks.filter((stock) => JastUtils.isStockVisible(stock, config))
   },
 
   hasPortfolioSummary(config: Config): boolean {
@@ -113,7 +117,7 @@ const JastUtils = {
   getStockView(stock: StockResponse, config: Config): StockView {
     return {
       name: JastUtils.getStockName(stock),
-      visible: !stock.meta.hidden || config.showHiddenStocks,
+      visible: JastUtils.isStockVisible(stock, config),
       value: JastUtils.getCurrentValueAsString(stock, config),
       change: JastUtils.createDelta(
         JastUtils.getStockChange(stock),
@@ -154,7 +158,7 @@ const JastUtils = {
    */
   getTickerItemCount(stocks: StockResponse[], config: Config): number {
     const hasPortfolio = JastUtils.hasPortfolioSummary(config)
-    return JastUtils.getNumberOfDisplayedStocks(stocks, config) + Number(hasPortfolio) + Number(config.showLastUpdate)
+    return JastUtils.getVisibleStocks(stocks, config).length + Number(hasPortfolio) + Number(config.showLastUpdate)
   },
 
   getStockChange(stock: StockResponse): number {

@@ -60,7 +60,7 @@ font-weight: bold;
     </tr>
   </thead>
   <tbody>
-  {% for stock in stocks %}
+  {% for stock in tableStocks %}
     {% set view = utils.getStockView(stock, config) %}
     <tr>
       <td><span class="bold">{{ view.name }}</span></td>
