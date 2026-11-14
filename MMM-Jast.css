@@ -1,9 +1,17 @@
-@keyframes tickerh {
+@keyframes jast-tickerh {
   0% {
     transform: translateX(0);
   }
   100% {
     transform: translateX(-100%);
+  }
+}
+@keyframes jast-tickerv {
+  0% {
+    margin-top: 0;
+  }
+  100% {
+    margin-top: calc(var(--size) * -1.44 * var(--jast-ticker-item-count));
   }
 }
 .jast-wrapper {
@@ -38,7 +46,8 @@
   height: calc(var(--size) * 1.44);
 }
 .jast-wrapper.vertical > ul {
-  animation-name: tickerv;
+  animation-name: jast-tickerv;
+  animation-duration: calc(var(--jast-ticker-item-count) * var(--jast-ticker-speed));
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
@@ -48,6 +57,10 @@
 }
 .jast-wrapper.horizontal ul.jast-tickerframe {
   padding-left: 100%;
+  animation: jast-tickerh var(--jast-ticker-speed) linear infinite;
+}
+.jast-wrapper.horizontal .jast-ticker-no2 ul.jast-tickerframe {
+  animation-delay: calc(var(--jast-ticker-speed) / -2);
 }
 
 .jast-wrapper.horizontal li.jast-stock {
@@ -112,9 +125,53 @@ span.jast-change-value:nth-child(3)::before {
 }
 .MMM-Jast .jast-wrapper.table table {
   table-layout: fixed;
+  font-size: 0.7em;
+  text-align: right;
 }
 
 .MMM-Jast .jast-wrapper.table th,
 td {
   padding-right: 0.5em;
+}
+
+.MMM-Jast .jast-wrapper.table span.badge {
+  background: grey;
+  color: white;
+  padding: 4px 8px;
+  text-align: center;
+  border-radius: 5px;
+}
+.MMM-Jast .jast-wrapper.table span.badge.high {
+  background: green;
+}
+.MMM-Jast .jast-wrapper.table span.badge.high span::before {
+  content: '+';
+}
+.MMM-Jast .jast-wrapper.table span.badge.low {
+  background: red;
+}
+.MMM-Jast .jast-wrapper.table thead {
+  color: #000;
+  opacity: 0.5;
+  background: #fff;
+}
+.MMM-Jast .jast-wrapper.table tbody tr {
+  animation: jast-table-fade-in 2s forwards;
+}
+.MMM-Jast .jast-wrapper.table .bold {
+  font-weight: bold;
+}
+@keyframes jast-table-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.MMM-Jast .jast-default-table-change.high {
+  color: green;
+}
+.MMM-Jast .jast-default-table-change.low {
+  color: red;
 }

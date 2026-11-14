@@ -25,6 +25,11 @@ const config = {
   displayMode: 'none',
   showCurrency: true,
   showLastUpdate: false,
+  showPortfolioValue: false,
+  showPortfolioGrowth: false,
+  showPortfolioGrowthPercent: false,
+  showPortfolioPerformanceValue: false,
+  showPortfolioPerformancePercent: false,
   virtualHorizontalMultiplier: 1,
   stocks: [{ symbol: 'ABC', quantity: 1, purchasePrice: 100 }]
 } as Config
@@ -49,6 +54,7 @@ function render(options: Partial<Config>, price = 120, dailyChange = 0): string 
   return env.render('templates/MMM-Jast.njk', {
     config: { ...config, ...options },
     stocks: [stock],
+    tableStocks: [stock],
     utils: Utils,
     lastUpdate: ''
   })
@@ -89,14 +95,37 @@ describe('portfolio summary template', () => {
     expect(html).not.toMatch(/\(\s*\)/)
   })
 
+  it('does not render a portfolio summary when all portfolio options are disabled', () => {
+    expect(render({})).not.toContain('class="jast-stock portfolio"')
+  })
+})
+
+describe('styling', () => {
   it('counts a performance-only portfolio in the vertical animation', () => {
     const html = render({ displayMode: 'vertical', showPortfolioPerformancePercent: true })
 
-    expect(html).toContain('calc(var(--size) * -1.44 * 2)')
-    expect(html).toContain('animation-duration: 4s')
+    expect(html).toContain('--jast-ticker-item-count: 2;')
+    expect(html).toContain('--jast-ticker-speed: 2s;')
   })
 
-  it('does not render a portfolio summary when all portfolio options are disabled', () => {
-    expect(render({})).not.toContain('class="jast-stock portfolio"')
+  it('sets separate animation values for each ticker instance', () => {
+    const vertical = render({ displayMode: 'vertical', showLastUpdate: true, fadeSpeedInSeconds: 3 })
+    const horizontal = render({ displayMode: 'horizontal', fadeSpeedInSeconds: 7 })
+
+    expect(vertical).toContain('--jast-ticker-item-count: 2;')
+    expect(vertical).toContain('--jast-ticker-speed: 3s;')
+    expect(horizontal).toContain('--jast-ticker-speed: 7s;')
+    expect(vertical + horizontal).not.toContain('<style')
+  })
+
+  it.each([
+    [10, 'high', '+'],
+    [-10, 'low', ''],
+    [0, '', '']
+  ])('uses the matching default-table color class for change %s', (dailyChange, trend, sign) => {
+    const html = render({ displayMode: 'default-table' }, 120, dailyChange)
+
+    expect(html).toContain(`class="jast-default-table-change ${trend}">${sign}`)
+    expect(html).not.toContain('<style')
   })
 })

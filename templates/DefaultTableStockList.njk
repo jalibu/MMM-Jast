@@ -2,7 +2,6 @@
 <table class="{{ config.tableClass }}">
   {% for stock in tableStocks %}
   {% set view = utils.getStockView(stock, config) %}
-  {% set color = "green" if view.change.trend == "high" else ("red" if view.change.trend == "low" else "") %}
   <tr>
     <td class="bright"><span>{{ view.name }}</span></td>
     <td>
@@ -11,7 +10,7 @@
     <td>
       <span>
         <span>
-          <span style="{% if color %} color:{{ color }}{% endif %}">{{ view.change.sign }}{{ view.change.percent }}</span>
+          <span class="jast-default-table-change {{ view.change.trend }}">{{ view.change.sign }}{{ view.change.percent }}</span>
         </span>
       </span>
     </td>
