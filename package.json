@@ -51,28 +51,29 @@
     ]
   },
   "dependencies": {
-    "yahoo-finance2": "^4.0.3"
+    "yahoo-finance2": "^4.0.6"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@rollup/plugin-commonjs": "^29.0.3",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "^1.0.0",
-    "@rollup/plugin-typescript": "^12.3.0",
+    "@rollup/plugin-terser": "^1.0.2",
+    "@rollup/plugin-typescript": "^12.3.1",
     "@types/magicmirror-module": "^2.16.6",
-    "@vitest/coverage-v8": "^5.0.4",
-    "commit-and-tag-version": "^13.2.2",
-    "eslint": "^10.12.0",
-    "eslint-plugin-jsdoc": "^65.3.2",
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "@vitest/coverage-v8": "^5.1.0",
+    "commit-and-tag-version": "^13.3.0",
+    "eslint": "^10.15.0",
+    "eslint-plugin-jsdoc": "^65.4.7",
     "lint-staged": "^17.6.0",
-    "prettier": "^3.9.10",
-    "rollup": "^4.64.6",
+    "prettier": "^3.10.1",
+    "rollup": "^4.68.3",
     "simple-git-hooks": "^2.14.0",
-    "tslib": "^2.8.1",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.71.2",
-    "vitest": "^5.0.4"
+    "tslib": "^2.9.1",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "typescript-eslint": "^8.72.2",
+    "vitest": "^5.1.0"
   },
   "allowScripts": {
     "simple-git-hooks@2.14.0": true
