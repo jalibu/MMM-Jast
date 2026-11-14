@@ -3,12 +3,7 @@
 {% macro render() %}
   {% if config.displayMode == "vertical" %}
     {{ vss.render(config) }}
-    {% if config.showPortfolioGrowth %}
-      {% set fadeSpeed =  stocks.length + 1 %}
-    {% else %}
-      {% set fadeSpeed =  stocks.length %}
-    {% endif %}
-    {% set animationStyle = ' style="animation-duration: ' + fadeSpeed * config.fadeSpeedInSeconds + 's"' %}
+    {% set animationStyle = ' style="animation-duration: ' + utils.getTickerItemCount(stocks, config) * config.fadeSpeedInSeconds + 's"' %}
   {% else %}
     {% set animationStyle = '' %}
   {% endif %}

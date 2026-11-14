@@ -77,6 +77,16 @@ const JastUtils = {
     return config.showHiddenStocks ? stocks.length : stocks.filter((stock) => !stock.meta.hidden).length
   },
 
+  hasPortfolioSummary(config: Config): boolean {
+    return (
+      config.showPortfolioValue ||
+      config.showPortfolioGrowth ||
+      config.showPortfolioGrowthPercent ||
+      config.showPortfolioPerformanceValue ||
+      config.showPortfolioPerformancePercent
+    )
+  },
+
   /**
    * Returns one page of stocks, wrapping around to the start so the pages rotate endlessly.
    * @param stocks - All stocks
@@ -143,7 +153,7 @@ const JastUtils = {
    * @returns The number of ticker items
    */
   getTickerItemCount(stocks: StockResponse[], config: Config): number {
-    const hasPortfolio = config.showPortfolioValue || config.showPortfolioGrowth || config.showPortfolioGrowthPercent
+    const hasPortfolio = JastUtils.hasPortfolioSummary(config)
     return JastUtils.getNumberOfDisplayedStocks(stocks, config) + Number(hasPortfolio) + Number(config.showLastUpdate)
   },
 

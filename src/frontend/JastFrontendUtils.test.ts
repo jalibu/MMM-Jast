@@ -486,7 +486,9 @@ describe('JastFrontendUtils', () => {
           showLastUpdate: false,
           showPortfolioValue: false,
           showPortfolioGrowth: false,
-          showPortfolioGrowthPercent: false
+          showPortfolioGrowthPercent: false,
+          showPortfolioPerformanceValue: false,
+          showPortfolioPerformancePercent: false
         })
       ).toBe(2)
       expect(count({ showHiddenStocks: true, showLastUpdate: false })).toBe(4)

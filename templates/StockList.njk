@@ -28,7 +28,7 @@
       </li>
     {% endif %}
   {% endfor %}
-  {% if config.showPortfolioValue or config.showPortfolioGrowth or config.showPortfolioGrowthPercent %}
+  {% if utils.hasPortfolioSummary(config) %}
     <li class="jast-stock portfolio">{{ "portfolio" | translate | safe }}
       {% for entry in utils.getPortfolio(stocks, config) %}
         {% set view = utils.getPortfolioView(entry, config) %}
@@ -43,10 +43,10 @@
           {% endif %}
         </span>
         <span class="jast-portfolio-performance {{ view.performance.trend }}{{ extraCurrency }}">
-          {% if view.change.trend and (config.showPortfolioPerformancePercent or config.showPortfolioPerformanceValue) %}
+          {% if view.performance.trend and (config.showPortfolioPerformancePercent or config.showPortfolioPerformanceValue) %}
             (
             {% if config.showPortfolioPerformanceValue %}<span class="jast-change-value">{{ view.performance.sign }}{{ view.performance.value }}</span>{% endif %}
-            {% if config.showPortfolioGrowth %}<span class="jast-change-value">{{ view.performance.sign }}{{ view.performance.percent }}</span>{% endif %}
+            {% if config.showPortfolioPerformancePercent %}<span class="jast-change-value">{{ view.performance.sign }}{{ view.performance.percent }}</span>{% endif %}
             )
           {% endif %}
         </span>
