@@ -51,6 +51,18 @@ const JastUtils = {
     return config.showHiddenStocks ? stocks.length : stocks.filter((stock) => !stock.meta.hidden).length
   },
 
+  /**
+   * Returns one page of stocks, wrapping around to the start so the pages rotate endlessly.
+   * @param stocks - All stocks
+   * @param offset - Index of the first stock on the page
+   * @param pageSize - Maximum number of stocks per page
+   * @returns The stocks of the page
+   */
+  getStockPage(stocks: StockResponse[], offset: number, pageSize: number): StockResponse[] {
+    const size = Math.min(pageSize, stocks.length)
+    return Array.from({ length: size }, (_, i) => stocks[(offset + i) % stocks.length])
+  },
+
   getStockChange(stock: StockResponse): number {
     return stock.price?.regularMarketChange ?? 0
   },

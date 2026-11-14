@@ -421,6 +421,24 @@ describe('JastFrontendUtils', () => {
     })
   })
 
+  describe('getStockPage', () => {
+    const stocks = ['A', 'B', 'C', 'D', 'E'].map((symbol) => ({ meta: { symbol } }) as StockResponse)
+    const symbols = (offset: number, pageSize: number) =>
+      JastFrontendUtils.getStockPage(stocks, offset, pageSize).map((stock) => stock.meta.symbol)
+
+    it('returns the page at the offset and wraps around', () => {
+      expect(symbols(0, 2)).toEqual(['A', 'B'])
+      expect(symbols(2, 2)).toEqual(['C', 'D'])
+      expect(symbols(4, 2)).toEqual(['E', 'A'])
+      expect(symbols(6, 2)).toEqual(['B', 'C'])
+    })
+
+    it('never returns more stocks than available', () => {
+      expect(symbols(3, 10)).toEqual(['D', 'E', 'A', 'B', 'C'])
+      expect(JastFrontendUtils.getStockPage([], 0, 2)).toEqual([])
+    })
+  })
+
   describe('Portfolio Calculations', () => {
     describe('getPortfolio', () => {
       it('should calculate portfolio for single currency', () => {

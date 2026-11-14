@@ -132,4 +132,53 @@ describe('Frontend', () => {
 
     expect(templateData.stocks).toBeUndefined()
   })
+
+  describe('table paging', () => {
+    const stocks = ['A', 'B', 'C', 'D', 'E'].map((symbol) => ({ meta: { symbol } }))
+    const shownSymbols = (instance: ReturnType<typeof createInstance>) =>
+      (instance.getTemplateData().stocks as typeof stocks).map((stock) => stock.meta.symbol)
+
+    it('rotates through the stocks page by page, including wraparound', () => {
+      const instance = createInstance({ displayMode: 'table', stocksPerPage: 2, fadeSpeedInSeconds: 1 })
+      instance.start()
+      instance.socketNotificationReceived('JAST_STOCKS_RESPONSE-instance_1', { stocks, lastUpdate: 0 })
+      instance.updateDom.mockClear()
+
+      expect(shownSymbols(instance)).toEqual(['A', 'B'])
+      vi.advanceTimersByTime(1000)
+      expect(shownSymbols(instance)).toEqual(['C', 'D'])
+      vi.advanceTimersByTime(1000)
+      expect(shownSymbols(instance)).toEqual(['E', 'A'])
+      expect(instance.updateDom).toHaveBeenCalledTimes(2)
+    })
+
+    it('does not re-render when all stocks fit on one page', () => {
+      const instance = createInstance({ displayMode: 'table', stocksPerPage: 5, fadeSpeedInSeconds: 1 })
+      instance.start()
+      instance.socketNotificationReceived('JAST_STOCKS_RESPONSE-instance_1', { stocks, lastUpdate: 0 })
+      instance.updateDom.mockClear()
+
+      vi.advanceTimersByTime(3000)
+
+      expect(instance.updateDom).not.toHaveBeenCalled()
+    })
+
+    it('only pages in table mode and stops paging once stopped', () => {
+      const vertical = createInstance({ displayMode: 'vertical', fadeSpeedInSeconds: 1 })
+      vertical.start()
+      vertical.socketNotificationReceived('JAST_STOCKS_RESPONSE-instance_1', { stocks, lastUpdate: 0 })
+      vertical.updateDom.mockClear()
+      vi.advanceTimersByTime(3000)
+      expect(vertical.updateDom).not.toHaveBeenCalled()
+      expect(vertical.getTemplateData().stocks).toBe(stocks)
+
+      const table = createInstance({ displayMode: 'table', stocksPerPage: 2, fadeSpeedInSeconds: 1 })
+      table.start()
+      table.socketNotificationReceived('JAST_STOCKS_RESPONSE-instance_1', { stocks, lastUpdate: 0 })
+      table.stop()
+      table.updateDom.mockClear()
+      vi.advanceTimersByTime(3000)
+      expect(table.updateDom).not.toHaveBeenCalled()
+    })
+  })
 })

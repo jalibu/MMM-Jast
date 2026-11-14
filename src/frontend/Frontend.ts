@@ -60,6 +60,8 @@ Module.register<Config>('MMM-Jast', {
   },
 
   updateInterval: null,
+  pageInterval: null,
+  pageOffset: 0,
 
   getStyles() {
     return ['MMM-Jast.css']
@@ -77,9 +79,12 @@ Module.register<Config>('MMM-Jast', {
   },
 
   getTemplateData() {
+    const stocks = this.state?.stocks
+    const isTable = this.config.displayMode === 'table'
+
     return {
       config: this.config,
-      stocks: this.state?.stocks,
+      stocks: isTable && stocks ? Utils.getStockPage(stocks, this.pageOffset, this.config.stocksPerPage) : stocks,
       lastUpdate: formatDate(this.state?.lastUpdate ?? Date.now(), this.config.lastUpdateFormat),
       utils: Utils
     }
@@ -92,6 +97,7 @@ Module.register<Config>('MMM-Jast', {
     }
     this.loadData()
     this.scheduleUpdate()
+    this.schedulePaging()
     this.updateDom()
   },
 
@@ -106,10 +112,26 @@ Module.register<Config>('MMM-Jast', {
     }, this.config.updateIntervalInSeconds * 1000)
   },
 
+  schedulePaging() {
+    if (this.config.displayMode !== 'table') {
+      return
+    }
+    this.pageInterval = setInterval(() => {
+      this.pageOffset += this.config.stocksPerPage
+      if ((this.state?.stocks.length ?? 0) > this.config.stocksPerPage) {
+        this.updateDom()
+      }
+    }, this.config.fadeSpeedInSeconds * 1000)
+  },
+
   stop() {
     if (this.updateInterval) {
       clearInterval(this.updateInterval)
       this.updateInterval = null
+    }
+    if (this.pageInterval) {
+      clearInterval(this.pageInterval)
+      this.pageInterval = null
     }
   },
 
