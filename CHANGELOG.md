@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.13.0](https://github.com/jalibu/MMM-Jast/compare/v2.12.0...v2.13.0) (2026-11-14)
+
+### Added
+
+- **config:** add module config schema ([3eeb631](https://github.com/jalibu/MMM-Jast/commit/3eeb6315fa6292c7eacba59c8b9114da6148efd0))
+
+### Fixed
+
+- hide hidden stocks in table display modes ([8524ae5](https://github.com/jalibu/MMM-Jast/commit/8524ae55c8afe6784f96ec150aa8decadba3d599))
+- show portfolio performance independently of daily growth ([2ff146d](https://github.com/jalibu/MMM-Jast/commit/2ff146d762a54503ef465de86ea2e19b4a1b327d))
+- stop stylesheet from styling other modules ([4bb01c7](https://github.com/jalibu/MMM-Jast/commit/4bb01c7cfac7d56022e70f64ffe4e5e4a57f8562))
+- table mode rows never shown ([38e72c9](https://github.com/jalibu/MMM-Jast/commit/38e72c98afaafbd4bfbbd9fa7d0aed25459f5205))
+
+### Chores
+
+- update dependencies ([4c9655a](https://github.com/jalibu/MMM-Jast/commit/4c9655a2ccb7e4cd980b6a675a797acb5ffc56dc))
+
+### Code Refactoring
+
+- move stock formatting logic from templates to utils ([ad7ffe4](https://github.com/jalibu/MMM-Jast/commit/ad7ffe456eaef42b326e043c6a282006c6d52500))
+- move table paging from inline onload script to frontend ([4ad38c3](https://github.com/jalibu/MMM-Jast/commit/4ad38c3ab90c5d2c29cd8a9b092e20af88403fd5))
+- move template CSS into stylesheet ([d6be6da](https://github.com/jalibu/MMM-Jast/commit/d6be6da01957dcf2f7b0acbdcbc2567e27ca48bd))
+
 ## [2.12.0](https://github.com/jalibu/MMM-Jast/compare/v2.11.1...v2.12.0) (2026-10-13)
 
 ### Added
